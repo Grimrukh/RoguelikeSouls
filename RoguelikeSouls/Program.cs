@@ -58,6 +58,7 @@ namespace RoguelikeSouls
                 "\n    then you must use \"/manager {seed}\" explicitly." +
                 "\n" +
                 "\nmanager-restart {seed}" +
+                "\n" +
                 "\n    Run the MANAGER program for Roguelike Souls AND automatically abort " +
                 "\n    your current run and return to Firelink Shrine the first time the game " +
                 "\n    loads. Exit and restart the mod manager program in this mode if you get " +
@@ -66,11 +67,13 @@ namespace RoguelikeSouls
                 "\n    of an Abyss battle)." +
                 "\n" +
                 "\nuninstall" +
+                "\n" +
                 "\n    Uninstall all modded files by restoring the \".smbak\" files that were " +
                 "\n    created at installation time. This won't work if these files were " +
                 "\n    already deleted" +
                 "\n" +
                 "\nexit" +
+                "\n" +
                 "\n    Quit this console without doing anything." +
                 "\n";
 
@@ -85,15 +88,15 @@ namespace RoguelikeSouls
             }
 
             Console.WriteLine(
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +
-                "\n~~~    ROGUE-LIKE SOULS    ~~~" +
-                "\n~~~                        ~~~" +
-                "\n~~~ The Binding of Lordran ~~~" +
-                "\n~~~                        ~~~" +
-                "\n~~~          v1.0          ~~~" +
-                "\n~~~                        ~~~" +
-                "\n~~~       by Grimrukh      ~~~" +
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +
+                "\n                   ~~~    ROGUE-LIKE SOULS    ~~~" +
+                "\n                   ~~~                        ~~~" +
+                "\n                   ~~~ The Binding of Lordran ~~~" +
+                "\n                   ~~~                        ~~~" +
+                "\n                   ~~~          v1.0          ~~~" +
+                "\n                   ~~~                        ~~~" +
+                "\n                   ~~~       by Grimrukh      ~~~" +
+                "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             Console.WriteLine(
                 "\n--- BASIC USAGE INSTRUCTIONS ---" +
@@ -136,23 +139,31 @@ namespace RoguelikeSouls
                     inputSeed = "";
                 }
 
-                if (command == "install")
-                    INSTALL(inputSeed);
-                else if (command == "install-noanim")
-                    INSTALL(inputSeed, skipAnimRandomizer: true);
-                else if (command == "manager")
-                    MANAGE_RUN(inputSeed, immediateRestart: false);
-                else if (command == "manager-restart")
-                    MANAGE_RUN(inputSeed, immediateRestart: true);
-                else if (command == "uninstall")
-                    UNINSTALL();
-                else if (command == "exit")
-                    return;
-                else if (command == "help")
-                    Console.WriteLine(helpText);
-                else
+                switch (command)
                 {
-                    Console.WriteLine($"Invalid command: {command}.");
+                    case "help":
+                        Console.WriteLine(helpText);
+                        break;
+                    case "install":
+                        INSTALL(inputSeed);
+                        break;
+                    case "install-no-anim":
+                        INSTALL(inputSeed, skipAnimRandomizer: true);
+                        break;
+                    case "manager":
+                        MANAGE_RUN(inputSeed, immediateRestart: false);
+                        break;
+                    case "manager-restart":
+                        MANAGE_RUN(inputSeed, immediateRestart: true);
+                        break;
+                    case "uninstall":
+                        UNINSTALL();
+                        break;
+                    case "exit":
+                        return;
+                    default:
+                        Console.WriteLine($"Invalid command: {command}.");
+                        break;
                 }
             }
         }
@@ -210,14 +221,15 @@ namespace RoguelikeSouls
             }
 
             DateTime startTime = DateTime.Now;
-
-
             Console.WriteLine("\nBeginning installation... This will take about one minute.");
             Console.WriteLine("\n" + SoyPuns.PopRandomElement(random) + "\n");
 
-            SoulsMod mod = new SoulsMod(MOD_PATH, ".smbak",
-                Resources.GameData.GameParam_parambnd, Resources.GameData.paramdef_paramdefbnd,
-                Resources.GameData.item_msgbnd, Resources.GameData.menu_msgbnd);
+            SoulsMod mod = new SoulsMod(
+                MOD_PATH, ".smbak",
+                Resources.GameData.GameParam_parambnd,
+                Resources.GameData.paramdef_paramdefbnd,
+                Resources.GameData.item_msgbnd,
+                Resources.GameData.menu_msgbnd);
             mod.LoadPlayerCharacter();
             mod.LoadNonPlayerCharacters();
             InstallInterrootFolder("event", mod);
@@ -232,60 +244,70 @@ namespace RoguelikeSouls
             Console.WriteLine("Running player setup...");
 #endif
             playerSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             TextGenerator textSetup = new TextGenerator(mod);
 #if DEBUG
             Console.WriteLine("Running text setup...");
 #endif
             textSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             SpEffectGenerator spEffectSetup = new SpEffectGenerator(mod);
 #if DEBUG
             Console.WriteLine("Running SpEffect setup...");
 #endif
             spEffectSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             GoodsGenerator goodsSetup = new GoodsGenerator(mod);
 #if DEBUG
             Console.WriteLine("Running goods setup...");
 #endif
             goodsSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             SpellGenerator spellSetup = new SpellGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running spell setup...");
 #endif
             spellSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             WeaponGenerator weaponSetup = new WeaponGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running weapon setup...");
 #endif
             weaponSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             ArmorGenerator armorSetup = new ArmorGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running armor setup...");
 #endif
             armorSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             EnemyGenerator enemySetup = new EnemyGenerator(mod, random, weaponSetup, armorSetup);
 #if DEBUG
             Console.WriteLine("Running enemy setup...");
 #endif
             enemySetup.Install();
+            Thread.CurrentThread.Join(0);
 
             MapItemLotsGenerator itemLotsSetup = new MapItemLotsGenerator(mod, weaponSetup, armorSetup, random);
 #if DEBUG
             Console.WriteLine("Running item lot setup...");
 #endif
             itemLotsSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             EnemyAnimationGenerator animSetup = new EnemyAnimationGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running animation setup...");
 #endif
             animSetup.Install(skipAnimRandomizer);
+            Thread.CurrentThread.Join(0);
 
             // Must be run AFTER weapon/armor setup.
             CharacterGenerator chrSetup = new CharacterGenerator(mod, random);
@@ -293,6 +315,7 @@ namespace RoguelikeSouls
             Console.WriteLine("Running chr setup...");
 #endif
             chrSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             Console.WriteLine(SoyPuns.PopRandomElement(random) + "\n");
 
@@ -300,6 +323,7 @@ namespace RoguelikeSouls
             Console.WriteLine("Installing mod...");
 #endif
             mod.Install();
+            Thread.CurrentThread.Join(0);
 
 #if DEBUG
             Console.WriteLine($"Installation time: {(DateTime.Now - startTime).TotalSeconds}");
@@ -311,7 +335,8 @@ namespace RoguelikeSouls
             foreach (string newFile in Directory.GetFiles($@"Package\{dir}"))
             {
                 string originalFile = $@"{game.GameDir}{dir}\{Path.GetFileName(newFile)}";
-                if (File.Exists(originalFile)) game.Backup(originalFile);
+                if (File.Exists(originalFile))
+                    game.Backup(originalFile);
                 File.Copy(newFile, originalFile, true);
             }
         }
