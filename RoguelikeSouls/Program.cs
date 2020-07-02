@@ -94,7 +94,7 @@ namespace RoguelikeSouls
                 "\n--- BASIC USAGE INSTRUCTIONS ---" +
                 "\n  " +
                 "\n  IMPORTANT: If a patch zip is available with a higher version number, make " +
-                "\n  sure to copy its contents into the original mod folder (overwriting the" +
+                "\n  sure to copy its contents into the original mod folder (overwriting any" +
                 "\n  existing files) before continuing." +
                 "\n  " +
                 "\n  1. Run the \"install\" command to generate a fresh set of parameters." +
