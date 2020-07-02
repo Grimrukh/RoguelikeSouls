@@ -25,6 +25,7 @@
     <DocumentationFile>bin\Debug\SoulsFormats.xml</DocumentationFile>
     <LangVersion>7.3</LangVersion>
     <NoWarn>IDE0017</NoWarn>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

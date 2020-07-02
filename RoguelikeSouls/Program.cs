@@ -79,6 +79,11 @@ namespace RoguelikeSouls
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
+            if (File.Exists("ROGUE-LIKE_SOULS.cfg"))
+            {
+                MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
+            }
+
             Console.WriteLine(
                 "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +
                 "\n~~~    ROGUE-LIKE SOULS    ~~~" +
@@ -187,7 +192,7 @@ namespace RoguelikeSouls
             else
                 random = new Random(inputSeed.GetHashCode());
 
-            if (!File.Exists("ROGUE-LIKE_SOULS.cfg"))
+            if (MOD_PATH == null)
             {
                 MOD_PATH = AskForDir();
             }
@@ -195,9 +200,7 @@ namespace RoguelikeSouls
             {
                 Console.WriteLine("\nUse previously-specified game directory? (Y/N)");
                 bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
-                if (yes)
-                    MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
-                else
+                if (!yes)
                     MOD_PATH = AskForDir();
             }
 
