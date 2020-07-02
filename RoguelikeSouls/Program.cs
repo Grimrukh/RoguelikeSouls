@@ -8,13 +8,13 @@ using SoulsFormatsMod;
 using RoguelikeSouls.ModProgram;
 using RoguelikeSouls.Extensions;
 using RoguelikeSouls.Installation;
+using System.Windows.Forms;
 
 namespace RoguelikeSouls
 {
     class Program
     {
-        //const string MOD_PATH = @"G:\Steam\steamapps\common\DARK SOULS REMASTERED\";
-        const string MOD_PATH = @"..\";
+        static string MOD_PATH = null;
 
         static List<string> SoyPuns { get; } = new List<string>()
         {
@@ -29,38 +29,7 @@ namespace RoguelikeSouls
             "Patches was trying to steal my favorite greatsword, but I wasn't having any of it. Zwei hander over now when we've been through so much?",
         };
 
-        static void Main()
-        {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-
-            Console.WriteLine(
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +
-                "\n~~~    ROGUE-LIKE SOULS    ~~~" +
-                "\n~~~                        ~~~" +
-                "\n~~~ The Binding of Lordran ~~~" +
-                "\n~~~                        ~~~" +
-                "\n~~~          v1.0          ~~~" +
-                "\n~~~                        ~~~" +
-                "\n~~~       by Grimrukh      ~~~" +
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
-            Console.WriteLine(
-                "\n--- BASIC USAGE INSTRUCTIONS ---" +
-                "\n  1. Make sure everything was unzipped into a subfolder inside your " +
-                "\n     \"DARK SOULS REMASTERED\" folder. (This executable looks for the game " +
-                "\n     executable in the folder above itself. More flexible one later.)" +
-                "\n  2. If a patch zip is available with a higher version number, make sure " +
-                "\n     to copy its contents into the original mod folder and override " +
-                "\n     everything when asked. You only need the latest patch zip." +
-                "\n  3. Copy-paste the contents of \"Package\" into your game directory. " +
-                "\n     Back your existing files up first for easy uninstallation later." +
-                "\n  4. Run the \"install\" command to generate a fresh set of parameters." +
-                "\n  5. Run the \"manager\" command before launching the game, then open " +
-                "\n     Dark Souls Remastered alongside it (each time you play). You can also " +
-                "\n     start the manager quickly by pressing Enter below without a command." +
-                "\n  6. Use the \"manager-restart\" command if you get soft-locked in a run." +
-                "\n" +
-                "\nCOMMANDS:" +
+        static string helpText = "\n|----------------------------|\n|----------COMMANDS----------|\n|----------------------------|\n" +
                 "\n" +
                 "\ninstall {seed} " +
                 "\n" +
@@ -68,12 +37,6 @@ namespace RoguelikeSouls
                 "\n    parameters. You should run this ONCE before playing the game, then " +
                 "\n    re-run it whenever you want a fresh set of equipment, spells, enemy " +
                 "\n    animation speeds, and 'lore'." +
-                "\n" +
-                "\n    Don't forget to copy and paste the contents of the \"Package\" folder " +
-                "\n    into your game directory before playing as well! These files are not " +
-                "\n    automatically backed up by any installer and you should back them up " +
-                "\n    yourself if you want to easily uninstall the mod later. (I may make " +
-                "\n    this easier in a future update.)" +
                 "\n" +
                 "\n    The \"seed\" argument is option, and will run the INSTALLER with a " +
                 "\n    specific seed string. Seed strings can contain spaces, except at the " +
@@ -103,14 +66,46 @@ namespace RoguelikeSouls
                 "\n    of an Abyss battle)." +
                 "\n" +
                 "\nuninstall" +
-                "\n    Uninstall most modded files by restoring the \".smbak\" files that were " +
+                "\n    Uninstall all modded files by restoring the \".smbak\" files that were " +
                 "\n    created at installation time. This won't work if these files were " +
-                "\n    already deleted! Files replaced by the contents of \"Package\" also won't " +
-                "\n    be restored by this command, sorry!" +
+                "\n    already deleted" +
                 "\n" +
                 "\nexit" +
                 "\n    Quit this console without doing anything." +
+                "\n";
+
+        [STAThread]
+        static void Main()
+        {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
+            Console.WriteLine(
+                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +
+                "\n~~~    ROGUE-LIKE SOULS    ~~~" +
+                "\n~~~                        ~~~" +
+                "\n~~~ The Binding of Lordran ~~~" +
+                "\n~~~                        ~~~" +
+                "\n~~~          v1.0          ~~~" +
+                "\n~~~                        ~~~" +
+                "\n~~~       by Grimrukh      ~~~" +
+                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+            Console.WriteLine(
+                "\n--- BASIC USAGE INSTRUCTIONS ---" +
+                "\n  " +
+                "\n  IMPORTANT: If a patch zip is available with a higher version number, make " +
+                "\n  sure to copy its contents into the original mod folder (overwriting the" +
+                "\n  existing files) before continuing." +
+                "\n  " +
+                "\n  1. Run the \"install\" command to generate a fresh set of parameters." +
+                "\n  2. Run the \"manager\" command before launching the game, then open " +
+                "\n     Dark Souls Remastered alongside it (each time you play). You can also " +
+                "\n     start the manager quickly by pressing Enter below without a command." +
+                "\n  3. Use the \"manager-restart\" command if you get soft-locked in a run." +
+                "\n  " +
+                "\n  Run the \"help\" command for more information about the various commands." +
                 "\n");
+
 
             string command;
             string inputSeed = "";
@@ -148,11 +143,40 @@ namespace RoguelikeSouls
                     UNINSTALL();
                 else if (command == "exit")
                     return;
+                else if (command == "help")
+                    Console.WriteLine(helpText);
                 else
                 {
                     Console.WriteLine($"Invalid command: {command}.");
                 }
             }
+        }
+
+        static string AskForDir()
+        {
+            Console.WriteLine("\nPress ENTER to select your Dark Souls Remastered executable.");
+            Console.ReadLine();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "EXE Files|*.exe";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string name = Path.GetDirectoryName(ofd.FileName) + "\\";
+                File.WriteAllText("ROGUE-LIKE_SOULS.cfg", name);
+                return name;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        static ConsoleKey ReadKey(params ConsoleKey[] accepted)
+        {
+            ConsoleKey key = Console.ReadKey(true).Key;
+            while (!accepted.Contains(key))
+                key = Console.ReadKey(true).Key;
+            return key;
         }
 
         static void INSTALL(string inputSeed, bool skipAnimRandomizer = false)
@@ -165,14 +189,39 @@ namespace RoguelikeSouls
             else
                 random = new Random(inputSeed.GetHashCode());
 
+            if (!File.Exists("ROGUE-LIKE_SOULS.cfg"))
+            {
+                MOD_PATH = AskForDir();
+            }
+            else
+            {
+                Console.WriteLine("\nUse previously-specified game directory? (Y/N)");
+                bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
+                if (yes)
+                    MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
+                else
+                    MOD_PATH = AskForDir();
+            }
+
+            if (MOD_PATH == null) {
+                Console.WriteLine("No EXE selected. Cancelling installation.");
+                return;
+            }
+
             Console.WriteLine("\nBeginning installation... This will take about one minute.");
             Console.WriteLine("\n" + SoyPuns.PopRandomElement(random) + "\n");
 
-            SoulsMod mod = new SoulsMod(MOD_PATH, ".smbak", 
+            SoulsMod mod = new SoulsMod(MOD_PATH, ".smbak",
                 Resources.GameData.GameParam_parambnd, Resources.GameData.paramdef_paramdefbnd,
                 Resources.GameData.item_msgbnd, Resources.GameData.menu_msgbnd);
             mod.LoadPlayerCharacter();
-            mod.LoadNonPlayerCharacters();            
+            mod.LoadNonPlayerCharacters();
+            InstallInterrootFolder("event", mod);
+            InstallInterrootFolder("map", mod);
+            InstallInterrootFolder("script", mod);
+            InstallInterrootFolder("sfx", mod);
+            InstallInterrootFolder("sound", mod);
+
 
             PlayerGenerator playerSetup = new PlayerGenerator(mod);
 #if DEBUG
@@ -253,6 +302,16 @@ namespace RoguelikeSouls
 #endif
         }
 
+        static void InstallInterrootFolder(string dir, SoulsMod game)
+        {
+            foreach (string newFile in Directory.GetFiles($@"Package\{dir}"))
+            {
+                string originalFile = $@"{game.GameDir}{dir}\{Path.GetFileName(newFile)}";
+                if (File.Exists(originalFile)) game.Backup(originalFile);
+                File.Copy(newFile, originalFile, true);
+            }
+        }
+
         static void MANAGE_RUN(string inputSeed, bool immediateRestart = false)
         {
             SoulsMod mod = new SoulsMod(MOD_PATH, ".smbak");
@@ -275,6 +334,26 @@ namespace RoguelikeSouls
 
         static void UNINSTALL()
         {
+            if (!File.Exists("ROGUE-LIKE_SOULS.cfg"))
+            {
+                MOD_PATH = AskForDir();
+            }
+            else
+            {
+                Console.WriteLine("\nUninstall previously-specified game directory? (Y/N)");
+                bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
+                if (yes)
+                    MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
+                else
+                    MOD_PATH = AskForDir();
+            }
+
+            if (MOD_PATH == null)
+            {
+                Console.WriteLine("No EXE selected. Cancelling uninstallation.");
+                return;
+            }
+
             Console.Write("Restoring backup files...");
             int restoreCount = RestoreDir(MOD_PATH, ".smbak");
             Console.WriteLine($"{restoreCount} files restored.");
