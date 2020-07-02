@@ -339,6 +339,11 @@ namespace RoguelikeSouls
                     game.Backup(originalFile);
                 File.Copy(newFile, originalFile, true);
             }
+            foreach (string subfolder in Directory.GetDirectories($@"Package\{dir}"))
+            {
+                string subfolderName = subfolder.Split('\\').Last();
+                InstallInterrootFolder($@"{dir}\{subfolderName}", game);
+            }
         }
 
         static void MANAGE_RUN(string inputSeed, bool immediateRestart = false)
