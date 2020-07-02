@@ -181,8 +181,6 @@ namespace RoguelikeSouls
 
         static void INSTALL(string inputSeed, bool skipAnimRandomizer = false)
         {
-            DateTime startTime = DateTime.Now;
-
             Random random;
             if (inputSeed == "")
                 random = new Random();
@@ -207,6 +205,9 @@ namespace RoguelikeSouls
                 Console.WriteLine("No EXE selected. Cancelling installation.");
                 return;
             }
+
+            DateTime startTime = DateTime.Now;
+
 
             Console.WriteLine("\nBeginning installation... This will take about one minute.");
             Console.WriteLine("\n" + SoyPuns.PopRandomElement(random) + "\n");
