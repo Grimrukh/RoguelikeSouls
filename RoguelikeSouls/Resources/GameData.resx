@@ -1,0 +1,973 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="FRPG_SfxBnd_m10_00_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m10_00.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m10_01_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m10_01.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m10_02_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m10_02.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m10_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m10.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m11_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m11.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m12_00_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m12_00.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m12_01_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m12_01.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m12_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m12.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m13_00_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m13_00.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m13_01_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m13_01.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m13_02_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m13_02.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m13_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m13.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m14_00_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m14_00.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m14_01_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m14_01.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m14_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m14.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m15_00_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m15_00.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m15_01_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m15_01.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m15_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m15.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m16_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m16.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m17_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m17.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m18_00_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m18_00.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m18_01_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m18_01.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FRPG_SfxBnd_m18_ffxbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>FFX\FRPG_SfxBnd_m18.ffxbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GameParam_parambnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PARAM\GameParam.parambnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="item_msgbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>MSG\item.msgbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_msgbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>MSG\menu.msgbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="paramdef_paramdefbnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PARAM\paramdef.paramdefbnd.dcx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_001540_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\001540_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006010_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006010_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006020_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006020_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006030_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006030_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006040_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006040_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006050_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006050_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006051_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006051_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006052_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006052_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006070_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006070_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006080_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006080_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006090_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006090_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006130_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006130_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006170_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006170_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006180_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006180_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006220_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006220_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006250_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006250_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006260_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006260_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006270_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006270_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006271_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006271_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006280_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006280_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006290_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006290_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006300_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006300_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006310_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006310_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006320_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006320_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006370_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006370_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006390_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006390_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006420_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006420_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006490_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006490_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006500_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006500_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006510_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006510_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006510_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006510_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006511_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006511_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006520_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006520_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006520_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006520_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006530_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006530_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006530_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006530_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006531_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006531_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006540_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006540_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006540_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006540_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006550_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006550_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006550_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006550_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006551_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006551_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006560_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006560_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006570_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006570_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006580_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006580_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006590_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006590_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006590_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006590_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006600_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006600_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006610_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006610_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006620_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006620_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006640_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006640_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006650_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006650_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006740_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006740_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006801_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006801_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006802_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006802_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006803_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006803_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006804_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006804_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006805_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006805_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006806_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006806_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_006910_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\006910_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_010000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\010000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_010001_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\010001_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_010002_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\010002_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_010100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\010100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_010100_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\010100_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_011000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\011000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_011000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\011000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_120000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\120000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_120100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\120100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_120101_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\120101_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_120200_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\120200_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_120300_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\120300_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_206000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\206000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_206001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\206001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_206002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\206002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_223000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\223000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_223100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\223100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_223200_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\223200_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_224000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\224000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_225000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\225000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_225001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\225001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_225002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\225002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_226000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\226000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_227000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\227000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_228000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\228000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_228001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\228001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_230000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\230000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_231000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\231000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_231000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\231000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_232000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\232000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_233000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\233000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_236000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\236000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_236001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\236001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_237000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\237000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_237001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\237001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_238000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\238000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_239000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\239000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_240000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\240000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_240001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\240001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_241000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\241000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_241001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\241001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_241002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\241002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_241003_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\241003_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_241004_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\241004_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_243000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\243000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_250000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\250000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_250001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\250001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_250004_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\250004_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_250005_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\250005_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_251000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\251000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_251000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\251000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_252000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\252000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_253000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\253000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_253001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\253001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_253002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\253002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_254000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\254000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_254001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\254001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_254002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\254002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_255000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\255000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_255001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\255001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_255002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\255002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_255003_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\255003_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_255006_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\255006_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_256000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\256000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_256001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\256001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_256002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\256002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_257000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\257000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_257001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\257001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_264000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\264000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_265000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\265000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_266000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\266000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_267000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\267000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_267000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\267000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_268000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\268000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_268000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\268000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_269000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\269000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_270000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\270000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_270001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\270001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_271000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\271000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_271100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\271100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_273000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\273000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_278000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\278000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_279000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\279000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_279001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\279001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_279002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\279002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_279003_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\279003_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_280000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\280000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_280001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\280001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_281000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\281000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_281100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\281100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_283001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\283001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_284000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\284000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_284001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\284001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_286000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\286000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_286001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\286001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_287000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\287000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_287001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\287001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_290000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\290000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_290001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\290001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_290002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\290002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_290003_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\290003_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_290004_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\290004_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_291000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\291000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_291001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\291001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_292000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\292000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_292001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\292001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_293000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\293000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_294000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\294000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_295000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\295000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_296000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\296000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_309000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\309000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_320000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\320000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_321000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\321000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_322000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\322000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_323000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\323000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_323001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\323001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_324000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\324000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_325000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\325000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_327000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\327000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_329000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\329000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_330000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\330000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_332000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\332000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_332001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\332001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_332002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\332002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_333000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\333000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_333001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\333001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_334000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\334000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_334100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\334100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_335000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\335000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_337000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\337000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_338000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\338000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_339000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\339000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_339001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\339001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_339002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\339002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_339003_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\339003_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_340000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\340000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_341000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\341000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_342000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\342000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_342002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\342002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_342100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\342100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_343000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\343000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_346100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\346100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_347100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\347100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_347101_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\347101_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_348000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\348000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_349000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\349000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_349100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\349100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_350000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\350000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_350100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\350100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_351000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\351000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_352000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\352000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_352002_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\352002_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_352003_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\352003_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_352005_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\352005_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_353000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\353000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_353001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\353001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_409000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\409000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_410000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\410000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_411000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\411000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_411000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\411000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_412000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\412000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_413000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\413000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_415000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\415000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_415000_logic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\415000_logic.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_416000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\416000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_417000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\417000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_417100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\417100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_417200_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\417200_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_418000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\418000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_419000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\419000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_450000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\450000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_451000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\451000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_452000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\452000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_520000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\520000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_520100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\520100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_520200_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\520200_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_521000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\521000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_522000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\522000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_523000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\523000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_523100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\523100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_524000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\524000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_525000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\525000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_526000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\526000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_527000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\527000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_527100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\527100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_528000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\528000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_529000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\529000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_529001_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\529001_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_532000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\532000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_535000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\535000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_535100_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\535100_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_536000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\536000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_537000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\537000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_539000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\539000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_540000_battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LUA\540000_battle.lua;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

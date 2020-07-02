@@ -1,0 +1,44 @@
+Entrance fog object
+Entrance fog region
+Entrance fog FX
+Trigger box
+Music box
+Boss start point
+
+
+
+
+
+BASE CONTENT TO ADD:
+	- Invaders... check out vanilla common EMEVD for suspicious flags that might need to be enabled.
+		Candidates:
+			- 702 (enabled in Kiln if 11800210 (Lordvessel full) is off, which is always true here).
+				- Could explain why invasions were being blocked in the Kiln specifically.
+			- 8000 (does something unknown in Common).
+			- 765 (enabled if you're offline).
+			
+	- Remove vanilla models from MSBs to make room for the real ones.
+	
+TEST:
+	- New Catacombs arena.
+	- Artorias arena in Township.
+	- Township shortcut elevator when starting at the bottom.
+	- New Fortress gate arena (and gate opening event).
+	
+CHANGES:
+	- Add a "speed boost" buff at the old Ceaseless fog gate (last five seconds).
+		- Have boss battle trigger remove the buff.
+
+LOW PRIORITY:
+	- Record Cast Light head effects and inject into m12_01 EMEVD event for opening special light door.
+	- Can't find an event or ID for Sen's illusory wall, to make it invincible.
+		- For the best now, since there's a boss battle up there.
+	- Add a Nito sword event to every map, then add a call to the constructor (with Nito's ID as an argument)
+	  only if Nito is in that map (just check for bosses and Very Rare enemies).
+	- Andre's default animation is his boxer pose...
+		- Give him and Vamos an offset anvil if possible (load object and place at offset relative to facing angle).
+	- Have locked doors tell you which key they need.
+	- Fist-based weapons have no icon and no weight. Probably prevent Fists from being a model base.
+	- Add Paintings. At least one for each map, shouldn't take long. (And get Anor Londo one working the same way.)
+		- ONLY release if the Painted World "bonus" system works fine with spawn points, quitting, etc.
+	

@@ -1,0 +1,67 @@
+Fire soul arrow
+Fire strong soul arrow
+Fire heavy soul arrow
+Fire strong heavy soul arrow
+Fire homing soulmass
+Fire homing crystal soulmass
+Fire piercing soul spear
+Fire piercing crystal soul spear
+Magic augmentation: right weapon
+High magic augmentation: right weapon
+High magic + crystallization: right weapon
+Magic augmentation: left shield
+High magic augmentation: left shield
+Turn right weapon invisible
+Turn body nearly invisible
+Cast a bright light upon surroundings
+Mask all noises of caster
+Create sound originating in distance
+Repair equipped weapons and armor
+Reduce damage and sound from fall
+Transform into something inconspicuous
+Sacrifice humanity to undo curse
+Undo all bleeding and poison
+Emit crystal breath of Seath the Scaleless
+Hurl fireball
+Hurl fire orb
+Hurl giant fireball
+Erect fire pillars in vicinity
+Erect giant fire pillars in vicinity
+Create a surge of flame from palm of hand
+Sweep foes with fire whip
+Create powerful flame in hand
+Create powerful, giant flame in hand
+Create poison mist
+Create intense poison mist
+Emit acid which corrodes weapons and armor
+Iron flesh boosts defence and resilience
+Intense sweating reduces flame damage
+Charm Undead and gain temporary allies
+Short strength/endurance boost, but lose HP
+Hurl giant chaos fireball
+Erect chaos fire pillars in vicinity
+Sweep foes with chaos fire whip
+Restores HP
+Restores high HP
+Restores high HP
+Restores high HP for self and vicinity
+Gradual HP restoration
+Gradual HP restoration for self and vicinity
+Gravelord swords jut out in vicinity
+Giant Gravelord swords jut out in vicinity
+While active, no losses incurred upon death
+Return to last bonfire used for resting
+Create shockwave
+Create powerful shockwave
+Emit shockwave
+Display more guidance from other worlds
+Hurl lightning spear
+Hurl giant lightning spear
+Hurl sunlight spear
+Cover body in defensive magic coating
+Cover body in powerful def. magic coating
+Temporary auto counter vs. heavy damage
+Slows all walking within effect area
+Prevents casting of magic within effect area
+Boost right weapon with rays of Sun
+Boost right weapon with rays of Darkmoon

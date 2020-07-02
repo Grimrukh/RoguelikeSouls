@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7356200D-A7FD-476F-BA91-7C095AA2B26E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RoguelikeSouls</RootNamespace>
+    <AssemblyName>RoguelikeSouls</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\..\..\Steam\steamapps\common\DARK SOULS REMASTERED\RoguelikeSouls\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\..\..\..\..\Steam\steamapps\common\DARK SOULS REMASTERED\RoguelikeSouls\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>RoguelikeSouls.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m10.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m10_00.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m10_01.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m10_02.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m11.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m12.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m12_00.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m12_01.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m13.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m13_00.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m13_01.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m13_02.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m14.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m14_00.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m14_01.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m15.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m15_00.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m15_01.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m16.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m17.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m18.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m18_00.ffxbnd.dcx" />
+    <None Include="Resources\FFX\FRPG_SfxBnd_m18_01.ffxbnd.dcx" />
+    <None Include="Resources\LUA\001540_logic.lua" />
+    <None Include="Resources\LUA\006000_battle.lua" />
+    <None Include="Resources\LUA\006010_battle.lua" />
+    <None Include="Resources\LUA\006020_battle.lua" />
+    <None Include="Resources\LUA\006030_battle.lua" />
+    <None Include="Resources\LUA\006040_battle.lua" />
+    <None Include="Resources\LUA\006050_battle.lua" />
+    <None Include="Resources\LUA\006051_battle.lua" />
+    <None Include="Resources\LUA\006052_battle.lua" />
+    <None Include="Resources\LUA\006070_battle.lua" />
+    <None Include="Resources\LUA\006080_battle.lua" />
+    <None Include="Resources\LUA\006090_battle.lua" />
+    <None Include="Resources\LUA\006100_battle.lua" />
+    <None Include="Resources\LUA\006130_battle.lua" />
+    <None Include="Resources\LUA\006170_battle.lua" />
+    <None Include="Resources\LUA\006180_battle.lua" />
+    <None Include="Resources\LUA\006220_battle.lua" />
+    <None Include="Resources\LUA\006250_battle.lua" />
+    <None Include="Resources\LUA\006260_battle.lua" />
+    <None Include="Resources\LUA\006270_battle.lua" />
+    <None Include="Resources\LUA\006271_battle.lua" />
+    <None Include="Resources\LUA\006280_battle.lua" />
+    <None Include="Resources\LUA\006290_battle.lua" />
+    <None Include="Resources\LUA\006300_battle.lua" />
+    <None Include="Resources\LUA\006310_battle.lua" />
+    <None Include="Resources\LUA\006320_battle.lua" />
+    <None Include="Resources\LUA\006370_battle.lua" />
+    <None Include="Resources\LUA\006390_battle.lua" />
+    <None Include="Resources\LUA\006420_battle.lua" />
+    <None Include="Resources\LUA\006490_battle.lua" />
+    <None Include="Resources\LUA\006500_battle.lua" />
+    <None Include="Resources\LUA\006510_battle.lua" />
+    <None Include="Resources\LUA\006510_logic.lua" />
+    <None Include="Resources\LUA\006511_battle.lua" />
+    <None Include="Resources\LUA\006520_battle.lua" />
+    <None Include="Resources\LUA\006520_logic.lua" />
+    <None Include="Resources\LUA\006530_battle.lua" />
+    <None Include="Resources\LUA\006530_logic.lua" />
+    <None Include="Resources\LUA\006531_battle.lua" />
+    <None Include="Resources\LUA\006540_battle.lua" />
+    <None Include="Resources\LUA\006540_logic.lua" />
+    <None Include="Resources\LUA\006550_battle.lua" />
+    <None Include="Resources\LUA\006550_logic.lua" />
+    <None Include="Resources\LUA\006551_battle.lua" />
+    <None Include="Resources\LUA\006560_battle.lua" />
+    <None Include="Resources\LUA\006570_battle.lua" />
+    <None Include="Resources\LUA\006580_battle.lua" />
+    <None Include="Resources\LUA\006590_battle.lua" />
+    <None Include="Resources\LUA\006590_logic.lua" />
+    <None Include="Resources\LUA\006600_battle.lua" />
+    <None Include="Resources\LUA\006610_battle.lua" />
+    <None Include="Resources\LUA\006620_battle.lua" />
+    <None Include="Resources\LUA\006640_battle.lua" />
+    <None Include="Resources\LUA\006650_battle.lua" />
+    <None Include="Resources\LUA\006740_battle.lua" />
+    <None Include="Resources\LUA\006801_battle.lua" />
+    <None Include="Resources\LUA\006802_battle.lua" />
+    <None Include="Resources\LUA\006803_battle.lua" />
+    <None Include="Resources\LUA\006804_battle.lua" />
+    <None Include="Resources\LUA\006805_battle.lua" />
+    <None Include="Resources\LUA\006806_battle.lua" />
+    <None Include="Resources\LUA\006910_battle.lua" />
+    <None Include="Resources\LUA\010000_logic.lua" />
+    <None Include="Resources\LUA\010001_logic.lua" />
+    <None Include="Resources\LUA\010002_logic.lua" />
+    <None Include="Resources\LUA\010100_battle.lua" />
+    <None Include="Resources\LUA\010100_logic.lua" />
+    <None Include="Resources\LUA\011000_battle.lua" />
+    <None Include="Resources\LUA\011000_logic.lua" />
+    <None Include="Resources\LUA\120000_battle.lua" />
+    <None Include="Resources\LUA\120100_battle.lua" />
+    <None Include="Resources\LUA\120101_battle.lua" />
+    <None Include="Resources\LUA\120200_battle.lua" />
+    <None Include="Resources\LUA\120300_battle.lua" />
+    <None Include="Resources\LUA\206000_battle.lua" />
+    <None Include="Resources\LUA\206001_battle.lua" />
+    <None Include="Resources\LUA\206002_battle.lua" />
+    <None Include="Resources\LUA\223000_battle.lua" />
+    <None Include="Resources\LUA\223100_battle.lua" />
+    <None Include="Resources\LUA\223200_battle.lua" />
+    <None Include="Resources\LUA\224000_battle.lua" />
+    <None Include="Resources\LUA\225000_battle.lua" />
+    <None Include="Resources\LUA\225001_battle.lua" />
+    <None Include="Resources\LUA\225002_battle.lua" />
+    <None Include="Resources\LUA\226000_battle.lua" />
+    <None Include="Resources\LUA\227000_battle.lua" />
+    <None Include="Resources\LUA\228000_battle.lua" />
+    <None Include="Resources\LUA\228001_battle.lua" />
+    <None Include="Resources\LUA\230000_battle.lua" />
+    <None Include="Resources\LUA\231000_battle.lua" />
+    <None Include="Resources\LUA\231000_logic.lua" />
+    <None Include="Resources\LUA\232000_battle.lua" />
+    <None Include="Resources\LUA\233000_battle.lua" />
+    <None Include="Resources\LUA\236000_battle.lua" />
+    <None Include="Resources\LUA\236001_battle.lua" />
+    <None Include="Resources\LUA\237000_battle.lua" />
+    <None Include="Resources\LUA\237001_battle.lua" />
+    <None Include="Resources\LUA\238000_battle.lua" />
+    <None Include="Resources\LUA\239000_battle.lua" />
+    <None Include="Resources\LUA\240000_battle.lua" />
+    <None Include="Resources\LUA\240001_battle.lua" />
+    <None Include="Resources\LUA\241000_battle.lua" />
+    <None Include="Resources\LUA\241001_battle.lua" />
+    <None Include="Resources\LUA\241002_battle.lua" />
+    <None Include="Resources\LUA\241003_battle.lua" />
+    <None Include="Resources\LUA\241004_battle.lua" />
+    <None Include="Resources\LUA\243000_battle.lua" />
+    <None Include="Resources\LUA\250000_battle.lua" />
+    <None Include="Resources\LUA\250001_battle.lua" />
+    <None Include="Resources\LUA\250004_battle.lua" />
+    <None Include="Resources\LUA\250005_battle.lua" />
+    <None Include="Resources\LUA\251000_battle.lua" />
+    <None Include="Resources\LUA\251000_logic.lua" />
+    <None Include="Resources\LUA\252000_battle.lua" />
+    <None Include="Resources\LUA\253000_battle.lua" />
+    <None Include="Resources\LUA\253001_battle.lua" />
+    <None Include="Resources\LUA\253002_battle.lua" />
+    <None Include="Resources\LUA\254000_battle.lua" />
+    <None Include="Resources\LUA\254001_battle.lua" />
+    <None Include="Resources\LUA\254002_battle.lua" />
+    <None Include="Resources\LUA\255000_battle.lua" />
+    <None Include="Resources\LUA\255001_battle.lua" />
+    <None Include="Resources\LUA\255002_battle.lua" />
+    <None Include="Resources\LUA\255003_battle.lua" />
+    <None Include="Resources\LUA\255006_battle.lua" />
+    <None Include="Resources\LUA\256000_battle.lua" />
+    <None Include="Resources\LUA\256001_battle.lua" />
+    <None Include="Resources\LUA\256002_battle.lua" />
+    <None Include="Resources\LUA\257000_battle.lua" />
+    <None Include="Resources\LUA\257001_battle.lua" />
+    <None Include="Resources\LUA\264000_battle.lua" />
+    <None Include="Resources\LUA\265000_battle.lua" />
+    <None Include="Resources\LUA\266000_battle.lua" />
+    <None Include="Resources\LUA\267000_battle.lua" />
+    <None Include="Resources\LUA\267000_logic.lua" />
+    <None Include="Resources\LUA\268000_battle.lua" />
+    <None Include="Resources\LUA\268000_logic.lua" />
+    <None Include="Resources\LUA\269000_battle.lua" />
+    <None Include="Resources\LUA\270000_battle.lua" />
+    <None Include="Resources\LUA\270001_battle.lua" />
+    <None Include="Resources\LUA\271000_battle.lua" />
+    <None Include="Resources\LUA\271100_battle.lua" />
+    <None Include="Resources\LUA\273000_battle.lua" />
+    <None Include="Resources\LUA\278000_battle.lua" />
+    <None Include="Resources\LUA\279000_battle.lua" />
+    <None Include="Resources\LUA\279001_battle.lua" />
+    <None Include="Resources\LUA\279002_battle.lua" />
+    <None Include="Resources\LUA\279003_battle.lua" />
+    <None Include="Resources\LUA\280000_battle.lua" />
+    <None Include="Resources\LUA\280001_battle.lua" />
+    <None Include="Resources\LUA\281000_battle.lua" />
+    <None Include="Resources\LUA\281100_battle.lua" />
+    <None Include="Resources\LUA\283001_battle.lua" />
+    <None Include="Resources\LUA\284000_battle.lua" />
+    <None Include="Resources\LUA\284001_battle.lua" />
+    <None Include="Resources\LUA\286000_battle.lua" />
+    <None Include="Resources\LUA\286001_battle.lua" />
+    <None Include="Resources\LUA\287000_battle.lua" />
+    <None Include="Resources\LUA\287001_battle.lua" />
+    <None Include="Resources\LUA\290000_battle.lua" />
+    <None Include="Resources\LUA\290001_battle.lua" />
+    <None Include="Resources\LUA\290002_battle.lua" />
+    <None Include="Resources\LUA\290003_battle.lua" />
+    <None Include="Resources\LUA\290004_battle.lua" />
+    <None Include="Resources\LUA\291000_battle.lua" />
+    <None Include="Resources\LUA\291001_battle.lua" />
+    <None Include="Resources\LUA\292000_battle.lua" />
+    <None Include="Resources\LUA\292001_battle.lua" />
+    <None Include="Resources\LUA\293000_battle.lua" />
+    <None Include="Resources\LUA\294000_battle.lua" />
+    <None Include="Resources\LUA\295000_battle.lua" />
+    <None Include="Resources\LUA\296000_battle.lua" />
+    <None Include="Resources\LUA\309000_battle.lua" />
+    <None Include="Resources\LUA\320000_battle.lua" />
+    <None Include="Resources\LUA\321000_battle.lua" />
+    <None Include="Resources\LUA\322000_battle.lua" />
+    <None Include="Resources\LUA\323000_battle.lua" />
+    <None Include="Resources\LUA\323001_battle.lua" />
+    <None Include="Resources\LUA\324000_battle.lua" />
+    <None Include="Resources\LUA\325000_battle.lua" />
+    <None Include="Resources\LUA\327000_battle.lua" />
+    <None Include="Resources\LUA\329000_battle.lua" />
+    <None Include="Resources\LUA\330000_battle.lua" />
+    <None Include="Resources\LUA\332000_battle.lua" />
+    <None Include="Resources\LUA\332001_battle.lua" />
+    <None Include="Resources\LUA\332002_battle.lua" />
+    <None Include="Resources\LUA\333000_battle.lua" />
+    <None Include="Resources\LUA\333001_battle.lua" />
+    <None Include="Resources\LUA\334000_battle.lua" />
+    <None Include="Resources\LUA\334100_battle.lua" />
+    <None Include="Resources\LUA\335000_battle.lua" />
+    <None Include="Resources\LUA\337000_battle.lua" />
+    <None Include="Resources\LUA\338000_battle.lua" />
+    <None Include="Resources\LUA\339000_battle.lua" />
+    <None Include="Resources\LUA\339001_battle.lua" />
+    <None Include="Resources\LUA\339002_battle.lua" />
+    <None Include="Resources\LUA\339003_battle.lua" />
+    <None Include="Resources\LUA\340000_battle.lua" />
+    <None Include="Resources\LUA\341000_battle.lua" />
+    <None Include="Resources\LUA\342000_battle.lua" />
+    <None Include="Resources\LUA\342002_battle.lua" />
+    <None Include="Resources\LUA\342100_battle.lua" />
+    <None Include="Resources\LUA\343000_battle.lua" />
+    <None Include="Resources\LUA\346100_battle.lua" />
+    <None Include="Resources\LUA\347100_battle.lua" />
+    <None Include="Resources\LUA\347101_battle.lua" />
+    <None Include="Resources\LUA\348000_battle.lua" />
+    <None Include="Resources\LUA\349000_battle.lua" />
+    <None Include="Resources\LUA\349100_battle.lua" />
+    <None Include="Resources\LUA\350000_battle.lua" />
+    <None Include="Resources\LUA\350100_battle.lua" />
+    <None Include="Resources\LUA\351000_battle.lua" />
+    <None Include="Resources\LUA\352000_battle.lua" />
+    <None Include="Resources\LUA\352002_battle.lua" />
+    <None Include="Resources\LUA\352003_battle.lua" />
+    <None Include="Resources\LUA\352005_battle.lua" />
+    <None Include="Resources\LUA\353000_battle.lua" />
+    <None Include="Resources\LUA\353001_battle.lua" />
+    <None Include="Resources\LUA\409000_battle.lua" />
+    <None Include="Resources\LUA\410000_battle.lua" />
+    <None Include="Resources\LUA\411000_battle.lua" />
+    <None Include="Resources\LUA\411000_logic.lua" />
+    <None Include="Resources\LUA\412000_battle.lua" />
+    <None Include="Resources\LUA\413000_battle.lua" />
+    <None Include="Resources\LUA\415000_battle.lua" />
+    <None Include="Resources\LUA\415000_logic.lua" />
+    <None Include="Resources\LUA\416000_battle.lua" />
+    <None Include="Resources\LUA\417000_battle.lua" />
+    <None Include="Resources\LUA\417100_battle.lua" />
+    <None Include="Resources\LUA\417200_battle.lua" />
+    <None Include="Resources\LUA\418000_battle.lua" />
+    <None Include="Resources\LUA\419000_battle.lua" />
+    <None Include="Resources\LUA\450000_battle.lua" />
+    <None Include="Resources\LUA\451000_battle.lua" />
+    <None Include="Resources\LUA\452000_battle.lua" />
+    <None Include="Resources\LUA\520000_battle.lua" />
+    <None Include="Resources\LUA\520100_battle.lua" />
+    <None Include="Resources\LUA\520200_battle.lua" />
+    <None Include="Resources\LUA\521000_battle.lua" />
+    <None Include="Resources\LUA\522000_battle.lua" />
+    <None Include="Resources\LUA\523000_battle.lua" />
+    <None Include="Resources\LUA\523100_battle.lua" />
+    <None Include="Resources\LUA\524000_battle.lua" />
+    <None Include="Resources\LUA\525000_battle.lua" />
+    <None Include="Resources\LUA\526000_battle.lua" />
+    <None Include="Resources\LUA\527000_battle.lua" />
+    <None Include="Resources\LUA\527100_battle.lua" />
+    <None Include="Resources\LUA\528000_battle.lua" />
+    <None Include="Resources\LUA\529000_battle.lua" />
+    <None Include="Resources\LUA\529001_battle.lua" />
+    <None Include="Resources\LUA\532000_battle.lua" />
+    <None Include="Resources\LUA\535000_battle.lua" />
+    <None Include="Resources\LUA\535100_battle.lua" />
+    <None Include="Resources\LUA\536000_battle.lua" />
+    <None Include="Resources\LUA\537000_battle.lua" />
+    <None Include="Resources\LUA\539000_battle.lua" />
+    <None Include="Resources\LUA\540000_battle.lua" />
+    <None Include="Resources\MapPoints\Blighttown.txt" />
+    <None Include="Resources\MapPoints\Catacombs.txt" />
+    <None Include="Resources\MapPoints\Depths.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Installation\Equipment\ArmorGenerator.cs" />
+    <Compile Include="Installation\Characters\CharacterGenerator.cs" />
+    <Compile Include="Installation\Characters\EnemyGenerator.cs" />
+    <Compile Include="Installation\FlagInfo.cs" />
+    <Compile Include="Installation\GameTypes.cs" />
+    <Compile Include="Installation\Equipment\GoodsGenerator.cs" />
+    <Compile Include="Installation\Equipment\LegendaryWeapons.cs" />
+    <Compile Include="Installation\Maps\MapInfo.cs" />
+    <Compile Include="Installation\ObjectInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\GameData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameData.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MapPoints.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MapPoints.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TextData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextData.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ScriptPacker.cs" />
+    <Compile Include="Installation\SpellGenerator.cs" />
+    <Compile Include="GameHook\DSRAssembly.cs" />
+    <Compile Include="GameHook\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Installation\Maps\MapItemLotsSetup.cs" />
+    <Compile Include="Installation\SpEffectGenerator.cs" />
+    <Compile Include="Installation\Characters\PlayerGenerator.cs" />
+    <Compile Include="Installation\Equipment\WeaponGenerator.cs" />
+    <Compile Include="Installation\Characters\EnemyAnimationGenerator.cs" />
+    <Compile Include="GameHook\DSHook.cs" />
+    <Compile Include="GameHook\DSOffsets.cs" />
+    <Compile Include="GameHook\DSROffsets.cs" />
+    <Compile Include="GameHook\DSRHook.cs" />
+    <Compile Include="GameHook\User32.cs" />
+    <Compile Include="Utils\MapPointGenerator.cs" />
+    <Compile Include="Installation\Equipment\LegendaryArmor.cs" />
+    <Compile Include="Installation\Equipment\LegendaryEffects.cs" />
+    <Compile Include="Installation\NameGenerators.cs" />
+    <Compile Include="Installation\TextGenerator.cs" />
+    <Compile Include="ModProgram\MapPointManager.cs" />
+    <Compile Include="ModProgram\MSBGenerator.cs" />
+    <Compile Include="ModProgram\RunManager.cs" />
+    <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="Utils\Markov.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Utils\WordWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dependencies\PropertyHook\PropertyHook\PropertyHook.csproj">
+      <Project>{18eff8d2-c4d5-4e18-9a31-38e106ba1cf7}</Project>
+      <Name>PropertyHook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dependencies\SoulsFormats\SoulsFormats.csproj">
+      <Project>{22c664bd-877b-44df-8ecf-2808522469a8}</Project>
+      <Name>SoulsFormats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dependencies\SoulsMod\SoulsMod.csproj">
+      <Project>{9064392f-efb3-41f8-9d13-ba250b493152}</Project>
+      <Name>SoulsMod</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="darksign_L5u_icon.ico" />
+    <Content Include="GameHook\Resources\Assembly\BonfireWarp.txt" />
+    <Content Include="GameHook\Resources\Assembly\GetItem.txt" />
+    <Content Include="GameHook\Resources\Assembly\LevelUp.txt" />
+    <Content Include="GameHook\Resources\Bonfires.txt" />
+    <Content Include="GameHook\Resources\Classes.txt" />
+    <Content Include="GameHook\Resources\Items\Armor.txt" />
+    <Content Include="GameHook\Resources\Items\Consumables.txt" />
+    <Content Include="GameHook\Resources\Items\KeyItems.txt" />
+    <Content Include="GameHook\Resources\Items\MeleeWeapons.txt" />
+    <Content Include="GameHook\Resources\Items\MysteryArmor.txt" />
+    <Content Include="GameHook\Resources\Items\MysteryGoods.txt" />
+    <Content Include="GameHook\Resources\Items\MysteryWeapons.txt" />
+    <Content Include="GameHook\Resources\Items\RangedWeapons.txt" />
+    <Content Include="GameHook\Resources\Items\Rings.txt" />
+    <Content Include="GameHook\Resources\Items\Shields.txt" />
+    <Content Include="GameHook\Resources\Items\Spells.txt" />
+    <Content Include="GameHook\Resources\Items\SpellTools.txt" />
+    <Content Include="GameHook\Resources\Items\UpgradeMaterials.txt" />
+    <Content Include="GameHook\Resources\Items\UsableItems.txt" />
+    <Content Include="RoguelikeSouls.ico" />
+    <None Include="Resources\MSG\item.msgbnd.dcx" />
+    <None Include="Resources\MSG\menu.msgbnd.dcx" />
+    <None Include="Resources\PARAM\GameParam.parambnd.dcx" />
+    <None Include="Resources\PARAM\paramdef.paramdefbnd.dcx" />
+    <None Include="Resources\TextData\AllWeaponNamesNoSuffix.txt" />
+    <None Include="Resources\TextData\AllWeaponNames.txt" />
+    <None Include="Resources\TextData\AllWeaponDescriptions.txt" />
+    <None Include="Resources\TextData\AllSpellSummaries.txt" />
+    <None Include="Resources\TextData\AllSpellNames.txt" />
+    <None Include="Resources\TextData\AllSpellDescriptions.txt" />
+    <None Include="Resources\TextData\AllNPCNames.txt" />
+    <None Include="Resources\TextData\AllBossNames.txt" />
+    <None Include="Resources\TextData\AllArmorNames.txt" />
+    <None Include="Resources\TextData\AllArmorDescriptions.txt" />
+    <None Include="Resources\MapPoints\UndeadParish.txt" />
+    <None Include="Resources\MapPoints\UndeadBurg.txt" />
+    <None Include="Resources\MapPoints\TombOfTheGiants.txt" />
+    <None Include="Resources\MapPoints\SensFortress.txt" />
+    <None Include="Resources\MapPoints\RoyalWood.txt" />
+    <None Include="Resources\MapPoints\PaintedWorld.txt" />
+    <None Include="Resources\MapPoints\OolacileTownship.txt" />
+    <None Include="Resources\MapPoints\NewLondoRuins.txt" />
+    <None Include="Resources\MapPoints\LostIzalith.txt" />
+    <None Include="Resources\MapPoints\KilnOfTheFirstFlame.txt" />
+    <None Include="Resources\MapPoints\GreatHollow.txt" />
+    <None Include="Resources\MapPoints\DukesArchives.txt" />
+    <None Include="Resources\MapPoints\DemonRuins.txt" />
+    <None Include="Resources\MapPoints\DarkrootGarden.txt" />
+    <None Include="Resources\MapPoints\ChasmOfTheAbyss.txt" />
+    <None Include="Resources\MapPoints\AshLake.txt" />
+    <None Include="Resources\MapPoints\AnorLondo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GameHook\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GameData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GameData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MapPoints.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MapPoints.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TextData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

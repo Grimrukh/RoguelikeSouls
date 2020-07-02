@@ -1,0 +1,72 @@
+Soul Arrow
+Great Soul Arrow
+Heavy Soul Arrow
+Great Heavy Soul Arrow
+Homing Soulmass
+Homing Crystal Soulmass
+Soul Spear
+Crystal Soul Spear
+Magic Weapon
+Great Magic Weapon
+Crystal Magic Weapon
+Magic Shield
+Strong Magic Shield
+Hidden Weapon
+Hidden Body
+Cast Light
+Hush
+Aural Decoy
+Repair
+Fall Control
+Chameleon
+Resist Curse
+Remedy
+White Dragon Breath
+Dark Orb
+Dark Bead
+Dark Fog
+Pursuers
+Fireball
+Fire Orb
+Great Fireball
+Firestorm
+Fire Tempest
+Fire Surge
+Fire Whip
+Combustion
+Great Combustion
+Poison Mist
+Toxic Mist
+Acid Surge
+Iron Flesh
+Flash Sweat
+Undead Rapport
+Power Within
+Great Chaos Fireball
+Chaos Storm
+Chaos Fire Whip
+Black Flame
+Heal
+Great Heal
+Great Heal Excerpt
+Soothing Sunlight
+Replenishment
+Bountiful Sunlight
+Gravelord Sword Dance
+Gravelord Greatsword Dance
+Escape Death
+Homeward
+Force
+Wrath of the Gods
+Emit Force
+Seek Guidance
+Lightning Spear
+Great Lightning Spear
+Sunlight Spear
+Magic Barrier
+Great Magic Barrier
+Karmic Justice
+Tranquil Walk of Peace
+Vow of Silence
+Sunlight Blade
+Darkmoon Blade

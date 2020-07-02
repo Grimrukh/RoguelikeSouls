@@ -1,0 +1,216 @@
+Dagger
+Parrying Dagger
+Ghost Blade
+Bandit's Knife
+Priscilla's Dagger
+Shortsword
+Longsword
+Broadsword
+Broken Straight Sword
+Balder Side Sword
+Crystal Straight Sword
+Sunlight Straight Sword
+Barbed Straight Sword
+Silver Knight Straight Sword
+Astora's Straight Sword
+Darksword
+Drake Sword
+Straight Sword Hilt
+Bastard Sword
+Claymore
+Man-serpent Greatsword
+Flamberge
+Crystal Greatsword
+Stone Greatsword
+Greatsword of Artorias
+Great Lord Greatsword
+Moonlight Greatsword
+Black Knight Sword
+Greatsword of Artorias
+Greatsword of Artorias
+Great Lord Greatsword
+Great Lord Greatsword
+Zweihander
+Greatsword
+Demon Great Machete
+Dragon Greatsword
+Black Knight Greatsword
+Scimitar
+Falchion
+Shotel
+Jagged Ghost Blade
+Painting Guardian Sword
+Quelaag's Furysword
+Server
+Murakumo
+Gravelord Sword
+Uchigatana
+Washing Pole
+Iaito
+Chaos Blade
+Mail Breaker
+Rapier
+Estoc
+Velka's Rapier
+Ricard's Rapier
+Hand Axe
+Battle Axe
+Crescent Axe
+Butcher Knife
+Golem Axe
+Gargoyle Tail Axe
+Greataxe
+Demon's Greataxe
+Dragon King Greataxe
+Black Knight Greataxe
+Club
+Mace
+Morning Star
+Warpick
+Pickaxe
+Reinforced Club
+Blacksmith Hammer
+Blacksmith Giant Hammer
+Hammer of Vamos
+Great Club
+Grant
+Demon's Great Hammer
+Dragon Tooth
+Large Club
+Smough's Hammer
+Smough's Hammer
+Fists
+Caestus
+Claw
+Dragon Bone Fist
+Dark Hand
+Spear
+Winged Spear
+Partizan
+Demon's Spear
+Channeler's Trident
+Silver Knight Spear
+Pike
+Dragonslayer Spear
+Moonlight Butterfly Horn
+Moonlight Butterfly Horn
+Dragonslayer Spear
+Halberd
+Giant's Halberd
+Titanite Catch Pole
+Gargoyle's Halberd
+Black Knight Halberd
+Lucerne 
+Scythe
+Great Scythe
+Lifehunt Scythe
+Short Bow
+Longbow
+Black Bow of Pharis
+Dragonslayer Greatbow
+Composite Bow
+Darkmoon Bow
+Light Crossbow
+Heavy Crossbow
+Avelyn
+Sniper Crossbow
+Sorcerer's Catalyst
+Beatrice's Catalyst
+Tin Banishment Catalyst
+Logan's Catalyst
+Tin Darkmoon Catalyst
+Oolacile Ivory Catalyst
+Tin Crystallization Catalyst
+Demon's Catalyst
+Izalith Catalyst
+Pyromancy Flame
+Pyromancy Flame+10
+Pyromancy Flame
+Pyromancy Flame+10
+Talisman
+Canvas Talisman
+Thorolund Talisman
+Ivory Talisman
+Gwynevere's Talisman
+Sunlight Talisman
+Darkmoon Talisman
+Velka's Talisman
+Skull Lantern
+East-West Shield
+Wooden Shield
+Large Leather Shield
+Small Leather Shield
+Target Shield
+Buckler
+Cracked Round Shield
+Leather Shield
+Plank Shield
+Caduceus Round Shield
+Crystal Ring Shield
+Crystal Ring Shield
+Crystal Ring Shield
+Crystal Ring Shield
+Heater Shield
+Knight Shield
+Tower Kite Shield
+Grass Crest Shield
+Hollow Soldier Shield
+Balder Shield
+Crest Shield
+Dragon Crest Shield
+Warrior's Round Shield
+Iron Round Shield
+Spider Shield
+Spiked Shield
+Crystal Shield
+Sunlight Shield
+Silver Knight Shield
+Black Knight Shield
+Pierce Shield
+Red and White Round Shield
+Caduceus Kite Shield
+Gargoyle's Shield
+Eagle Shield
+Tower Shield
+Giant Shield
+Stone Greatshield
+Havel's Greatshield
+Bonewheel Shield
+Greatshield of Artorias
+Greatshield of Artorias
+Greatshield of Artorias
+Greatshield of Artorias
+Whip
+Notched Whip
+Standard Arrow
+Large Arrow
+Feather Arrow
+Fire Arrow
+Poison Arrow
+Moonlight Arrow
+Wooden Arrow
+Dragonslayer Arrow
+Gough's Great Arrow
+Arrow
+Standard Bolt
+Heavy Bolt
+Sniper Bolt
+Wood Bolt
+Lightning Bolt
+Bolt
+Effigy Shield
+Sanctus
+Bloodshield
+Black Iron Greatshield
+Gold Tracer
+Dark Silver Tracer
+Abyss Greatsword
+Abyss Greatsword
+Cleansing Greatshield
+Stone Greataxe
+Four-pronged Plow
+Manus Catalyst
+Oolacile Catalyst
+Guardian Tail
+Obsidian Greatsword
+Gough's Greatbow
