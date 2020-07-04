@@ -94,8 +94,10 @@ namespace RoguelikeSouls.ModProgram
                 int bossEntityID = map.GetBossID(i);
                 if (!Maps.BossLocations.Keys.Contains(bossEntityID))
                     throw new Exception($"Could not find information about location for (non-twin) boss ID {bossEntityID}.");
-                (GamePoint bossPoint, int emevdIndex) = Maps.BossLocations[bossEntityID];
-                Boss boss = EnemyGenerator.GetRandomBoss(Rand, bossPoint.ArenaSize, Run.BossCategoriesUsed);
+                (GamePoint bossPoint, int emevdIndex, int[] invalidCategories) = Maps.BossLocations[bossEntityID];
+                List<int> invalidBossCategories = new List<int>(Run.BossCategoriesUsed);
+                invalidBossCategories.AddRange(invalidCategories);
+                Boss boss = EnemyGenerator.GetRandomBoss(Rand, bossPoint.ArenaSize, invalidBossCategories);
 #if DEBUG
                 Console.WriteLine($"Boss {i}: {boss.Name}");
 #endif
@@ -115,9 +117,9 @@ namespace RoguelikeSouls.ModProgram
                 Boss twinBoss = null;
                 if ((Roll(TwinBossOdds) || Run.GetFlag(GameFlag.MornsteinRingFlag)) && Maps.BossLocations.ContainsKey(bossEntityID + 1) && bossPoint.ArenaSize.In(ArenaSize.Large, ArenaSize.Giant) && boss.AggressionLevel < 5)
                 {                    
-                    (GamePoint twinBossPoint, _) = Maps.BossLocations[bossEntityID + 1];
+                    (GamePoint twinBossPoint, _, int[] twinInvalidCategories) = Maps.BossLocations[bossEntityID + 1];
                     List<Boss> twinOptions = new List<Boss>(EnemyGenerator.BossList.Where(
-                        twin => twin.Category != boss.Category && twin.AggressionLevel + boss.AggressionLevel <= 5 && twin.RequiredArenaSize <= bossPoint.ArenaSize));
+                        twin => twin.Category != boss.Category && !twin.Category.In(twinInvalidCategories) && twin.AggressionLevel + boss.AggressionLevel <= 5 && twin.RequiredArenaSize <= bossPoint.ArenaSize));
                     twinBoss = twinOptions.GetRandomElement(Rand);
 
                     Enemy twinBossEnemy = EnemyGenerator.GetEnemy(twinBoss.Name);
@@ -574,7 +576,7 @@ namespace RoguelikeSouls.ModProgram
             }
         }
 
-        public void GenerateAbyssBattleMSB(int mapLevel, List<int> bossCategoriesUsed )
+        public void GenerateAbyssBattleMSB(int mapLevel, List<int> bossCategoriesUsed)
         {
             // Basically, create thin New Londo MSB containing boss, then enable "done" flag.
             // EMEVD handles the rest.
@@ -592,7 +594,8 @@ namespace RoguelikeSouls.ModProgram
             int bossEntityID = newLondo.GetBossID(0);
             if (!Maps.BossLocations.Keys.Contains(bossEntityID))
                 throw new Exception($"Could not find information about location for (non-twin) boss ID {bossEntityID}.");
-            (GamePoint bossPoint, int emevdIndex) = Maps.BossLocations[bossEntityID];
+            (GamePoint bossPoint, int emevdIndex, int[] invalidCategories) = Maps.BossLocations[bossEntityID];
+            bossCategoriesUsed.AddRange(invalidCategories);
             Boss boss = EnemyGenerator.GetRandomBoss(Rand, bossPoint.ArenaSize, bossCategoriesUsed);
             Enemy bossEnemy = EnemyGenerator.GetEnemy(boss.Name);
             MSB1.Part.Enemy bossPart = bossEnemy.GetMSBPart("Abyss Boss", bossEntityID, bossPoint, bossPoint.Angle, mapLevel, isRedPhantom: true);
@@ -607,9 +610,9 @@ namespace RoguelikeSouls.ModProgram
             Boss twinBoss = null;
             if ((Roll(TwinBossOdds) || Run.GetFlag(GameFlag.MornsteinRingFlag)) && Maps.BossLocations.ContainsKey(bossEntityID + 1) && bossPoint.ArenaSize.In(ArenaSize.Large, ArenaSize.Giant) && boss.AggressionLevel < 5)
             {
-                (GamePoint twinBossPoint, _) = Maps.BossLocations[bossEntityID + 1];
+                (GamePoint twinBossPoint, _, int[] twinInvalidCategories) = Maps.BossLocations[bossEntityID + 1];
                 List<Boss> twinOptions = new List<Boss>(EnemyGenerator.BossList.Where(
-                    twin => twin.Category != boss.Category && twin.AggressionLevel + boss.AggressionLevel <= 5 && twin.RequiredArenaSize <= bossPoint.ArenaSize));
+                    twin => twin.Category != boss.Category && !twin.Category.In(twinInvalidCategories) && twin.AggressionLevel + boss.AggressionLevel <= 5 && twin.RequiredArenaSize <= bossPoint.ArenaSize));
                 twinBoss = twinOptions.GetRandomElement(Rand);
 
                 Enemy twinBossEnemy = EnemyGenerator.GetEnemy(twinBoss.Name);

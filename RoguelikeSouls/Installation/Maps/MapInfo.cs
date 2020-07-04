@@ -225,86 +225,86 @@ namespace RoguelikeSouls.Installation
         };
 
         // Maps boss entity IDs to their fixed coordinates. Optional twin boss IDs end in 1; twin ID's absence implies that twin battles are not possible there.
-        public static Dictionary<int, (GamePoint point, int emevdIndex)> BossLocations = new Dictionary<int, (GamePoint point, int emevdIndex)>()
+        public static Dictionary<int, (GamePoint point, int emevdIndex, int[] invalidBossCategories)> BossLocations = new Dictionary<int, (GamePoint point, int emevdIndex, int[] invalidBossCategories)>()
         {
-            { 1000290, (new GamePoint(-170.0f, -100.0f, 30.0f, 0.0f, "h0074B0", "", ArenaSize.Giant), 0) },  // Gaping Dragon arena
-            { 1000291, (new GamePoint(-170.0f, -100.0f, 20.0f, 0.0f, "h0074B0", "", ArenaSize.Giant), 0) },
+            { 1000290, (new GamePoint(-170.0f, -100.0f, 30.0f, 0.0f, "h0074B0", "", ArenaSize.Giant), 0, new int[] { 10, 15 }) },  // Gaping Dragon arena
+            { 1000291, (new GamePoint(-170.0f, -100.0f, 20.0f, 0.0f, "h0074B0", "", ArenaSize.Giant), 0, new int[] { 10, 15 }) },
 
-            { 1010290, (new GamePoint(10.161f, 15.819f, -118.262f, -79.844f, "h1117B1", "", ArenaSize.Medium), 0) },  // Taurus Demon arena (maybe Small?)
-            { 1010291, (new GamePoint(24.562f, 15.819f, -120.842f, -91.475f, "h1117B1", "", ArenaSize.Medium), 0) },
-            { 1010280, (new GamePoint(57.526f, -38.254f, -117.677f, -133.605f, "h1121B1", "", ArenaSize.Small), 1) },  // Watchtower Basement arena
+            { 1010290, (new GamePoint(10.161f, 15.819f, -118.262f, -79.844f, "h1117B1", "", ArenaSize.Medium), 0, new int[] {}) },  // Taurus Demon arena (maybe Small?)
+            { 1010291, (new GamePoint(24.562f, 15.819f, -120.842f, -91.475f, "h1117B1", "", ArenaSize.Medium), 0, new int[] {}) },
+            { 1010280, (new GamePoint(57.526f, -38.254f, -117.677f, -133.605f, "h1121B1", "", ArenaSize.Small), 1, new int[] {}) },  // Watchtower Basement arena
             // No twin for Watchtower Basement.
 
-            { 1010590, (new GamePoint(2.062f, 48.430f, 107.960f, -20.288f, "h1034B1", "", ArenaSize.Large), 2) },  // Bell Gargoyle arena
-            { 1010591, (new GamePoint(19.891f, 48.430f, 107.960f, 3.449f, "h1034B1", "", ArenaSize.Large), 2) },
-            { 1010580, (new GamePoint(87.780f, -2.689f, 57.965f, -178.067f, "h1049B1", "", ArenaSize.Medium), 3) },  // Titanite Demon arena (requires Medium-level navigation)
-            { 1010581, (new GamePoint(81.075f, -2.689f, 73.225f, -164.006f, "h1049B1", "", ArenaSize.Medium), 3) },
+            { 1010590, (new GamePoint(2.062f, 48.430f, 107.960f, -20.288f, "h1034B1", "", ArenaSize.Large), 2, new int[] {}) },  // Bell Gargoyle arena
+            { 1010591, (new GamePoint(19.891f, 48.430f, 107.960f, 3.449f, "h1034B1", "", ArenaSize.Large), 2, new int[] {}) },
+            { 1010580, (new GamePoint(87.780f, -2.689f, 57.965f, -178.067f, "h1049B1", "", ArenaSize.Medium), 3, new int[] {}) },  // Titanite Demon arena (requires Medium-level navigation)
+            { 1010581, (new GamePoint(81.075f, -2.689f, 73.225f, -164.006f, "h1049B1", "", ArenaSize.Medium), 3, new int[] {}) },
 
-            { 1100290, (new GamePoint(-22.750f, 60.500f, 697.000f, 180.000f, "h0041B0", "", ArenaSize.Large), 0) },  // Priscilla arena
-            { 1100291, (new GamePoint(-16.129f, 60.500f, 692.558f, 158.416f, "h0041B0", "", ArenaSize.Large), 0) },
+            { 1100290, (new GamePoint(-22.750f, 60.500f, 697.000f, 180.000f, "h0041B0", "", ArenaSize.Large), 0, new int[] {}) },  // Priscilla arena
+            { 1100291, (new GamePoint(-16.129f, 60.500f, 692.558f, 158.416f, "h0041B0", "", ArenaSize.Large), 0, new int[] {}) },
 
-            { 1200290, (new GamePoint(256.690f, -15.9f, -311.650f, -155.000f, "h0035B0", "", ArenaSize.Giant), 0) },  // Sif arena
-            { 1200291, (new GamePoint(250.641f, -15.9f, -308.829f, -144.967f, "h0035B0", "", ArenaSize.Giant), 0) },
+            { 1200290, (new GamePoint(256.690f, -15.9f, -311.650f, -155.000f, "h0035B0", "", ArenaSize.Giant), 0, new int[] {}) },  // Sif arena
+            { 1200291, (new GamePoint(250.641f, -15.9f, -308.829f, -144.967f, "h0035B0", "", ArenaSize.Giant), 0, new int[] {}) },
             // Moonlight Butterfly and Hydra are left alone where they are.
 
-            { 1210290, (new GamePoint(962.797f, -320.980f, 508.997f, -150.000f, "h0036B1", "", ArenaSize.Giant), 0) },  // Sanctuary Guardian arena
-            { 1210291, (new GamePoint(980.418f, -320.980f, 494.211f, -125.000f, "h0036B1", "", ArenaSize.Giant), 0) },
+            { 1210290, (new GamePoint(962.797f, -320.980f, 508.997f, -150.000f, "h0036B1", "", ArenaSize.Giant), 0, new int[] {}) },  // Sanctuary Guardian arena
+            { 1210291, (new GamePoint(980.418f, -320.980f, 494.211f, -125.000f, "h0036B1", "", ArenaSize.Giant), 0, new int[] {}) },
             // Kalameet arena disabled (Kalameet can appear elsewhere and I can't handle the cheese here).
             // Boss fight takes place in ravine before the original arena instead.
-            { 1210280, (new GamePoint(892.929f, -344.418f, 767.920f, 46.424f, "h0011B1", "", ArenaSize.Large), 1) },  // Pre-Kalameet ravine arena
-            { 1210281, (new GamePoint(900.139f, -344.285f, 767.027f, 59.232f, "h0011B1", "", ArenaSize.Large), 1) },
+            { 1210280, (new GamePoint(892.929f, -344.418f, 767.920f, 46.424f, "h0011B1", "", ArenaSize.Large), 1, new int[] {}) },  // Pre-Kalameet ravine arena
+            { 1210281, (new GamePoint(900.139f, -344.285f, 767.027f, 59.232f, "h0011B1", "", ArenaSize.Large), 1, new int[] {}) },
 
-            { 1210590, (new GamePoint(1059.899f, -330.0f, 811.875f, 87.282f, "h0095B1", "", ArenaSize.Giant), 2) },  // Artorias arena
-            { 1210591, (new GamePoint(1060.724f, -330.0f, 823.403f, 71.193f, "h0095B1", "", ArenaSize.Giant), 2) },
-            { 1210580, (new GamePoint(909.924f, -400.500f, 937.150f, -56.975f, "h0106B1", "", ArenaSize.Giant), 3) },  // Pre-Chasm hall arena
-            { 1210581, (new GamePoint(904.864f, -400.500f, 933.410f, -82.590f, "h0106B1", "", ArenaSize.Giant), 3) },
+            { 1210590, (new GamePoint(1059.899f, -330.0f, 811.875f, 87.282f, "h0095B1", "", ArenaSize.Giant), 2, new int[] {}) },  // Artorias arena
+            { 1210591, (new GamePoint(1060.724f, -330.0f, 823.403f, 71.193f, "h0095B1", "", ArenaSize.Giant), 2, new int[] {}) },
+            { 1210580, (new GamePoint(909.924f, -400.500f, 937.150f, -56.975f, "h0106B1", "", ArenaSize.Giant), 3, new int[] {}) },  // Pre-Chasm hall arena
+            { 1210581, (new GamePoint(904.864f, -400.500f, 933.410f, -82.590f, "h0106B1", "", ArenaSize.Giant), 3, new int[] {}) },
             
-            { 1210890, (new GamePoint(848.320f, -576.840f, 847.957f, -157.052f, "h0113B1", "", ArenaSize.Giant), 4) },  // Manus arena
-            { 1210891, (new GamePoint(836.642f, -576.840f, 855.776f, -146.194f, "h0113B1", "", ArenaSize.Giant), 4) },
+            { 1210890, (new GamePoint(848.320f, -576.840f, 847.957f, -157.052f, "h0113B1", "", ArenaSize.Giant), 4, new int[] {}) },  // Manus arena
+            { 1210891, (new GamePoint(836.642f, -576.840f, 855.776f, -146.194f, "h0113B1", "", ArenaSize.Giant), 4, new int[] {}) },
 
-            { 1300290, (new GamePoint(46.0f, -165.8f, 146.0f, -180.0f, "h0036B0", "", ArenaSize.Small), 0) },  // Pinwheel arena
+            { 1300290, (new GamePoint(46.0f, -165.8f, 146.0f, -180.0f, "h0036B0", "", ArenaSize.Small), 0, new int[] {}) },  // Pinwheel arena
             // No twin for Pinwheel arena.
-            { 1300280, (new GamePoint(46.5f, -111.947f, 163.951f, 172.0f, "h0101B0", "", ArenaSize.Small), 1) },  // New upper Catacombs arena
+            { 1300280, (new GamePoint(46.5f, -111.947f, 163.951f, 172.0f, "h0101B0", "", ArenaSize.Small), 1, new int[] {}) },  // New upper Catacombs arena
             // No twin for upper Catacombs arena.
 
-            { 1310290, (new GamePoint(-147.430f, -264.654f, -46.4f, -132.713f, "h0047B1", "", ArenaSize.Large), 0) },  // Nito arena
-            { 1310291, (new GamePoint(-157.536f, -264.654f, -31.043f, -121.749f, "h0047B1", "", ArenaSize.Large), 0) },
+            { 1310290, (new GamePoint(-147.430f, -264.654f, -46.4f, -132.713f, "h0047B1", "", ArenaSize.Large), 0, new int[] {}) },  // Nito arena
+            { 1310291, (new GamePoint(-157.536f, -264.654f, -31.043f, -121.749f, "h0047B1", "", ArenaSize.Large), 0, new int[] {}) },
             // Baby Skeleton spawner left intact.
 
             // No bosses in Ash Lake.
 
-            { 1400290, (new GamePoint(59.577f, -240.744f, 124.629f, 83.169f, "h0053B0", "", ArenaSize.Giant), 0) },  // Quelaag arena
-            { 1400291, (new GamePoint(47.443f, -240.744f, 130.666f, 61.322f, "h0053B0", "", ArenaSize.Giant), 0) },
-            { 1400280, (new GamePoint(-90.194f, -138.436f, 18.227f, 114.614f, "h0062B0", "", ArenaSize.Small), 1) },  // Tunnel arena (new)
+            { 1400290, (new GamePoint(59.577f, -240.744f, 124.629f, 83.169f, "h0053B0", "", ArenaSize.Giant), 0, new int[] {}) },  // Quelaag arena
+            { 1400291, (new GamePoint(47.443f, -240.744f, 130.666f, 61.322f, "h0053B0", "", ArenaSize.Giant), 0, new int[] {}) },
+            { 1400280, (new GamePoint(-90.194f, -138.436f, 18.227f, 114.614f, "h0062B0", "", ArenaSize.Small), 1, new int[] {}) },  // Tunnel arena (new)
             // No twin for new tunnel arena.
             
-            { 1410290, (new GamePoint(184.269f, -383.680f, 43.354f, 137.720f, "h0062B1", "", ArenaSize.Large), 0) },  // Centipede Demon arena
+            { 1410290, (new GamePoint(184.269f, -383.680f, 43.354f, 137.720f, "h0062B1", "", ArenaSize.Large), 0, new int[] {}) },  // Centipede Demon arena
             // No twin.
-            { 1410280, (new GamePoint(395.910f, -278.125f, 64.479f, 132.0f, "h0600B1", "", ArenaSize.Giant), 1) },  // Ceaseless Discharge arena
-            { 1410281, (new GamePoint(393.634f, -278.125f, 84.951f, 65.0f, "h0600B1", "", ArenaSize.Giant), 1) },
-            { 1410590, (new GamePoint(537.693f, -440.354f, 407.500f, 48.619f, "h0045B1", "", ArenaSize.Large), 2) },  // Bed of Chaos arena (Bed is always "twin").
+            { 1410280, (new GamePoint(395.910f, -278.125f, 64.479f, 132.0f, "h0600B1", "", ArenaSize.Giant), 1, new int[] {}) },  // Ceaseless Discharge arena
+            { 1410281, (new GamePoint(393.634f, -278.125f, 84.951f, 65.0f, "h0600B1", "", ArenaSize.Giant), 1, new int[] {}) },
+            { 1410590, (new GamePoint(537.693f, -440.354f, 407.500f, 48.619f, "h0045B1", "", ArenaSize.Large), 2, new int[] {}) },  // Bed of Chaos arena (Bed is always "twin").
             // No twin. EMEVD slot is also unused.
 
-            { 1500290, (new GamePoint(113.743f, 83.0f, 255.0f, 90.0f, "h0024B0_0000", "", ArenaSize.Medium), 0) },  // Iron Golem arena
+            { 1500290, (new GamePoint(113.743f, 83.0f, 255.0f, 90.0f, "h0024B0_0000", "", ArenaSize.Medium), 0, new int[] {}) },  // Iron Golem arena
             // No twin for Iron Golem arena.
-            { 1500280, (new GamePoint(89.819f, 45.241f, 181.481f, 150.0f, "h0100B0_0000", "", ArenaSize.Medium), 1) },  // New arena above gate
+            { 1500280, (new GamePoint(89.819f, 45.241f, 181.481f, 150.0f, "h0100B0_0000", "", ArenaSize.Medium), 1, new int[] {}) },  // New arena above gate
             // No twin for arena above gate.
 
-            { 1510290, (new GamePoint(572.0f, 142.8f, 261.082f, 78.276f, "h0022B1_0000", "", ArenaSize.Large), 0) },  // O&S arena (not giant due to pillars)
-            { 1510291, (new GamePoint(572.0f, 142.8f, 249.823f, 103.310f, "h0022B1_0000", "", ArenaSize.Large), 0) },  // O&S arena
+            { 1510290, (new GamePoint(572.0f, 142.8f, 261.082f, 78.276f, "h0022B1_0000", "", ArenaSize.Large), 0, new int[] {}) },  // O&S arena (not giant due to pillars)
+            { 1510291, (new GamePoint(572.0f, 142.8f, 249.823f, 103.310f, "h0022B1_0000", "", ArenaSize.Large), 0, new int[] {}) },  // O&S arena
             // { 1510280, (new GamePoint(203.632f, 179.400f, 191.642f, 180.0f, "h0002B1_0000", "", ArenaSize.Medium) },  // Pale Wing exit arena (unused)
             // { 1510270, (new GamePoint(203.720f, 179.400f, 318.890f, 0.0f, "h0040B1_0000", "", ArenaSize.Medium) },  // Archives exit arena (unused)
             
             // Abyss battle (via drop or one-off portal).
-            { 1600290, (new GamePoint(92.399f, -311.0f, 34.585f, -4.0f, "h0040B0_0000", "", ArenaSize.Giant), 0) },  // Abyss arena
-            { 1600291, (new GamePoint(62.993f, -311.0f, 26.506f, -30.0f, "h0040B0_0000", "", ArenaSize.Giant), 0) },
+            { 1600290, (new GamePoint(92.399f, -311.0f, 34.585f, -4.0f, "h0040B0_0000", "", ArenaSize.Giant), 0, new int[] {}) },  // Abyss arena
+            { 1600291, (new GamePoint(62.993f, -311.0f, 26.506f, -30.0f, "h0040B0_0000", "", ArenaSize.Giant), 0, new int[] {}) },
 
-            { 1700290, (new GamePoint(295.500f, 389.0f, 538.0f, 48.0f, "h0032B0", "", ArenaSize.Large), 0) },  // Tower arena
+            { 1700290, (new GamePoint(295.500f, 389.0f, 538.0f, 48.0f, "h0032B0", "", ArenaSize.Large), 0, new int[] {}) },  // Tower arena
             // No twin.
-            { 1700280, (new GamePoint(107.320f, 134.050f, 852.270f, -55.0f, "h0082B0", "", ArenaSize.Large), 1) },  // Seath arena
-            { 1700281, (new GamePoint(94.696f, 134.050f, 857.493f, -62.023f, "h0082B0", "", ArenaSize.Large), 1) },
+            { 1700280, (new GamePoint(107.320f, 134.050f, 852.270f, -55.0f, "h0082B0", "", ArenaSize.Large), 1, new int[] {}) },  // Seath arena
+            { 1700281, (new GamePoint(94.696f, 134.050f, 857.493f, -62.023f, "h0082B0", "", ArenaSize.Large), 1, new int[] {}) },
 
-            { 1800290, (new GamePoint(386.357f, -117.0f, 190.595f, -60.0f, "h0006B0", "", ArenaSize.Large), 0) },  // Gwyn arena
+            { 1800290, (new GamePoint(386.357f, -117.0f, 190.595f, -60.0f, "h0006B0", "", ArenaSize.Large), 0, new int[] {}) },  // Gwyn arena
             // No twin.
         };
 

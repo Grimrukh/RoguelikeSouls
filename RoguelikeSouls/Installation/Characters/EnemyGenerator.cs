@@ -1062,6 +1062,7 @@ namespace RoguelikeSouls.Installation
             // Also randomizes boss names.
 
             ModifyMiscellaneousParams();
+            AdjustNewGamePlusBuffs();
 
             foreach (Enemy enemy in EnemyList)
                 CreateEnemy(enemy);
@@ -1143,10 +1144,39 @@ namespace RoguelikeSouls.Installation
 
             // Set bomb-throwing Giant in Sen's Fortress to "Boss" team, which will let his bombs hurt other enemies (for fun).
             Mod.GPARAM.NPCs[286000].TeamType = 1;  // Boss
+            // Also reduce his level to 4.
+            Mod.GPARAM.NPCs[286000].SpecialEffectID4 = 7004;
+            Mod.GPARAM.NPCs[286000].NewGamePlusSpecialEffect = 7404;
+
+            // TODO: Consider de-levelling Undead Dragon in Valley of Drakes (and eventually Painted World).
 
             // De-level Bed of Chaos from 7014 to 7007.
             Mod.GPARAM.NPCs[523000].SpecialEffectID4 = 7007;
+            Mod.GPARAM.NPCs[523000].NewGamePlusSpecialEffect = 7407;
             Mod.GPARAM.NPCs[540000].SpecialEffectID4 = 7007;
+            Mod.GPARAM.NPCs[540000].NewGamePlusSpecialEffect = 7407;
+        }
+
+        void AdjustNewGamePlusBuffs()
+        {
+            // Currently, all NG+ buffs are identical (blanket mild increase).
+            for (int i = 1; i <= 15; i++)
+            {
+                SpEffect buff = Mod.GPARAM.SpEffects[7400 + i];
+                buff.MaxHPMultiplier = 1.2f;
+                buff.MaxMPMultiplier = 1.2f;
+                buff.MaxStaminaMultiplier = 1.2f;
+                buff.PhysicalAttackPowerMultiplier = 1.2f;
+                buff.MagicAttackPowerMultiplier = 1.2f;
+                buff.FireAttackPowerMultiplier = 1.2f;
+                buff.LightningAttackPowerMultiplier = 1.2f;
+                buff.PhysicalDefenseMultiplier = 1.2f;
+                buff.MagicDefenseMultiplier = 1.2f;
+                buff.FireDefenseMultiplier = 1.2f;
+                buff.LightningDefenseMultiplier = 1.2f;
+                buff.OutgoingStaminaDamageMultiplier = 1.2f;
+                buff.SoulRewardMultiplier = 1.2f;
+            }
         }
 
         void CreateMobAIVariant(int sourceRowID, int newRowID)

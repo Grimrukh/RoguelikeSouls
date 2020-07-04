@@ -17,7 +17,7 @@ namespace RoguelikeSouls.ModProgram
         MSBGenerator MapGenerator { get; }
         bool InitialRestartDone { get; set; } = false;
 
-        string DEBUG_MAP { get; } = "";        
+        string DEBUG_MAP { get; } = "Blighttown";        
 
         const int MinLabelCount = 6;
         const int MaxLabelCount = 10;

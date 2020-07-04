@@ -5,6 +5,9 @@ Files/Package/*
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Roguelike Package directory (too large to upload, available on Nexus only)
+/Package/
+
 # User-specific files
 *.rsuser
 *.suo

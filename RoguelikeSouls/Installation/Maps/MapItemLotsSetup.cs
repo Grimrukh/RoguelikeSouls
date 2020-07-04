@@ -239,7 +239,7 @@ namespace RoguelikeSouls.Installation
 
             // Parasitic Wall Hugger in Blighttown.
             item = GetCleanItemLot(52400000);
-            item.SetSimpleItem(ItemLotCategory.Weapon, 9000, 1, -1);  // Skull Lantern
+            item.SetSimpleItem(ItemLotCategory.Weapon, WeaponGenerator.FixedWeapons["Skull Lantern"], 1, 51405240);  // Skull Lantern
         }
 
         void CreateFixedLots()
