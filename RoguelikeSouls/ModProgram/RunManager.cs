@@ -17,7 +17,7 @@ namespace RoguelikeSouls.ModProgram
         MSBGenerator MapGenerator { get; }
         bool InitialRestartDone { get; set; } = false;
 
-        string DEBUG_MAP { get; } = "Blighttown";        
+        string DEBUG_MAP { get; } = "";        
 
         const int MinLabelCount = 6;
         const int MaxLabelCount = 10;
@@ -507,9 +507,7 @@ namespace RoguelikeSouls.ModProgram
                         options.Remove(Maps.GetMap("NewLondoRuins"));
                     if (!options.Any())
                         // All Lord Souls obtained; go to any rating 2 map.
-                        // TODO: Actually, currently go to Anor Londo.
-                        return Maps.GetMap("AnorLondo");
-                        //options = new List<Map>(Maps.MapList.Where(map => Math.Abs(map.Rating) == 2 && MapsAvailable.Contains(map)));
+                        options = new List<Map>(Maps.MapList.Where(map => Math.Abs(map.Rating) == 2 && MapsAvailable.Contains(map)));
                     Map chosen = options.GetRandomElement(Rand);
                     if (chosen.Name == "NewLondoRuins")
                     {
