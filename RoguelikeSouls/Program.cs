@@ -93,7 +93,7 @@ namespace RoguelikeSouls
                 "\n                   ~~~                        ~~~" +
                 "\n                   ~~~ The Binding of Lordran ~~~" +
                 "\n                   ~~~                        ~~~" +
-                "\n                   ~~~          v1.0          ~~~" +
+                "\n                   ~~~          v1.5          ~~~" +
                 "\n                   ~~~                        ~~~" +
                 "\n                   ~~~       by Grimrukh      ~~~" +
                 "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
