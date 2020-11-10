@@ -57,6 +57,6 @@ class Objects(Object):
     Exit2Prompt = BaseEntity + 251  # Seath bonfire.
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290
     Boss2Reward = BaseEntity + 280

@@ -45,5 +45,5 @@ class Objects(Object):
     Exit2Prompt = BaseEntity + 251
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290

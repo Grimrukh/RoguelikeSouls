@@ -36,7 +36,7 @@ class FXEvents(int):
     LobosJrPortal = 1020857
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     AlvinaGift = 51000
     SolaireGift = 51010
     SiegmeyerGift = 51020

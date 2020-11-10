@@ -61,5 +61,5 @@ class Objects(Object):
     Exit2Prompt = BaseEntity + 251  # Titanite Demon room. (Done)
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290

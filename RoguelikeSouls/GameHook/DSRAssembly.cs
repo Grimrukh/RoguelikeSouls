@@ -24,8 +24,8 @@ namespace GameHook
             return bytes.ToArray();
         }
 
-        public static byte[] BonfireWarp = LoadDefuseOutput(Resource.BonfireWarp);
-        public static byte[] GetItem = LoadDefuseOutput(Resource.GetItem);
-        public static byte[] LevelUp = LoadDefuseOutput(Resource.LevelUp);
+        public static byte[] BonfireWarp { get; } = LoadDefuseOutput(Resource.BonfireWarp);
+        public static byte[] GetItem { get; } = LoadDefuseOutput(Resource.GetItem);
+        public static byte[] LevelUp { get; } = LoadDefuseOutput(Resource.LevelUp);
     }
 }

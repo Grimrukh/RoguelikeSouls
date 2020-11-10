@@ -9,6 +9,12 @@ namespace RoguelikeSouls.Installation
 
         public static Dictionary<int, string> EventTexts = new Dictionary<int, string>()
         {
+            // Default text IDs for NPC invasion events.
+            { 6990, "Nameless dark spirit has invaded" },
+            { 6991, "Nameless dark spirit was vanquished" },
+            { 6992, "Invading the world of nameless dark spirit" },
+            { 6993, "Vengeance claimed upon nameless dark spirit" },
+
             { 79999, "Mod connection error. Please restart mod program." },
             { 80000, "Depart area" },
             { 80001, "Exit is locked" },
@@ -28,9 +34,7 @@ namespace RoguelikeSouls.Installation
             { 80014, "The fortress gate has opened" },
             { 80015, "Demonic magic blocks the path" },
 
-            // TODO: Different "receive gift" prompt for each ally.
-
-            { 80020, "Receive gift from ally" },
+            // Unique "receive gift" prompts now start at 80080.
             { 80021, "Two gifts have already been accepted" },
             { 80022, "Prove yourself worthy next time" },
             { 80023, "Lord Souls can now be captured. More treasure unlocked." },
@@ -61,7 +65,27 @@ namespace RoguelikeSouls.Installation
             { 80058, "Level 9" },
             { 80059, "Level 10" },
 
-            { 80060, "Bonus Level" },
+            { 80060, "Level 1 (CURSED!)" },
+            { 80061, "Level 2 (CURSED!)" },
+            { 80062, "Level 3 (CURSED!)" },
+            { 80063, "Level 4 (CURSED!)" },
+            { 80064, "Level 5 (CURSED!)" },
+            { 80065, "Level 6 (CURSED!)" },
+            { 80066, "Level 7 (CURSED!)" },
+            { 80067, "Level 8 (CURSED!)" },
+            { 80068, "Level 9 (CURSED!)" },
+            { 80069, "Level 10 (CURSED!)" },
+
+            { 80070, "Bonus Level" },
+
+            { 80080, "Receive gift from Alvina" },
+            { 80081, "Receive gift from Solaire" },
+            { 80082, "Receive gift from Siegmeyer" },
+            { 80083, "Receive gift from Logan" },
+            { 80084, "Receive gift from Quelana" },
+            { 80085, "Receive gift from Havel" },
+            { 80086, "Receive gift from King Mornstein" },
+            { 80087, "Receive gift from Lobos Jr" },
 
             { 90001, "<?gdsparam@2001?> required" },
             { 90002, "<?gdsparam@2002?> required" },
@@ -70,6 +94,9 @@ namespace RoguelikeSouls.Installation
             { 90006, "<?gdsparam@2006?> required" },
             { 90007, "<?gdsparam@2007?> required" },
             { 90100, "<?gdsparam@2100?> required" },
+
+            { 10010660, "While cursed, your HP is halved. Lifting the curse before\n" +
+                        "the end of this journey requires a Purging Stone." },
             
             { 15000185, "Trade souls for motes" },
 
@@ -98,7 +125,7 @@ namespace RoguelikeSouls.Installation
             AddEventText();
             ChangeConversations();
             Mod.Text.NPCNames[1000] = "Da Boss";  // humorous backup in case EMEVD injection fails for whatever reason
-            Mod.Text.NPCNames[1001] = "Boss of Chaos";  // too hard to inject custom names into Bed of Chaos fight
+            Mod.Text.NPCNames[1001] = "Spawn of Chaos";  // too hard to inject custom names into Bed of Chaos fight
         }
 
         public void AddEventText()

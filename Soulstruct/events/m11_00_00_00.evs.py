@@ -69,7 +69,7 @@ def Constructor():
     RunEvent(11100100, slot=1, args=(1101181, 1103001))
     UndeadDragonWingFallsOff()
 
-    GetReward(0, 1100130, CommonItemLots.PiercingEyeLot)
+    GetReward(0, 1100130, CommonItemLots.PiercingEyeLot, CommonFlags.PiercingEyeObtained)
 
     for enemy in range(100):
         DespawnEnemy(enemy, 1100100 + enemy)
@@ -79,9 +79,7 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
-    InvaderTrigger(0, Chrs.Invader, Regions.InvaderSpawnPoint, Regions.InvaderTrigger,
-                   Flags.InvaderSummoned, Flags.InvaderDismissed, Flags.InvaderDead)
-    InvaderKilled(0, Chrs.Invader, Flags.InvaderDead)
+    InvaderTrigger(0, 6990, 6991, Chrs.Invader, Regions.InvaderTrigger, Flags.InvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -144,7 +142,7 @@ def UndeadDragonWingFallsOff():
     IfHasTAEEvent(0, 1100170, tae_event_id=400)
     SetDisplayMask(1100170, bit_index=0, switch_type=OnOffChange.On)
     SetDisplayMask(1100170, bit_index=1, switch_type=OnOffChange.On)
-    Move(1100172, destination=1100170, destination_type=CoordEntityType.Character, model_point=30, 
+    Move(1100172, destination=1100170, destination_type=CoordEntityType.Character, model_point=30,
          copy_draw_parent=1100170)
     EnableCharacter(1100172)
     ForceAnimation(1100172, 8100, wait_for_completion=True)
@@ -185,8 +183,8 @@ def Event11100030():
     End()
     EnableNavmeshType(1102040, NavmeshType.Solid)
     IfFlagOff(1, 11100700)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1101130, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=100, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1101130, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=100, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=1102090, destination_type=CoordEntityType.Region, model_point=-1, short_move=True)
     ForceAnimation(PLAYER, 7120)
@@ -198,10 +196,10 @@ def Event11100031():
     """ 11100031: Event 11100031 """
     DisableNetworkSync()
     IfFlagOff(1, 11100030)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1101130, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=101, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1101130, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=101, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010161, anchor_entity=1101130, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010161, anchor_entity=1101130, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -211,7 +209,7 @@ def Event11100120(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     EndIfThisEventSlotOn()
     IfObjectActivated(0, obj_act_id=arg_0_3)
     EndIfClient()
-    DisplayDialog(arg_4_7, anchor_entity=arg_8_11, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(arg_4_7, anchor_entity=arg_8_11, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
 
 
@@ -222,8 +220,8 @@ def TurnSewerWheel():
     EndOfAnimation(1101170, 1)
     DisableNavmeshType(1102041, NavmeshType.Solid)
     End()
-    IfDialogPromptActivated(0, prompt_text=10010503, anchor_entity=1101150, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=192, human_or_hollow_only=False)
+    IfActionButton(0, prompt_text=10010503, anchor_entity=1101150, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=192, trigger_attribute=TriggerAttribute.All)
     DisableObject(1101018)
     DisableObject(1101019)
     DisableObject(1101020)
@@ -243,10 +241,10 @@ def GiantDoorSealed():
     """ 11100136: Event 11100136 """
     DisableNetworkSync()
     IfFlagOff(1, 11100135)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1101170, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=100, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1101170, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=100, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010160, anchor_entity=1101170, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010160, anchor_entity=1101170, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -266,7 +264,7 @@ def OpenChest(_, arg_0_3: int, arg_4_7: int):
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -339,28 +337,27 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11105200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11102260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11102260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
@@ -383,9 +380,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -505,18 +502,21 @@ def ReplanMimicAIOnLoad(_, mimic: int):
     ReplanAI(mimic)
 
 
-def GetReward(_, enemy: int, item_lot: ItemLot):
+def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
     """ 11102270: Enemy awards a given item lot when killed. """
     if THIS_SLOT_FLAG:
         return
+    if item_lot_flag:
+        return
     Await(IsDead(enemy))
     AwardItemLot(item_lot)
+    EnableFlag(item_lot_flag)
 
 
 def ActivateExitDrop():
     """ 11102200: Exit Painted World after defeating the boss. Continues on to next level, as though you beat
     the level you entered the Painting in. """
-    Await(not Flags.Exit2Activated and Flags.Boss1Dead and DialogPromptActivated(
+    Await(not Flags.Exit2Activated and Flags.Boss1Dead and ActionButton(
         CommonTexts.DepartLevel, Regions.Exit2Prompt, anchor_type=CoordEntityType.Region))
     EnableFlag(Flags.Exit2Activated)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)

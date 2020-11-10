@@ -194,12 +194,12 @@ namespace SoulsFormats
             /// <summary>
             /// Controls when the part is visible.
             /// </summary>
-            public uint[] DrawGroups { get; private set; }
+            public uint[] DrawGroups { get; set; }
 
             /// <summary>
             /// Controls when the part is visible.
             /// </summary>
-            public uint[] DispGroups { get; private set; }
+            public uint[] DispGroups { get; set; }
 
             /// <summary>
             /// Identifies the part in external files.
@@ -583,7 +583,7 @@ namespace SoulsFormats
                 /// <summary>
                 /// Regions for the enemy to patrol.
                 /// </summary>
-                public string[] MovePointNames { get; private set; }
+                public string[] MovePointNames { get; set; }
                 private short[] MovePointIndices;
 
                 /// <summary>

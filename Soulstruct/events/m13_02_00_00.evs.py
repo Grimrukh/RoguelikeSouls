@@ -104,12 +104,9 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
-    InvaderTrigger(0, Chrs.HollowInvader, Regions.HollowInvaderSpawnPoint, Regions.HollowInvaderTrigger,
-                   Flags.HollowInvaderSummoned, Flags.HollowInvaderDismissed, Flags.HollowInvaderDead)
-    InvaderTrigger(1, Chrs.LakeInvader, Regions.LakeInvaderSpawnPoint, Regions.LakeInvaderTrigger,
-                   Flags.LakeInvaderSummoned, Flags.LakeInvaderDismissed, Flags.LakeInvaderDead)
-    InvaderKilled(0, Chrs.HollowInvader, Flags.HollowInvaderDead)
-    InvaderKilled(1, Chrs.LakeInvader, Flags.LakeInvaderDead)
+    InvaderTrigger(0, 6990, 6991, Chrs.HollowInvader, Regions.HollowInvaderTrigger, Flags.HollowInvaderDead)
+    InvaderTrigger(1, 6990, 6991, Chrs.LakeInvader, Regions.LakeInvaderTrigger, Flags.LakeInvaderDead)
+
     # Stone Dragon immortality.
     EnableImmortality(Chrs.StoneDragon)
 
@@ -186,7 +183,7 @@ def Event11325100():
 
 
 @UnknownRestart
-def Event11325110(_, arg_0_1: short, arg_2_3: short, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_16: uchar, 
+def Event11325110(_, arg_0_1: short, arg_2_3: short, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_16: uchar,
                   arg_17_17: uchar, arg_20_23: int):
     """ 11325110: Event 11325110 """
     SkipLinesIfThisEventSlotOff(4)
@@ -195,7 +192,7 @@ def Event11325110(_, arg_0_1: short, arg_2_3: short, arg_4_7: int, arg_8_11: int
     AddSpecialEffect(1320700, arg_20_23)
     End()
     IfCharacterBackreadEnabled(0, 1320700)
-    CreateNPCPart(1320700, npc_part_id=arg_2_3, part_index=arg_0_1, part_health=270, damage_correction=1.0, 
+    CreateNPCPart(1320700, npc_part_id=arg_2_3, part_index=arg_0_1, part_health=270, damage_correction=1.0,
                   body_damage_correction=1.0, is_invincible=False, start_in_stop_state=False)
     IfCharacterPartHealthLessThanOrEqual(1, 1320700, npc_part_id=arg_4_7, value=0)
     IfFlagOff(1, 11325120)
@@ -206,7 +203,7 @@ def Event11325110(_, arg_0_1: short, arg_2_3: short, arg_4_7: int, arg_8_11: int
     IfConditionTrue(0, input_condition=-1)
     EndIfFinishedConditionTrue(2)
     ResetAnimation(1320700, disable_interpolation=False)
-    Move(arg_8_11, destination=1320700, destination_type=CoordEntityType.Character, model_point=arg_12_15, 
+    Move(arg_8_11, destination=1320700, destination_type=CoordEntityType.Character, model_point=arg_12_15,
          copy_draw_parent=1320700)
     EnableCharacter(arg_8_11)
     ForceAnimation(arg_8_11, 8100)
@@ -355,28 +352,27 @@ def Event11320580():
     Restart()
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11325200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11322260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11322260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
@@ -385,7 +381,7 @@ def DepartLevelUnconditional(
     """ 11322200: Depart level by interacting with prompt. No conditions. """
     if not FlagEnabled(in_map_flag):
         return
-    Await(FlagDisabled(disabled_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -396,7 +392,7 @@ def DepartLevelUnconditional_Region(
     """ 11322210: Depart level by interacting with prompt. No conditions. """
     if not FlagEnabled(in_map_flag):
         return
-    Await(FlagDisabled(disabled_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and ActionButton(
         prompt_text, prompt_region, anchor_type=CoordEntityType.Region, max_distance=2.0))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -421,9 +417,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -570,7 +566,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

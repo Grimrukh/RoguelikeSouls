@@ -31,8 +31,8 @@ namespace RoguelikeSouls.Installation
             new Enemy("Stray Demon (Mob)",                      EnemyRarity.VeryRare, 2230, 223000, 223010, aiParamID: 223010, 2000, ChrSize.Giant,   Label.Demon, Label.Winged),
             new Enemy("Demon Firesage",                         EnemyRarity.Boss,     2231, 223100, 223100, aiParamID: 223100, 3000, ChrSize.Giant,   Label.Demon, Label.Fire, Label.Winged),
             new Enemy("Demon Firesage (Mob)",                   EnemyRarity.VeryRare, 2231, 223100, 223110, aiParamID: 223110, 2000, ChrSize.Giant,   Label.Demon, Label.Fire, Label.Winged),
-            // new Enemy("Asylum Demon",                           EnemyRarity.Boss,     2232, 223200, 223200, aiParamID: 223200, 3000, ChrSize.Giant,   Label.Demon, Label.Winged),  // TODO: AI is region-dependent.
-            // new Enemy("Asylum Demon (Mob)",                     EnemyRarity.VeryRare, 2232, 223200, 223210, aiParamID: 223210, 2000, ChrSize.Giant,   Label.Demon, Label.Winged),
+         // new Enemy("Asylum Demon",                           EnemyRarity.Boss,     2232, 223200, 223200, aiParamID: 223200, 3000, ChrSize.Giant,   Label.Demon, Label.Winged),  // TODO: AI is region-dependent.
+         // new Enemy("Asylum Demon (Mob)",                     EnemyRarity.VeryRare, 2232, 223200, 223210, aiParamID: 223210, 2000, ChrSize.Giant,   Label.Demon, Label.Winged),
             new Enemy("Capra Demon",                            EnemyRarity.Boss,     2240, 224000, 224000, aiParamID: 224000, 3000, ChrSize.Normal,  Label.Demon),
             new Enemy("Capra Demon (Mob)",                      EnemyRarity.Rare,     2240, 224000, 224010, aiParamID: 224000, 2000, ChrSize.Normal,  Label.Demon),  // only rare
             new Enemy("Taurus Demon",                           EnemyRarity.Boss,     2250, 225000, 225000, aiParamID: 225000, 3000, ChrSize.Normal,  Label.Demon),
@@ -40,7 +40,7 @@ namespace RoguelikeSouls.Installation
             new Enemy("Batwing Demon",                          EnemyRarity.Uncommon, 2260, 226000, 226000, aiParamID: 226000, 200,  ChrSize.Normal,  Label.Demon, Label.Winged),
             new Enemy("Mushroom Parent",                        EnemyRarity.Uncommon, 2270, 227000, 227000, aiParamID: 227000, 300,  ChrSize.Normal,  Label.Plant),
             new Enemy("Mushroom Child",                         EnemyRarity.Common,   2280, 228000, 228000, aiParamID: 228000, 50,   ChrSize.Small,   Label.Plant),
-            // new Enemy("Titanite Demon",                         EnemyRarity.Rare,     2300, 230000, 230000, aiParamID: 230000, ChrSize.Normal,  Label.Stone, Label.Lightning),  // TODO: Need a general AI script...
+         // new Enemy("Titanite Demon",                         EnemyRarity.Rare,     2300, 230000, 230000, aiParamID: 230000, 3000, ChrSize.Normal,  Label.Stone, Label.Lightning),  // TODO: Need a general AI script...
             new Enemy("Crow Demon",                             EnemyRarity.Uncommon, 2310, 231000, 231000, aiParamID: 231000, 400,  ChrSize.Normal,  Label.Sapient, Label.Winged),
             new Enemy("Iron Golem",                             EnemyRarity.Boss,     2320, 232000, 232000, aiParamID: 232000, 3000, ChrSize.Giant,   Label.Stone, Label.Metal),
             new Enemy("Iron Golem (Mob)",                       EnemyRarity.VeryRare, 2320, 232000, 232010, aiParamID: 232010, 2000, ChrSize.Giant,   Label.Stone, Label.Metal),
@@ -76,15 +76,15 @@ namespace RoguelikeSouls.Installation
             new Enemy("Berenike Knight (Mace)",                 EnemyRarity.Uncommon, 2570, 257001, 257010, aiParamID: 257001, 300,  ChrSize.Normal,  Label.Sapient, Label.Hollow, Label.Metal),
             new Enemy("Necromancer",                            EnemyRarity.Uncommon, 2650, 265000, 265000, aiParamID: 265000, 300,  ChrSize.Normal,  Label.Sapient, Label.Hollow, Label.Fire),
             new Enemy("Butcher",                                EnemyRarity.Uncommon, 2660, 266000, 266000, aiParamID: 266000, 300,  ChrSize.Normal,  Label.Sapient, Label.Hollow),
-            // new Enemy("Ghost (Male)",                           EnemyRarity.Common,   2670, 267000, 267000, aiParamID: 267000, ChrSize.Normal,  Label.Ghost),  // AI broken
-            // new Enemy("Ghost (Female)",                         EnemyRarity.Uncommon, 2680, 268000, 268000, aiParamID: 268000, ChrSize.Normal,  Label.Ghost, Label.Magic),  // AI broken
+         // new Enemy("Ghost (Male)",                           EnemyRarity.Common,   2670, 267000, 267000, aiParamID: 267000, 100,  ChrSize.Normal,  Label.Ghost),  // AI broken
+         // new Enemy("Ghost (Female)",                         EnemyRarity.Uncommon, 2680, 268000, 268000, aiParamID: 268000, 300,  ChrSize.Normal,  Label.Ghost, Label.Magic),  // AI broken
             new Enemy("Serpent Soldier",                        EnemyRarity.Common,   2690, 269000, 269000, aiParamID: 269000, 200,  ChrSize.Normal,  Label.Serpent, Label.Metal),
             new Enemy("Serpent Mage",                           EnemyRarity.Uncommon, 2700, 270000, 270000, aiParamID: 270000, 200,  ChrSize.Normal,  Label.Serpent, Label.Lightning),
             new Enemy("Crystal Golem",                          EnemyRarity.Common,   2710, 271000, 271000, aiParamID: 271000, 200,  ChrSize.Normal,  Label.Stone, Label.Crystal),
             new Enemy("Golden Crystal Golem",                   EnemyRarity.VeryRare, 2711, 271100, 271100, aiParamID: 271100, 5000, ChrSize.Normal,  Label.Stone, Label.Crystal),
             new Enemy("Crossbreed Priscilla",                   EnemyRarity.Boss,     2730, 273000, 273000, aiParamID: 273000, 3000, ChrSize.Giant,   Label.Sapient, Label.Snow, Label.Stealth),
             new Enemy("Crossbreed Priscilla (Mob)",             EnemyRarity.VeryRare, 2730, 273000, 273010, aiParamID: 273000, 2000, ChrSize.Giant,   Label.Sapient, Label.Snow, Label.Stealth),
-            // new Enemy("Crossbreed Priscilla (Tail)",            EnemyRarity.Boss,     2731, 273100, 273100, aiParamID: 273100, ChrSize.Giant,   Label.Part),
+         // new Enemy("Crossbreed Priscilla (Tail)",            EnemyRarity.Boss,     2731, 273100, 273100, aiParamID: 273100, 0,    ChrSize.Giant,   Label.Part),
             new Enemy("Mimic",                                  EnemyRarity.Rare,     2780, 278000, 278000, aiParamID: 278000, 1000, ChrSize.Normal,  Label.Mimic),
             new Enemy("Black Knight (Sword)",                   EnemyRarity.Rare,     2790, 279050, 279000, aiParamID: 279000, 1000, ChrSize.Normal,  Label.Sapient, Label.Metal),
             new Enemy("Black Knight (Greatsword)",              EnemyRarity.Rare,     2790, 279051, 279010, aiParamID: 279001, 1000, ChrSize.Normal,  Label.Sapient, Label.Metal),
@@ -94,11 +94,11 @@ namespace RoguelikeSouls.Installation
             new Enemy("Hollow Crystal Soldier (Bow)",           EnemyRarity.Uncommon, 2800, 280001, 280010, aiParamID: 280001, 200,  ChrSize.Normal,  Label.Sapient, Label.Hollow, Label.Crystal, Label.Archer),
             new Enemy("Infested Barbarian (Club)",              EnemyRarity.Uncommon, 2810, 281000, 281000, aiParamID: 281000, 300,  ChrSize.Normal,  Label.Sapient, Label.Infested),
             new Enemy("Infested Barbarian (Boulder)",           EnemyRarity.Uncommon, 2811, 281100, 281100, aiParamID: 281100, 350,  ChrSize.Normal,  Label.Sapient, Label.Infested),
-            // new Enemy("Spider Hollow",                          EnemyRarity.Common,   2820, 282000, 282000, aiParamID: 282000, ChrSize.Normal,  Label.Hollow, Label.Demon),
+         // new Enemy("Spider Hollow",                          EnemyRarity.Common,   2820, 282000, 282000, aiParamID: 282000, 120,  ChrSize.Normal,  Label.Hollow, Label.Demon),
             new Enemy("Phalanx",                                EnemyRarity.Uncommon, 2830, 283010, 283000, aiParamID: 283010, 150,  ChrSize.Normal,  Label.Hollow, Label.Slime),
             new Enemy("Engorged Hollow (Torch)",                EnemyRarity.Common,   2840, 284000, 284000, aiParamID: 284000, 100,  ChrSize.Normal,  Label.Sapient, Label.Hollow, Label.Infested),
             new Enemy("Engorged Hollow (Pyromancy)",            EnemyRarity.Uncommon, 2840, 284001, 284010, aiParamID: 284001, 120,  ChrSize.Normal,  Label.Sapient, Label.Hollow, Label.Infested, Label.Fire),
-            // new Enemy("Giant",                                  EnemyRarity.Rare,     2860, 286000, 286000, aiParamID: 286000, ChrSize.Giant,   Label.Giant, Label.Metal),  // TODO: needs general AI
+         // new Enemy("Giant",                                  EnemyRarity.Rare,     2860, 286000, 286000, aiParamID: 286000, 1000, ChrSize.Giant,   Label.Giant, Label.Metal),  // TODO: needs general AI
             new Enemy("Sentinel",                               EnemyRarity.Uncommon, 2870, 287010, 287010, aiParamID: 287010, 300,  ChrSize.Giant,   Label.Giant, Label.Metal),
             new Enemy("Sentinel (Royal)",                       EnemyRarity.Rare,     2870, 287000, 287000, aiParamID: 287000, 800,  ChrSize.Giant,   Label.Giant, Label.Metal, Label.Divine),
             new Enemy("Skeleton (Scimitar)",                    EnemyRarity.Common,   2900, 290000, 290000, aiParamID: 290000, 100,  ChrSize.Normal,  Label.Skeleton),
@@ -119,7 +119,7 @@ namespace RoguelikeSouls.Installation
             new Enemy("Basilisk",                               EnemyRarity.Common,   3270, 327000, 327000, aiParamID: 327000, 100,  ChrSize.Normal,  Label.Bug),
             new Enemy("Crystal Lizard",                         EnemyRarity.Rare,     3300, 330000, 330000, aiParamID: 330000, 1000, ChrSize.Small,   Label.Bug, Label.Crystal),
             new Enemy("Pinwheel",                               EnemyRarity.Rare,     3320, 332002, 332020, aiParamID: 332002, 800,  ChrSize.Normal,  Label.Fire, Label.Magic),
-            // new Enemy("Pisaca",                                 EnemyRarity.Common,   3330, 333000, 333000, aiParamID: 333000, ChrSize.Normal,  Label.Bug, Label.Crystal),  // TODO: needs general AI
+         // new Enemy("Pisaca",                                 EnemyRarity.Common,   3330, 333000, 333000, aiParamID: 333000, 400,  ChrSize.Normal,  Label.Bug, Label.Crystal),  // TODO: needs general AI
             new Enemy("Attack Dog",                             EnemyRarity.Common,   3340, 334000, 334000, aiParamID: 334000, 100,  ChrSize.Small,   Label.Animal),
             new Enemy("Flaming Attack Dog",                     EnemyRarity.Uncommon, 3341, 334100, 334100, aiParamID: 334100, 150,  ChrSize.Small,   Label.Animal, Label.Fire),
             new Enemy("Possessed Tree",                         EnemyRarity.VeryRare, 3350, 335000, 335000, aiParamID: 335000, 1000, ChrSize.Giant,   Label.Plant),
@@ -130,7 +130,7 @@ namespace RoguelikeSouls.Installation
             new Enemy("Frog-Ray",                               EnemyRarity.Common,   3410, 341000, 341000, aiParamID: 341000, 100,  ChrSize.Small,   Label.Bug, Label.Aquatic),
             new Enemy("Bounding Demon",                         EnemyRarity.VeryRare, 3421, 342100, 342100, aiParamID: 342100, 2000, ChrSize.Giant,   Label.Dragon, Label.Demon),
             new Enemy("Armored Tusk",                           EnemyRarity.Rare,     3460, 346000, 346000, aiParamID: 346100, 800,  ChrSize.Normal,  Label.Animal, Label.Metal),  // both use my modified DoA AI
-            // new Enemy("Armored Tusk (No Backstab)",             EnemyRarity.Rare,     3461, 346100, 346100, aiParamID: 346100, 1500, ChrSize.Normal,  Label.Animal, Label.Metal),  // too annoying
+         // new Enemy("Armored Tusk (No Backstab)",             EnemyRarity.Rare,     3461, 346100, 346100, aiParamID: 346100, 1500, ChrSize.Normal,  Label.Animal, Label.Metal),  // too annoying
             new Enemy("Sanctuary Guardian",                     EnemyRarity.Boss,     3471, 347100, 347100, aiParamID: 347100, 4000, ChrSize.Giant,   Label.Animal, Label.Aquatic, Label.Lightning),
             new Enemy("Sanctuary Guardian (Mob)",               EnemyRarity.VeryRare, 3471, 347100, 347110, aiParamID: 347101, 2500, ChrSize.Giant,   Label.Animal, Label.Aquatic, Label.Lightning),
             new Enemy("Chaos Bug",                              EnemyRarity.Uncommon, 3480, 348000, 348000, aiParamID: 348000, 200,  ChrSize.Small,   Label.Bug, Label.Demon),
@@ -138,11 +138,11 @@ namespace RoguelikeSouls.Installation
             new Enemy("Good Vagrant",                           EnemyRarity.Rare,     3490, 349000, 349000, aiParamID: 349000, 500,  ChrSize.Small,   Label.Vagrant),
             new Enemy("Evil Vagrant",                           EnemyRarity.Rare,     3491, 349100, 349100, aiParamID: 349100, 500,  ChrSize.Small,   Label.Vagrant),
             new Enemy("Mass of Souls",                          EnemyRarity.Rare,     3500, 350000, 350000, aiParamID: 350000, 1000, ChrSize.Giant,   Label.Slime),
-            // new Enemy("Wisp",                                   EnemyRarity.Uncommon, 3501, 350100, 350100, aiParamID: 350100, ChrSize.Small,   Label.Slime, Label.Magic),  // explodes forever without EMEVD
+         // new Enemy("Wisp",                                   EnemyRarity.Uncommon, 3501, 350100, 350100, aiParamID: 350100, 0,    ChrSize.Small,   Label.Slime, Label.Magic),  // explodes forever without EMEVD
             new Enemy("Drake (Ground)",                         EnemyRarity.Uncommon, 3520, 352002, 352020, aiParamID: 352002, 500,  ChrSize.Normal,  Label.Dragon, Label.Winged, Label.Lightning),
             new Enemy("Artorias",                               EnemyRarity.Boss,     4100, 410000, 410000, aiParamID: 410000, 5000, ChrSize.Normal,  Label.Sapient, Label.Abyssal),
             new Enemy("Artorias (Mob)",                         EnemyRarity.VeryRare, 4100, 410000, 410010, aiParamID: 410010, 3000, ChrSize.Normal,  Label.Sapient, Label.Abyssal),
-            // new Enemy("Hawkeye Gough",                          EnemyRarity.Rare,     4110, 411000, 411000, aiParamID: 411000, ChrSize.Giant,   Label.Giant, Label.Metal),
+         // new Enemy("Hawkeye Gough",                          EnemyRarity.Rare,     4110, 411000, 411000, aiParamID: 411000, 4000, ChrSize.Giant,   Label.Giant, Label.Metal),
             new Enemy("Stone Guardian",                         EnemyRarity.Uncommon, 4120, 412000, 412000, aiParamID: 412000, 400,  ChrSize.Normal,  Label.Giant, Label.Stone),
             new Enemy("Scarecrow",                              EnemyRarity.Common,   4130, 413000, 413000, aiParamID: 413000, 100,  ChrSize.Normal,  Label.Plant),
             new Enemy("Bloathead",                              EnemyRarity.Common,   4150, 415000, 415000, aiParamID: 415000, 150,  ChrSize.Normal,  Label.Sapient, Label.Abyssal),
@@ -156,17 +156,17 @@ namespace RoguelikeSouls.Installation
             new Enemy("Manus (Mob)",                            EnemyRarity.VeryRare, 4500, 450000, 450010, aiParamID: 450000, 3000, ChrSize.Giant,   Label.Abyssal),
             new Enemy("Black Dragon Kalameet",                  EnemyRarity.Boss,     4510, 451000, 451000, aiParamID: 451000, 6000, ChrSize.Titanic, Label.Dragon, Label.Fire),
             new Enemy("Black Dragon Kalameet (Mob)",            EnemyRarity.VeryRare, 4510, 451000, 451010, aiParamID: 451010, 5000, ChrSize.Titanic, Label.Dragon, Label.Fire),
-            // new Enemy("Black Dragon Kalameet (Tail)",           EnemyRarity.Boss,     4511, 451100, 451100, aiParamID: 451100, ChrSize.Titanic, Label.Part),
+         // new Enemy("Black Dragon Kalameet (Tail)",           EnemyRarity.Boss,     4511, 451100, 451100, aiParamID: 451100, 0,    ChrSize.Titanic, Label.Part),
             new Enemy("Centipede Demon",                        EnemyRarity.Boss,     5200, 520000, 520000, aiParamID: 520000, 4000, ChrSize.Titanic, Label.Bug, Label.Demon, Label.Fire),
             new Enemy("Centipede Demon (Mob)",                  EnemyRarity.VeryRare, 5200, 520000, 520010, aiParamID: 520010, 2500, ChrSize.Titanic, Label.Bug, Label.Demon, Label.Fire),
-            // new Enemy("Centipede Demon (Arm)",                  EnemyRarity.Boss,     5201, 520100, 520100, aiParamID: 520100, ChrSize.Titanic, Label.Part),
-            // new Enemy("Centipede Demon (Tail)",                 EnemyRarity.Boss,     5202, 520200, 520200, aiParamID: 520200, ChrSize.Titanic, Label.Part),
+         // new Enemy("Centipede Demon (Arm)",                  EnemyRarity.Boss,     5201, 520100, 520100, aiParamID: 520100, 0,    ChrSize.Titanic, Label.Part),
+         // new Enemy("Centipede Demon (Tail)",                 EnemyRarity.Boss,     5202, 520200, 520200, aiParamID: 520200, 0,    ChrSize.Titanic, Label.Part),
             new Enemy("Sif",                                    EnemyRarity.Boss,     5210, 521000, 521000, aiParamID: 521000, 4000, ChrSize.Titanic, Label.Animal, Label.Abyssal),  // abyssal here; and no mob version
             new Enemy("Gravelord Nito",                         EnemyRarity.Boss,     5220, 522000, 522000, aiParamID: 522000, 5000, ChrSize.Giant,   Label.Skeleton, Label.Magic),
             new Enemy("Gravelord Nito (Mob)",                   EnemyRarity.VeryRare, 5220, 522000, 522010, aiParamID: 522010, 3000, ChrSize.Giant,   Label.Skeleton, Label.Magic),
             new Enemy("Gaping Dragon",                          EnemyRarity.Boss,     5260, 526000, 526000, aiParamID: 526000, 5000, ChrSize.Titanic, Label.Dragon, Label.Infested),
             new Enemy("Gaping Dragon (Mob)",                    EnemyRarity.VeryRare, 5260, 526000, 526010, aiParamID: 526010, 3000, ChrSize.Titanic, Label.Dragon, Label.Infested),
-            // new Enemy("Gaping Dragon (Tail)",                   EnemyRarity.Boss,     5261, 526100, 526100, aiParamID: 526100, ChrSize.Titanic, Label.Part),
+         // new Enemy("Gaping Dragon (Tail)",                   EnemyRarity.Boss,     5261, 526100, 526100, aiParamID: 526100, 0,    ChrSize.Titanic, Label.Part),
             new Enemy("Ornstein",                               EnemyRarity.Boss,     5270, 527000, 527000, aiParamID: 527000, 4000, ChrSize.Normal,  Label.Sapient, Label.Metal, Label.Lightning),
             new Enemy("Ornstein (Mob)",                         EnemyRarity.VeryRare, 5270, 527000, 527010, aiParamID: 527010, 2500, ChrSize.Normal,  Label.Sapient, Label.Metal, Label.Lightning),
             new Enemy("Giant Ornstein",                         EnemyRarity.Boss,     5271, 527100, 527100, aiParamID: 527100, 4000, ChrSize.Giant,   Label.Giant, Label.Metal, Label.Lightning),
@@ -176,11 +176,11 @@ namespace RoguelikeSouls.Installation
             new Enemy("Seath the Scaleless",                    EnemyRarity.Boss,     5290, 529000, 529000, aiParamID: 529000, 5000, ChrSize.Giant,   Label.Dragon, Label.Crystal),
             new Enemy("Seath the Scaleless (Mob)",              EnemyRarity.VeryRare, 5290, 529000, 529010, aiParamID: 529010, 3000, ChrSize.Giant,   Label.Dragon, Label.Crystal),
             new Enemy("Bell Gargoyle",                          EnemyRarity.Boss,     5350, 535000, 535000, aiParamID: 535000, 3000, ChrSize.Giant,   Label.Stone, Label.Winged, Label.Fire),
-            new Enemy("Bell Gargoyle (Mob)",                    EnemyRarity.Rare,     5350, 535000, 535010, aiParamID: 535010, 2000, ChrSize.Giant,   Label.Stone, Label.Winged, Label.Fire),  // only rare, not very rare
+            new Enemy("Bell Gargoyle (Mob)",                    EnemyRarity.VeryRare, 5350, 535000, 535010, aiParamID: 535010, 2000, ChrSize.Giant,   Label.Stone, Label.Winged, Label.Fire),  // only rare, not very rare
             new Enemy("Lightning Gargoyle",                     EnemyRarity.Boss,     5351, 535100, 535100, aiParamID: 535100, 3000, ChrSize.Giant,   Label.Stone, Label.Winged, Label.Lightning),
             new Enemy("Lightning Gargoyle (Mob)",               EnemyRarity.VeryRare, 5351, 535100, 535110, aiParamID: 535110, 2000, ChrSize.Giant,   Label.Stone, Label.Winged, Label.Lightning),  // only rare, not very rare
-            // new Enemy("Bell Gargoyle (Tail)",                   EnemyRarity.Boss,     5352, 535200, 535200, aiParamID: 535200, ChrSize.Giant,   Label.Part),
-            // new Enemy("Lightning Gargoyle (Tail)",              EnemyRarity.Boss,     5353, 535300, 535300, aiParamID: 535300, ChrSize.Giant,   Label.Part),
+         // new Enemy("Bell Gargoyle (Tail)",                   EnemyRarity.Boss,     5352, 535200, 535200, aiParamID: 535200, 0,    ChrSize.Giant,   Label.Part),
+         // new Enemy("Lightning Gargoyle (Tail)",              EnemyRarity.Boss,     5353, 535300, 535300, aiParamID: 535300, 0,    ChrSize.Giant,   Label.Part),
             new Enemy("Great Feline",                           EnemyRarity.Rare,     5360, 536000, 536000, aiParamID: 536000, 1000, ChrSize.Normal,  Label.Animal),
             new Enemy("Gwyn",                                   EnemyRarity.Boss,     5370, 537000, 537000, aiParamID: 537000, 5000, ChrSize.Normal,  Label.Sapient, Label.Fire),
             new Enemy("Gwyn (Mob)",                             EnemyRarity.VeryRare, 5370, 537000, 537010, aiParamID: 537010, 4000, ChrSize.Normal,  Label.Sapient),
@@ -190,6 +190,8 @@ namespace RoguelikeSouls.Installation
 
         public static Dictionary<int, FFXDict> EnemyFFXSources = new Dictionary<int, FFXDict>()
         {
+        { 0, new FFXDict() { } },
+        { 500, new FFXDict() { } },  // Handles glitched "o0500" DummyCharacter in m16_00_00_00.
         { 1000, new FFXDict() { } },
         { 1200, new FFXDict() { } },
         { 1201, new FFXDict() { } },
@@ -1022,13 +1024,13 @@ namespace RoguelikeSouls.Installation
             new Boss("Demon Firesage",                  0,  2,  2230, ArenaSize.Medium, false),
             // new Boss("Asylum Demon",                    0,  1,  2232, ArenaSize.Medium, false),
             new Boss("Capra Demon",                     1,  3,  2240, ArenaSize.Small,  false),
-            new Boss("Taurus Demon",                    2,  3,  2250, ArenaSize.Small, false),
+            new Boss("Taurus Demon",                    2,  3,  2250, ArenaSize.Small,  false),
             new Boss("Iron Golem",                      3,  2,  2320, ArenaSize.Medium, false),
             new Boss("Executioner Smough",              4,  3,  2360, ArenaSize.Large,  false),
             new Boss("Executioner Smough (Lightning)",  4,  3,  2361, ArenaSize.Large,  false),
             new Boss("Crossbreed Priscilla",            5,  1,  2730, ArenaSize.Medium, false),
             new Boss("Sanctuary Guardian",              6,  4,  3471, ArenaSize.Large,  false),
-            new Boss("Artorias",                        7,  4,  4100, ArenaSize.Small, false),
+            new Boss("Artorias",                        7,  4,  4100, ArenaSize.Small,  false),
             new Boss("Manus",                           8,  5,  4500, ArenaSize.Large,  false),
             new Boss("Black Dragon Kalameet",           9,  5,  4510, ArenaSize.Giant,  false),
             new Boss("Centipede Demon",                 10, 5,  5200, ArenaSize.Large,  false),
@@ -1066,6 +1068,8 @@ namespace RoguelikeSouls.Installation
 
             foreach (Enemy enemy in EnemyList)
                 CreateEnemy(enemy);
+
+            ModifyNewEnemies();
         }
 
         void CreateEnemy(Enemy enemy)
@@ -1087,6 +1091,7 @@ namespace RoguelikeSouls.Installation
             enemyNPC.ItemLotID5 = -1;
             enemyNPC.ItemLotID6 = -1;
 
+            enemyNPC.DrawType = 0;  // normal
             enemyNPC.IsWeakToDivine = enemy.HasLabel(Label.Skeleton);
             enemyNPC.IsWeakToOccult = enemy.HasLabel(Label.Dragon);
             enemyNPC.IsDemon = enemy.HasLabel(Label.Demon);
@@ -1096,7 +1101,7 @@ namespace RoguelikeSouls.Installation
 
             Mod.GPARAM.AI[enemy.AIParamID].Name = enemy.Name;  // Set AI param name.
 
-            CreateLevelVariants(enemy.NPCParamID);  // Create 10 level variants.
+            CreateLevelVariants(enemy.NPCParamID, enemy.Name);  // Create 10 level variants.
             CreateRedPhantomVariants(enemy.NPCParamID, enemy.Rarity == EnemyRarity.Boss);  // Create Red Phantom variants (+50).
 
             RandomizeItemLots(enemy);
@@ -1148,22 +1153,49 @@ namespace RoguelikeSouls.Installation
             Mod.GPARAM.NPCs[286000].SpecialEffectID4 = 7004;
             Mod.GPARAM.NPCs[286000].NewGamePlusSpecialEffect = 7404;
 
-            // TODO: Consider de-levelling Undead Dragon in Valley of Drakes (and eventually Painted World).
+            // De-level Undead Dragon in Valley of Drakes from 7011 to 7007.
+            Mod.GPARAM.NPCs[342002].SpecialEffectID4 = 7007;
+            Mod.GPARAM.NPCs[342002].NewGamePlusSpecialEffect = 7407;
+            Mod.GPARAM.NPCs[342002].SpecialEffectID4 = 7007;
+            Mod.GPARAM.NPCs[342002].NewGamePlusSpecialEffect = 7407;
+
+            // De-level Undead Dragon in Painted World from 7014 to 7010.
+            Mod.GPARAM.NPCs[342000].SpecialEffectID4 = 7010;
+            Mod.GPARAM.NPCs[342000].NewGamePlusSpecialEffect = 7410;
+            Mod.GPARAM.NPCs[342000].SpecialEffectID4 = 7010;
+            Mod.GPARAM.NPCs[342000].NewGamePlusSpecialEffect = 7410;
 
             // De-level Bed of Chaos from 7014 to 7007.
             Mod.GPARAM.NPCs[523000].SpecialEffectID4 = 7007;
             Mod.GPARAM.NPCs[523000].NewGamePlusSpecialEffect = 7407;
             Mod.GPARAM.NPCs[540000].SpecialEffectID4 = 7007;
             Mod.GPARAM.NPCs[540000].NewGamePlusSpecialEffect = 7407;
+
+            // Give Moonlight Butterfly boss a soul reward.
+            Mod.GPARAM.NPCs[323000].SoulReward = 3000;            
+        }
+
+        void ModifyNewEnemies()
+        {
+            int drakeBaseID = GetEnemy("Drake (Ground)").NPCParamID;
+            // Reduce physical defense of Drakes by 30%.
+            for (int drakeLevel = 0; drakeLevel < 10; drakeLevel++)
+            {
+                int drakeID = drakeBaseID + drakeLevel;
+                int drakePhantomID = drakeID + 50;
+                Mod.GPARAM.NPCs[drakeID].PhysicalDefense = (ushort)(0.7 * Mod.GPARAM.NPCs[drakeID].PhysicalDefense);
+                Mod.GPARAM.NPCs[drakePhantomID].PhysicalDefense = (ushort)(0.7 * Mod.GPARAM.NPCs[drakePhantomID].PhysicalDefense);
+            }
         }
 
         void AdjustNewGamePlusBuffs()
         {
-            // Currently, all NG+ buffs are identical (blanket mild increase).
+            // Currently, all NG+ buffs are identical (blanket mild increase)
+            // except for HP, which goes up less.
             for (int i = 1; i <= 15; i++)
             {
                 SpEffect buff = Mod.GPARAM.SpEffects[7400 + i];
-                buff.MaxHPMultiplier = 1.2f;
+                buff.MaxHPMultiplier = 1.1f;
                 buff.MaxMPMultiplier = 1.2f;
                 buff.MaxStaminaMultiplier = 1.2f;
                 buff.PhysicalAttackPowerMultiplier = 1.2f;
@@ -1193,7 +1225,7 @@ namespace RoguelikeSouls.Installation
             newAI.SmellDistance = 0;
         }
 
-        void CreateLevelVariants(int baseNPCParamID)
+        void CreateLevelVariants(int baseNPCParamID, string name)
         {
             // Level variants all have the same drop table.
             NPC baseParam = Mod.GPARAM.NPCs[baseNPCParamID];
@@ -1202,7 +1234,7 @@ namespace RoguelikeSouls.Installation
             for (int level = 1; level < 10; level++)
             {
                 NPC levelParam = Mod.GPARAM.NPCs.CopyRow(baseParam, baseNPCParamID + level);
-                levelParam.Name = baseParam.Name + $" ({level + 1})";
+                levelParam.Name = $"{name} ({level + 1})";
                 levelParam.SpecialEffectID4 = 7000 + level + 1;
                 levelParam.NewGamePlusSpecialEffect = 7400 + level + 1;
             }
@@ -1217,10 +1249,10 @@ namespace RoguelikeSouls.Installation
             for (int offset = 0; offset < 10; offset++)
             {
                 NPC baseParam = Mod.GPARAM.NPCs[baseNPCParamID + offset];
-                baseParam.DrawType = 0;
                 NPC redPhantomParam = Mod.GPARAM.NPCs.CopyRow(baseParam, baseNPCParamID + offset + 50);
-                redPhantomParam.Name = baseParam.Name + $" (RED)";
+                redPhantomParam.Name = baseParam.Name + $" (BP)";
                 redPhantomParam.DrawType = 2;
+                redPhantomParam.SoulReward *= 2;
                 redPhantomParam.SpecialEffectID4 += isBoss ? 3 : 2;
                 if (redPhantomParam.SpecialEffectID4 > 7015)
                     redPhantomParam.SpecialEffectID4 = 7015;
@@ -1443,38 +1475,38 @@ namespace RoguelikeSouls.Installation
             List<uint> counts = new List<uint>();
             List<uint> chancePoints = new List<uint>();
             List<(ItemLotCategory, int)> usedItems = new List<(ItemLotCategory, int)>();
-            foreach (var (treasureType, chance) in itemLots)
+            foreach (var (rewardType, chance) in itemLots)
             {
                 ItemLotCategory category;
                 int itemID;
                 int count;
-                if (treasureType == TreasureType.None)  // Empty slot.
+                if (rewardType == TreasureType.None)  // Empty slot.
                 {
                     category = ItemLotCategory.None;
                     itemID = 0;
                     count = 0;
                 }
-                else if (treasureType.In(TreasureType.BasicWeapon, TreasureType.LegendaryWeapon, TreasureType.AbyssalWeapon))
+                else if (rewardType.In(TreasureType.BasicWeapon, TreasureType.LegendaryWeapon, TreasureType.AbyssalWeapon))
                 {
                     category = ItemLotCategory.Weapon;
                     do
                     {
-                        itemID = GetRandomWeaponID(treasureType);
+                        itemID = GetRandomWeaponID(rewardType);
                     } while (usedItems.Contains((category, itemID)));
                     count = 1;
                 }
-                else if (treasureType.In(TreasureType.BasicArmor, TreasureType.LegendaryArmor, TreasureType.AbyssalArmor))
+                else if (rewardType.In(TreasureType.BasicArmor, TreasureType.LegendaryArmor, TreasureType.AbyssalArmor))
                 {
                     {
                         category = ItemLotCategory.Armor;
                         do
                         {
-                            itemID = GetRandomArmorID(treasureType);
+                            itemID = GetRandomArmorID(rewardType);
                         } while (usedItems.Contains((category, itemID)));
                     }
                     count = 1;
                 }
-                else if (treasureType == TreasureType.Ember)
+                else if (rewardType == TreasureType.Ember)
                 {
                     category = ItemLotCategory.Good;
                     itemID = 1000 + 10 * Rand.Next(9);  // Random ember from 1000 to 1080.
@@ -1482,24 +1514,24 @@ namespace RoguelikeSouls.Installation
                 }
                 else  // Common / Uncommon / Rare / VeryRare. Get a match to any label.
                 {
-                    if (treasureType == TreasureType.RareItem && Roll(0.1))
+                    if (rewardType == TreasureType.RareItem && Roll(0.1))
                     {
                         // 10% chance of a Mote for rare lots, regardless of labels.
                         category = ItemLotCategory.Good;
-                        itemID = Rand.Next(650, 659);
+                        itemID = Rand.Next(650, 658);
                         count = 1;
                     }
-                    else if (treasureType == TreasureType.VeryRareItem && Roll(0.1))
+                    else if (rewardType == TreasureType.VeryRareItem && Roll(0.1))
                     {
                         // 10% chance of a Tome for very rare lots, regardless of labels.
                         category = ItemLotCategory.Good;
-                        itemID = Rand.Next(660, 669);
+                        itemID = Rand.Next(660, 668);
                         count = 1;
                     }
                     else
                     {
                         // 
-                        Treasure chosen = Treasures.GetRandomReward(treasureType, enemy.Labels, usedItems, Rand);
+                        Treasure chosen = Treasures.GetRandomReward(rewardType, enemy.Labels, usedItems, Rand);
                         if (chosen != null)
                         {
                             category = chosen.Category;
@@ -1623,10 +1655,15 @@ namespace RoguelikeSouls.Installation
             }
             if (!weightDict.Any())
             {
-                // Ignore labels, if necessary (except exclude Vagrants).
-                return new List<Enemy>(EnemyList.Where(e => e.Rarity == rarity && !e.Labels.Contains(Label.Vagrant))).GetRandomElement(random);
-                // string labelString = string.Join(", ", labels);
-                // throw new ArgumentException($"Could not find any enemies with rarity {rarity} and labels: [{labelString}].");
+                // Ignore labels, if necessary (certain labels are always excluded).
+                List<Enemy> nonVagrants = new List<Enemy>(EnemyList.Where(
+                    e => e.Rarity == rarity
+                    && !e.Labels.Contains(Label.Vagrant)
+                    && !e.Labels.Contains(Label.Ghost)
+                    && !e.Labels.Contains(Label.Part)
+                    && !e.Labels.Contains(Label.Mimic)
+                ));
+                return nonVagrants.GetRandomElement(random);
             }
             return weightDict.GetWeightedRandomElement(random);
         }

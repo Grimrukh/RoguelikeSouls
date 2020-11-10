@@ -29,53 +29,76 @@ namespace RoguelikeSouls
             "Patches was trying to steal my favorite greatsword, but I wasn't having any of it. Zwei hander over now when we've been through so much?",
         };
 
-        static string helpText = "\n|----------------------------|\n|----------COMMANDS----------|\n|----------------------------|\n" +
-                "\n" +
-                "\ninstall {seed} " +
-                "\n" +
-                "\n    Runs the INSTALLER for Roguelike Souls, which will randomize the game " +
-                "\n    parameters. You should run this ONCE before playing the game, then " +
-                "\n    re-run it whenever you want a fresh set of equipment, spells, enemy " +
-                "\n    animation speeds, and 'lore'." +
-                "\n" +
-                "\n    The \"seed\" argument is option, and will run the INSTALLER with a " +
-                "\n    specific seed string. Seed strings can contain spaces, except at the " +
-                "\n    start/end of the string where they will be ignored." +
-                "\n" +
-                "\ninstall-noanim {seed} " +
-                "\n" +
-                "\n    Run the INSTALLER but don't touch enemy animation speeds." +
-                "\n" +
-                "\nmanager {seed}" +
-                "\n(or press Enter without typing anything)" +
-                "\n" +
-                "\n    Run the MANAGER program for Roguelike Souls, which should always run in " +
-                "\n    the background while you are playing the mod. The game will display an " +
-                "\n    error message if connection is lost with this program." +
-                "\n" +
-                "\n    If an error message is printed in this window, take a screenshot for " +
-                "\n    Grimrukh. You can also set a seed string for the manager instance, but " +
-                "\n    then you must use \"/manager {seed}\" explicitly." +
-                "\n" +
-                "\nmanager-restart {seed}" +
-                "\n" +
-                "\n    Run the MANAGER program for Roguelike Souls AND automatically abort " +
-                "\n    your current run and return to Firelink Shrine the first time the game " +
-                "\n    loads. Exit and restart the mod manager program in this mode if you get " +
-                "\n    input-locked during a run and are unable to use the Hand of Cessation " +
-                "\n    (e.g. the infinite falling loop that currently occurs if you quit out " +
-                "\n    of an Abyss battle)." +
-                "\n" +
-                "\nuninstall" +
-                "\n" +
-                "\n    Uninstall all modded files by restoring the \".smbak\" files that were " +
-                "\n    created at installation time. This won't work if these files were " +
-                "\n    already deleted" +
-                "\n" +
-                "\nexit" +
-                "\n" +
-                "\n    Quit this console without doing anything." +
-                "\n";
+        static string HelpText { get; } = @"
+
+COMMANDS:
+
+    install {seed}
+    
+        Runs the INSTALLER for Roguelike Souls, which will randomize the game
+        parameters. You should run this ONCE before playing the game, then
+        re-run it whenever you want a fresh set of equipment, spells, enemy
+        animation speeds, and 'lore'. Your progress in the mod will not be
+        lost if you re-install.
+
+        Note that the installer no longer randomizes enemy attack speeds
+        by default. Use the separate ""randomize-enemy-attack-speeds"" command
+        to randomize (or re-randomize) animation speeds as you prefer.
+
+        The ""seed"" argument is optional, and will run the installer with a
+        specific seed string. Seed strings can contain spaces, except at the
+        start and end of the string, where they will be ignored.
+
+    manager {seed}
+    (or press Enter without typing anything)
+
+        Run the MANAGER program for Roguelike Souls, which should always run in
+        the background while you are playing the mod. The game will display an
+        error message if connection is lost with this program. If you close it
+        accidentally or it closes for any other reason, you should be able to
+        run the manager again without needing to quit the game.
+
+        If an error message is printed in this window, copy it or take a screenshot
+        for Grimrukh.
+
+        You can also set a seed string for the manager instance. (To do so, you
+        must use ""manager {seed}"" explicitly.)
+
+    manager-restart {seed}
+
+        Run the MANAGER program for Roguelike Souls AND automatically abort
+        your current run and return to Firelink Shrine the first time the game
+        loads. Exit and restart the mod manager program in this mode if you get
+        input-locked during a run and are unable to use the Hand of Cessation
+        (e.g. the infinite falling loop that currently occurs if you quit out
+        of an Abyss battle). Sorry in advance if this happens!
+
+    randomize-enemy-attack-speeds {seed}
+
+        Randomize all enemy attack animation speeds. The randomizer attempts to
+        prevent attacks from activating their hitboxes too quickly, and also
+        prefers to slow down wind-ups. The idea is to make parry and dodge
+        timings less predictable, but it does sometimes get a little intense,
+        especially if you get very unlucky with a particular foe.
+
+        You can re-run this randomizer any time you want without affecting
+        your game progress or any other part of the most recent installation
+        (weapons, spells, and so on).
+
+        The ""seed"" argument is optional, and will run the randomizer with a
+        specific seed string. Seed strings can contain spaces, except at the
+        start and end of the string, where they will be ignored.
+
+    uninstall
+
+        Uninstall all modded files by restoring the "".rsbak"" files that were
+        created at installation time. This won't work if these files were
+        already deleted.
+
+    exit
+
+        Quit this console without doing anything.
+";
 
         [STAThread]
         static void Main()
@@ -87,33 +110,53 @@ namespace RoguelikeSouls
                 MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
             }
 
-            Console.WriteLine(
-                "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +
-                "\n                   ~~~    ROGUE-LIKE SOULS    ~~~" +
-                "\n                   ~~~                        ~~~" +
-                "\n                   ~~~ The Binding of Lordran ~~~" +
-                "\n                   ~~~                        ~~~" +
-                "\n                   ~~~          v1.5          ~~~" +
-                "\n                   ~~~                        ~~~" +
-                "\n                   ~~~       by Grimrukh      ~~~" +
-                "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine(@"
+ ______    _______  _______  __   __  _______  ___      ___   ___   _  _______ 
+|    _ |  |       ||       ||  | |  ||       ||   |    |   | |   | | ||       |
+|   | ||  |   _   ||    ___||  | |  ||    ___||   |    |   | |   |_| ||    ___|
+|   |_||_ |  | |  ||   | __ |  |_|  ||   |___ |   |    |   | |      _||   |___ 
+|    __  ||  |_|  ||   ||  ||       ||    ___||   |___ |   | |     |_ |    ___|
+|   |  | ||       ||   |_| ||       ||   |___ |       ||   | |    _  ||   |___ 
+|___|  |_||_______||_______||_______||_______||_______||___| |___| |_||_______|
+                 _______  _______  __   __  ___      _______                   
+                |       ||       ||  | |  ||   |    |       |                  
+                |  _____||   _   ||  | |  ||   |    |  _____|                  
+                | |_____ |  | |  ||  |_|  ||   |    | |_____                   
+                |_____  ||  |_|  ||       ||   |___ |_____  |                  
+                 _____| ||       ||       ||       | _____| |                  
+                |_______||_______||_______||_______||_______|   
 
-            Console.WriteLine(
-                "\n--- BASIC USAGE INSTRUCTIONS ---" +
-                "\n  " +
-                "\n  IMPORTANT: If a patch zip is available with a higher version number, make " +
-                "\n  sure to copy its contents into the original mod folder (overwriting any" +
-                "\n  existing files) before continuing." +
-                "\n  " +
-                "\n  1. Run the \"install\" command to generate a fresh set of parameters." +
-                "\n  2. Run the \"manager\" command before launching the game, then open " +
-                "\n     Dark Souls Remastered alongside it (each time you play). You can also " +
-                "\n     start the manager quickly by pressing Enter below without a command." +
-                "\n  3. Use the \"manager-restart\" command if you get soft-locked in a run." +
-                "\n  " +
-                "\n  Run the \"help\" command for more information about the various commands." +
-                "\n");
+                        ~~ The Binding of Lordran ~~~
+                                    v1.6
+                               
+                                 by Grimrukh
 
+  BASIC INSTRUCTIONS:
+
+     - Run the ""install"" command to generate a fresh set of parameters.
+     - Optionally, run the ""randomize-enemy-attack-speeds"" command to
+       make enemy attacks less predictable.
+     - Run the ""manager"" command before launching the game, then open
+       Dark Souls Remastered alongside it (each time you play). You can also
+       start the manager quickly by pressing Enter below without a command.
+     - Run the ""manager-restart"" command if you get soft-locked in a run.
+     - Re-run ""install"" or ""randomizer-enemy-attack-speeds"" whenever you
+       want a fresh set of game parameters. This won't affect game progress.
+
+  Use the ""help"" command for more information about each option.
+
+  ~ All puns and cat voices are courtesy of Soycrates. ~
+");
+
+#if DEBUG
+            Console.WriteLine($@"
+    DEBUG MODE ACTIVE:
+        - More detailed installation progress.
+        - Character stats will start at max.
+        - Debug map chosen: {RunManager.DEBUG_MAP}
+        - Possibly other side-effects.
+");
+#endif
 
             string command;
             string inputSeed = "";
@@ -142,13 +185,13 @@ namespace RoguelikeSouls
                 switch (command)
                 {
                     case "help":
-                        Console.WriteLine(helpText);
+                        Console.WriteLine(HelpText);
                         break;
                     case "install":
                         INSTALL(inputSeed);
                         break;
-                    case "install-no-anim":
-                        INSTALL(inputSeed, skipAnimRandomizer: true);
+                    case "randomize-enemy-attack-speeds":
+                        RANDOMIZE_ENEMY_ATTACK_SPEEDS(inputSeed);
                         break;
                     case "manager":
                         MANAGE_RUN(inputSeed, immediateRestart: false);
@@ -172,8 +215,7 @@ namespace RoguelikeSouls
         {
             Console.WriteLine("\nPress ENTER to select your Dark Souls Remastered executable.");
             Console.ReadLine();
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "EXE Files|*.exe";
+            OpenFileDialog ofd = new OpenFileDialog { Filter = "EXE Files|*.exe" };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -195,13 +237,10 @@ namespace RoguelikeSouls
             return key;
         }
 
-        static void INSTALL(string inputSeed, bool skipAnimRandomizer = false)
+        static void INSTALL(string inputSeed)
         {
             Random random;
-            if (inputSeed == "")
-                random = new Random();
-            else
-                random = new Random(inputSeed.GetHashCode());
+            random = inputSeed == "" ? new Random() : new Random(inputSeed.GetHashCode());
 
             if (MOD_PATH == null)
             {
@@ -209,10 +248,14 @@ namespace RoguelikeSouls
             }
             else
             {
+#if DEBUG
+                // Use existing path.
+#else
                 Console.WriteLine("\nUse previously-specified game directory? (Y/N)");
                 bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
                 if (!yes)
                     MOD_PATH = AskForDir();
+#endif
             }
 
             if (MOD_PATH == null) {
@@ -225,7 +268,7 @@ namespace RoguelikeSouls
             Console.WriteLine("\n" + SoyPuns.PopRandomElement(random) + "\n");
 
             SoulsMod mod = new SoulsMod(
-                MOD_PATH, ".smbak",
+                MOD_PATH, ".rsbak",
                 Resources.GameData.GameParam_parambnd,
                 Resources.GameData.paramdef_paramdefbnd,
                 Resources.GameData.item_msgbnd,
@@ -238,24 +281,29 @@ namespace RoguelikeSouls
             InstallInterrootFolder("sfx", mod);
             InstallInterrootFolder("sound", mod);
 
+            TextGenerator textSetup = new TextGenerator(mod);
+#if DEBUG
+            Console.WriteLine("Running text setup...");
+#else
+            Console.WriteLine("Studying the ancient texts...");
+#endif
+            textSetup.Install();
+            Thread.CurrentThread.Join(0);
 
             PlayerGenerator playerSetup = new PlayerGenerator(mod);
 #if DEBUG
             Console.WriteLine("Running player setup...");
+#else
+            Console.WriteLine("Putting the party together...");
 #endif
             playerSetup.Install();
-            Thread.CurrentThread.Join(0);
-
-            TextGenerator textSetup = new TextGenerator(mod);
-#if DEBUG
-            Console.WriteLine("Running text setup...");
-#endif
-            textSetup.Install();
             Thread.CurrentThread.Join(0);
 
             SpEffectGenerator spEffectSetup = new SpEffectGenerator(mod);
 #if DEBUG
             Console.WriteLine("Running SpEffect setup...");
+#else
+            Console.WriteLine("Channeling the powers that be...");
 #endif
             spEffectSetup.Install();
             Thread.CurrentThread.Join(0);
@@ -263,6 +311,8 @@ namespace RoguelikeSouls
             GoodsGenerator goodsSetup = new GoodsGenerator(mod);
 #if DEBUG
             Console.WriteLine("Running goods setup...");
+#else
+            Console.WriteLine("Documenting the artifacts...");
 #endif
             goodsSetup.Install();
             Thread.CurrentThread.Join(0);
@@ -270,6 +320,8 @@ namespace RoguelikeSouls
             SpellGenerator spellSetup = new SpellGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running spell setup...");
+#else
+            Console.WriteLine("Messing with forces beyond our control...");
 #endif
             spellSetup.Install();
             Thread.CurrentThread.Join(0);
@@ -277,6 +329,12 @@ namespace RoguelikeSouls
             WeaponGenerator weaponSetup = new WeaponGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running weapon setup...");
+#else
+            Console.WriteLine("Spinning up the whetstone...");
+#endif
+#if SKIP_BEHAVIORS
+            Console.WriteLine("WARNING: Skipping weapon behaviors/attacks!");
+            weaponSetup.SkipBehaviors = true;
 #endif
             weaponSetup.Install();
             Thread.CurrentThread.Join(0);
@@ -284,6 +342,8 @@ namespace RoguelikeSouls
             ArmorGenerator armorSetup = new ArmorGenerator(mod, random);
 #if DEBUG
             Console.WriteLine("Running armor setup...");
+#else
+            Console.WriteLine("Polishing the armor...");
 #endif
             armorSetup.Install();
             Thread.CurrentThread.Join(0);
@@ -291,43 +351,72 @@ namespace RoguelikeSouls
             EnemyGenerator enemySetup = new EnemyGenerator(mod, random, weaponSetup, armorSetup);
 #if DEBUG
             Console.WriteLine("Running enemy setup...");
+#else
+            Console.WriteLine("Opening the bestiary...");
 #endif
             enemySetup.Install();
+            Thread.CurrentThread.Join(0);
+            
+            EnemyAnimationGenerator animSetup = new EnemyAnimationGenerator(mod, random);
+#if DEBUG
+            Console.WriteLine("Modifying enemy animations...");
+#else
+            Console.WriteLine("Rousing the rabble...");
+#endif
+            animSetup.Install();
             Thread.CurrentThread.Join(0);
 
             MapItemLotsGenerator itemLotsSetup = new MapItemLotsGenerator(mod, weaponSetup, armorSetup, random);
 #if DEBUG
             Console.WriteLine("Running item lot setup...");
+#else
+            Console.WriteLine("Burying the treasures...");
 #endif
             itemLotsSetup.Install();
-            Thread.CurrentThread.Join(0);
-
-            EnemyAnimationGenerator animSetup = new EnemyAnimationGenerator(mod, random);
-#if DEBUG
-            Console.WriteLine("Running animation setup...");
-#endif
-            animSetup.Install(skipAnimRandomizer);
             Thread.CurrentThread.Join(0);
 
             // Must be run AFTER weapon/armor setup.
             CharacterGenerator chrSetup = new CharacterGenerator(mod, random);
 #if DEBUG
-            Console.WriteLine("Running chr setup...");
+            Console.WriteLine("Running character setup...");
+#else
+            Console.WriteLine("Assembling the party...");
 #endif
             chrSetup.Install();
             Thread.CurrentThread.Join(0);
 
-            Console.WriteLine(SoyPuns.PopRandomElement(random) + "\n");
-
 #if DEBUG
             Console.WriteLine("Installing mod...");
+#else
+            Console.WriteLine("Heading forth...");
 #endif
             mod.Install();
             Thread.CurrentThread.Join(0);
 
+            Console.WriteLine("\nInstallation successful! Press ENTER to return to the prompt.");
 #if DEBUG
-            Console.WriteLine($"Installation time: {(DateTime.Now - startTime).TotalSeconds}");
+            Console.WriteLine($"Installation time: {(DateTime.Now - startTime).TotalSeconds} seconds");
 #endif
+            Console.ReadLine();
+        }
+
+        static void RANDOMIZE_ENEMY_ATTACK_SPEEDS(string inputSeed)
+        {
+            Random random;
+            random = inputSeed == "" ? new Random() : new Random(inputSeed.GetHashCode());
+            SoulsMod mod = new SoulsMod(MOD_PATH, ".rsbak");
+            mod.LoadNonPlayerCharacters();
+            EnemyAnimationGenerator animSetup = new EnemyAnimationGenerator(mod, random);
+#if DEBUG
+            Console.WriteLine("Running animation setup...");
+#else
+            Console.WriteLine("Stepping into time vortex...");
+#endif
+            animSetup.RandomizeAllEnemySpeeds();
+            Thread.CurrentThread.Join(0);
+
+            Console.WriteLine("\nEnemy attack speeds randomized successfully! Press ENTER to return to the prompt.");
+            Console.ReadLine();
         }
 
         static void InstallInterrootFolder(string dir, SoulsMod game)
@@ -348,7 +437,7 @@ namespace RoguelikeSouls
 
         static void MANAGE_RUN(string inputSeed, bool immediateRestart = false)
         {
-            SoulsMod mod = new SoulsMod(MOD_PATH, ".smbak");
+            SoulsMod mod = new SoulsMod(MOD_PATH, ".rsbak");
             DSRHook hook = new DSRHook(5000, 5000);
             hook.Start();
 
@@ -376,10 +465,7 @@ namespace RoguelikeSouls
             {
                 Console.WriteLine("\nUninstall previously-specified game directory? (Y/N)");
                 bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
-                if (yes)
-                    MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
-                else
-                    MOD_PATH = AskForDir();
+                MOD_PATH = yes ? File.ReadAllText("ROGUE-LIKE_SOULS.cfg") : AskForDir();
             }
 
             if (MOD_PATH == null)
@@ -389,7 +475,7 @@ namespace RoguelikeSouls
             }
 
             Console.Write("Restoring backup files...");
-            int restoreCount = RestoreDir(MOD_PATH, ".smbak");
+            int restoreCount = RestoreDir(MOD_PATH, ".rsbak");
             Console.WriteLine($"{restoreCount} files restored.");
         }
 

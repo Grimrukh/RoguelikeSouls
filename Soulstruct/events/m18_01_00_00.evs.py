@@ -178,10 +178,10 @@ def Event11810090(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int):
     DisableObject(arg_0_3)
     DeleteFX(arg_4_7, erase_root_only=False)
     End()
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=arg_0_3)
-    IfDialogPromptActivated(2, prompt_text=10010407, anchor_entity=arg_12_15, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=arg_0_3)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=arg_0_3)
+    IfActionButton(2, prompt_text=10010407, anchor_entity=arg_12_15, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=arg_0_3)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
     IfConditionTrue(0, input_condition=-1)
@@ -211,8 +211,8 @@ def Event11815090():
 def Event11815390():
     """ 11815390: Event 11815390 """
     IfFlagOff(1, 16)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1812998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=1811990)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1812998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=1811990)
     IfConditionTrue(0, input_condition=1)
     Move(1810800, destination=1812301, destination_type=CoordEntityType.Region, model_point=-1, short_move=True)
     RotateToFaceEntity(PLAYER, 1812997)
@@ -362,10 +362,10 @@ def Event11810313():
     IfFlagOff(1, 16)
     IfFlagOn(1, 11810312)
     IfFlagOn(1, 61810105)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1811111, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=100, human_or_hollow_only=True)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1811111, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=100)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010160, anchor_entity=1811111, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010160, anchor_entity=1811111, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -373,9 +373,9 @@ def Event11810313():
 def Event11815380():
     """ 11815380: Event 11815380 """
     IfFlagOff(1, 11810900)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1812898, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=0, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1812898, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=0,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     SkipLinesIfClient(1)
     NotifyBossBattleStart()
@@ -440,7 +440,7 @@ def Event11810000():
     IssuePrefetchRequest(0)
     WaitFrames(1)
     PlayCutscene(180125, skippable=True, fade_out=False, player_id=PLAYER)
-    PlayCutscene(100225, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1022100, 
+    PlayCutscene(100225, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1022100,
                  move_to_map=FIRELINK_SHRINE)
     WaitFrames(1)
     SkipLinesIfFlagOn(1, 16)
@@ -457,20 +457,20 @@ def Event11810150():
     DisableObject(1811300)
     IfFlagOn(0, 11810000)
     EnableObject(1811300)
-    IfDialogPromptActivated(0, prompt_text=10010506, anchor_entity=1812001, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False)
+    IfActionButton(0, prompt_text=10010506, anchor_entity=1812001, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All)
     SetStandbyAnimationSettings(PLAYER, standby_animation=7816)
     ForceAnimation(PLAYER, 7815, wait_for_completion=True)
     SkipLinesIfMultiplayer(6)
     ResetStandbyAnimationSettings(PLAYER)
-    PlayCutscene(180126, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1022121, 
+    PlayCutscene(180126, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1022121,
                  move_to_map=FIRELINK_SHRINE)
     PlayCutscene(100226, skippable=True, fade_out=False, player_id=PLAYER)
     WaitFrames(1)
     AwardAchievement(28)
     Restart()
-    IfDialogPromptActivated(1, prompt_text=10010507, anchor_entity=1812001, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010507, anchor_entity=1812001, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All)
     IfCharacterOutsideRegion(2, PLAYER, region=1812001)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
@@ -493,7 +493,7 @@ def Event11810100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     IfObjectActivated(0, obj_act_id=arg_0_3)
     EnableFlag(arg_0_3)
     SkipLinesIfEqual(1, left=arg_8_11, right=0)
-    DisplayDialog(arg_8_11, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(arg_8_11, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     DisableNetworkSync()
     Wait(2.0)
@@ -526,7 +526,7 @@ def Event11810110():
     IfObjectActivated(0, obj_act_id=11810110)
     EnableFlag(11810110)
     EndIfClient()
-    DisplayDialog(10010870, anchor_entity=1811110, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010870, anchor_entity=1811110, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
 
 
@@ -546,7 +546,7 @@ def Event11810211():
     DisableObject(1811216)
     DisableObject(1811217)
     IfCharacterInsideRegion(0, PLAYER, region=1812120)
-    CreateHazard(11810212, 1811215, model_point=1, behavior_param_id=5110, target_type=DamageTargetType.Character, 
+    CreateHazard(11810212, 1811215, model_point=1, behavior_param_id=5110, target_type=DamageTargetType.Character,
                  radius=0.800000011920929, life=2.5, repetition_time=0.0)
     ForceAnimation(1811215, 0, wait_for_completion=True)
     DisableObject(1811215)
@@ -570,7 +570,7 @@ def Event11810200(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     DisableObject(arg_8_11)
 
 
-def Event11810400(_, arg_0_0: uchar, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_16: uchar, arg_17_17: uchar, 
+def Event11810400(_, arg_0_0: uchar, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_16: uchar, arg_17_17: uchar,
                   arg_18_18: uchar, arg_19_19: uchar):
     """ 11810400: Event 11810400 """
     IfPlayerClass(1, arg_0_0)

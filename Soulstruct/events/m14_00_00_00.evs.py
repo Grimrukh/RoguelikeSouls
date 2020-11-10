@@ -114,15 +114,15 @@ def Constructor():
     DepartLevelIfFlag(  # Quelaag exit
         1, Objects.Exit4Prompt, CommonTexts.DepartLevel, Flags.Exit4Disabled, Flags.Boss1Dead, Flags.Exit4Activated)
 
+    # Tarnished Key is not needed in this map, but just for fun.
+    GetReward(0, 1400130, CommonItemLots.TarnishedKeyLot, CommonFlags.TarnishedKeyObtained)
+
     ActivateAbyssPortal(0, 1400997, 1400998)
 
 
 def Preconstructor():
     """ 50: Event 50 """
-    # TODO: Restore.
-    # InvaderTrigger(0, Chrs.Invader, Regions.InvaderSpawnPoint, Regions.InvaderTrigger,
-    #                Flags.InvaderSummoned, Flags.InvaderDismissed, Flags.InvaderDead)
-    # InvaderKilled(0, Chrs.Invader, Flags.InvaderDead)
+    InvaderTrigger(0, 6990, 6991, Chrs.Invader, Regions.InvaderTrigger, Flags.InvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -216,7 +216,7 @@ def OpenChest(_, arg_0_3: int, arg_4_7: int):
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -289,35 +289,34 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag):
-    """ 11405200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11402260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11402260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
 def DepartLevelUnconditional(_, prompt_region: Region, prompt_text: Text, disabled_flag: Flag,
                              end_trigger_flag: Flag):
     """ 11402200: Depart level by interacting with prompt. No conditions. """
-    Await(FlagDisabled(disabled_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and ActionButton(
         prompt_text, prompt_region, anchor_type=CoordEntityType.Region))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -326,10 +325,21 @@ def DepartLevelUnconditional(_, prompt_region: Region, prompt_text: Text, disabl
 def DepartLevelIfFlag(_, prompt_object: Object, prompt_text: Text, disabled_flag: Flag, required_flag: Flag,
                       end_trigger_flag: Flag):
     """ 11402210: Depart level by interacting with object after a flag is enabled (e.g. boss dead). """
-    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
+
+
+def GetReward(_, enemy: int, item_lot: int, item_lot_flag: Flag):
+    """ 11402270: Enemy awards a given item lot when killed. """
+    if THIS_SLOT_FLAG:
+        return
+    if item_lot_flag:
+        return
+    Await(IsDead(enemy))
+    AwardItemLot(item_lot)
+    EnableFlag(item_lot_flag)
 
 
 @RestartOnRest
@@ -351,9 +361,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -498,7 +508,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

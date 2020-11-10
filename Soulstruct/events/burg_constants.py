@@ -116,7 +116,7 @@ class Objects(Object):
     ParishExit4Prompt = ParishBaseEntity + 253  # Rat room. (Done)
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     BurgBoss1Reward = BurgBaseEntity + 290
     BurgBoss2Reward = BurgBaseEntity + 280
     ParishBoss1Reward = ParishBaseEntity + 290

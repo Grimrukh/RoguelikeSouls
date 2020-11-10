@@ -40,7 +40,7 @@ namespace RoguelikeSouls.Installation
         Stealth,
         Stone,
         Vagrant,
-        Winged,
+        Winged
     }
 
     enum ItemType
@@ -322,7 +322,7 @@ namespace RoguelikeSouls.Installation
         public string ArmorWeight { get; set; }
         public string SpellType { get; set; } = "";
         public int SpellCount { get; set; } = 0;
-        public int OffensiveItem { get; set; } = -1;
+        public bool UsesOffensiveGood { get; set; } = false;  // assumes good is equipped to GoodSlot1
         public string[] TitleNames { get; set; }  // options for name generation
 
         public Invader() { }
@@ -404,7 +404,7 @@ namespace RoguelikeSouls.Installation
             return NPCParamID + (level - 1) + (isRedPhantom ? 50 : 0);
         }
 
-        public MSB1.Part.Enemy GetMSBPart(string name, int entityID, GamePoint point, float angle, int level = 1, bool isRedPhantom = false)
+        public MSB1.Part.Enemy CreateMSBPart(string name, int entityID, GamePoint point, float angle, int level = 1, bool isRedPhantom = false)
         {
             var part = new MSB1.Part.Enemy()
             {

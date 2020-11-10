@@ -1,4 +1,3 @@
-from enum import IntEnum
 from soulstruct.game_types import *
 
 
@@ -84,6 +83,7 @@ class CommonFlags(Flag):
     MapLevelBase = 1950  # Don't use these ten flags. Records current map level (1951 == level 1).
 
     # Flags enabled as soon as you start a run with the given ring in your inventory.
+    # NO flag for Alvina Ring (flag 1960 represents map level 10).
     SolaireRingFlag = 1961
     SiegmeyerRingFlag = 1962
     LoganRingFlag = 1963
@@ -129,7 +129,8 @@ class CommonFlags(Flag):
     BoostFaithBase = 11022170
 
     RequestLevelBannerBase = 11022300
-    RequestBonusLevelBanner = 11022310
+    RequestCursedLevelBannerBase = 11022310
+    RequestBonusLevelBanner = 11022320
 
     StartingEquipmentReceived = 11022450
 
@@ -142,6 +143,16 @@ class CommonFlags(Flag):
     HookErrorFlag = 11812098
     HookCheckFlag = 11812099
     BossCategoryUsedBaseFlag = 11812100
+    AbyssBossCategoryUsedBaseFlag = 11812200
+
+    # Key item lots.
+    RustedKeyObtained = 50050010
+    TarnishedKeyObtained = 50050020
+    PolishedKeyObtained = 50050030
+    GiantKeyObtained = 50050050
+    HolySigilObtained = 50050060
+    PiercingEyeObtained = 50050070
+    SkeletonKeyObtained = 50050100
 
 
 class CommonTexts(EventText):
@@ -164,7 +175,7 @@ class CommonTexts(EventText):
     FortressGateOpened = 80014
     DemonicMagicBlocks = 80015
 
-    ReceiveGiftFromAlly = 80020
+    # Gift prompts now start at 80080.
     TwoGiftsAlreadyReceived = 80021
     GiftUnavailable = 80022
     LordvesselObtained = 80023
@@ -185,7 +196,17 @@ class CommonTexts(EventText):
     LobosJrRescued = 80047
 
     LevelMessageBase = 80050
-    BonusLevel = 80060
+    CursedLevelMessageBase = 80060
+    BonusLevel = 80070
+
+    ReceiveGiftAlvina = 80080
+    ReceiveGiftSolaire = 80081
+    ReceiveGiftSiegmeyer = 80082
+    ReceiveGiftLogan = 80083
+    ReceiveGiftQuelana = 80084
+    ReceiveGiftHavel = 80085
+    ReceiveGiftMornstein = 80086
+    ReceiveGiftLobosJr = 80087
 
     RustedKeyRequired = 90001
     TarnishedKeyRequired = 90002
@@ -201,7 +222,7 @@ class CommonTexts(EventText):
     UnlockedWithSkeletonKeys = 10010883
 
 
-class CommonGoods(Good):
+class CommonGoods(GoodParam):
     HandOfCessation = 600
     UndeadFlame = 601
     HeartOfStJude = 602
@@ -263,7 +284,7 @@ class CommonChrs(Character):
     MarvelousChester = 6140
 
 
-class CommonItemLots(ItemLot):
+class CommonItemLots(ItemLotParam):
     RustedKeyLot = 50010
     TarnishedKeyLot = 50020
     PolishedKeyLot = 50030
@@ -280,7 +301,7 @@ class CommonItemLots(ItemLot):
     QuelanaGiftLot = 1020030
 
 
-class Rings(Ring):
+class Rings(RingParam):
     AlvinaRing = 100
     SolaireRing = 101
     SiegmeyerRing = 102
@@ -294,3 +315,4 @@ class Rings(Ring):
 class PlayerAnimations(PlayerAnimation):
     StandingFadeIn = 10
     StandingFadeOut = 11
+    SummonSpawn = 6951

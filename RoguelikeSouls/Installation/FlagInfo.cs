@@ -93,5 +93,6 @@ namespace RoguelikeSouls.Installation
         HookErrorFlag = 11812098,  // enabled here and impedes game progress
         HookCheckFlag = 11812099,  // continually enabled in common EMEVD and disabled here
         BossCategoryUsedBaseFlag = 11812100,  // +0, +1, etc. for used categories
+        AbyssBossCategoryUsedBaseFlag = 11812200,  // +0, +1, etc. for used categories
     }
 }

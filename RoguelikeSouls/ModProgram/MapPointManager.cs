@@ -84,11 +84,11 @@ namespace RoguelikeSouls.ModProgram
             return CheckOutPoint(chosen, occupantLabel);
         }
 
-        public GamePoint CheckOutRandomPointWithinDistance(string occupantLabel, GamePoint originPoint, double minDistance = -1.0, double maxDistance = -1.0)
+        public GamePoint CheckOutRandomPointWithinDistance(string occupantLabel, GamePoint originPoint, double minDistanceSq = -1.0, double maxDistanceSq = -1.0)
         {
-            // Returns a random unoccupied point between `minDistance` (if positive) and `maxDistance` (if positive) of `originPoint`.
+            // Returns a random unoccupied point between `minDistance` (if not -1) and `maxDistance` (if not -1) of `originPoint`.
             List<GamePoint> available = new List<GamePoint>(MapPoints.Where(
-                point => !OccupiedPoints.Contains(point) && ValidPointDistance(originPoint, point, minDistance, maxDistance)));
+                point => !OccupiedPoints.Contains(point) && ValidPointDistance(originPoint, point, minDistanceSq, maxDistanceSq)));
             GamePoint chosen = available.GetRandomElement(Rand);
             return CheckOutPoint(chosen, occupantLabel);
         }
@@ -148,12 +148,12 @@ namespace RoguelikeSouls.ModProgram
             return GetClosestPoint(position.X, position.Y, position.Z, maxDistance, excludeEqual);
         }
 
-        bool ValidPointDistance(GamePoint point1, GamePoint point2, double minDistance = -1.0, double maxDistance = -1.0)
+        bool ValidPointDistance(GamePoint point1, GamePoint point2, double minDistanceSq = -1.0, double maxDistanceSq = -1.0)
         {
-            if (minDistance == -1.0 && maxDistance == -1.0)
+            if (minDistanceSq == -1.0 && maxDistanceSq == -1.0)
                 return true;
             float sqDistance = point1.SquaredDistanceFromPoint(point2);
-            return (minDistance == -1.0 || minDistance <= sqDistance) && (maxDistance == -1.0 || sqDistance < maxDistance);
+            return (minDistanceSq == -1.0 || minDistanceSq <= sqDistance) && (maxDistanceSq == -1.0 || sqDistance < maxDistanceSq);
         }
     }
 }

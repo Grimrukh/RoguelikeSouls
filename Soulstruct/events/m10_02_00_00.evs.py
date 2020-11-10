@@ -37,14 +37,14 @@ def Constructor():
     ShowUncurlMessage()
 
     # Bonfire options (equipment and run options).
-    GetStartingEquipment(0, Flags.GetWarriorEquipment, ItemLots.WarriorEquipment)
-    GetStartingEquipment(1, Flags.GetKnightEquipment, ItemLots.KnightEquipment)
-    GetStartingEquipment(2, Flags.GetWandererEquipment, ItemLots.WandererEquipment)
-    GetStartingEquipment(3, Flags.GetThiefEquipment, ItemLots.ThiefEquipment)
-    GetStartingEquipment(4, Flags.GetBarbarianEquipment, ItemLots.BarbarianEquipment)
-    GetStartingEquipment(5, Flags.GetHunterEquipment, ItemLots.HunterEquipment)
-    GetStartingEquipment(6, Flags.GetSorcererEquipment, ItemLots.SorcererEquipment)
-    GetStartingEquipment(7, Flags.GetClericEquipment, ItemLots.ClericEquipment)
+    GetStartingEquipment(0, Flags.GetWarriorEquipment, ItemLots.WarriorEquipment, 0)
+    GetStartingEquipment(1, Flags.GetKnightEquipment, ItemLots.KnightEquipment, 0)
+    GetStartingEquipment(2, Flags.GetWandererEquipment, ItemLots.WandererEquipment, 0)
+    GetStartingEquipment(3, Flags.GetThiefEquipment, ItemLots.ThiefEquipment, CommonFlags.PolishedKeyObtained)
+    GetStartingEquipment(4, Flags.GetBarbarianEquipment, ItemLots.BarbarianEquipment, 0)
+    GetStartingEquipment(5, Flags.GetHunterEquipment, ItemLots.HunterEquipment, 0)
+    GetStartingEquipment(6, Flags.GetSorcererEquipment, ItemLots.SorcererEquipment, 0)
+    GetStartingEquipment(7, Flags.GetClericEquipment, ItemLots.ClericEquipment, 0)
     ActivateOneLifeMode()
 
     StartRun()
@@ -74,14 +74,22 @@ def Preconstructor():
     ControlAllyAppearance(5, Chrs.Mornstein, CommonFlags.MornsteinRescued)
     ControlAllyAppearance(6, Chrs.LobosJr, CommonFlags.LobosJrRescued)
 
-    # ReceiveGiftFromAlly(0, Chrs.Alvina, CommonFlags.LordvesselObtained, ItemLots.AlvinaGift, 4.0)
-    ReceiveGiftFromAlly(1, Chrs.Solaire, CommonFlags.SolaireRescued, ItemLots.SolaireGift, 2.0)
-    ReceiveGiftFromAlly(2, Chrs.Siegmeyer, CommonFlags.SiegmeyerRescued, ItemLots.SiegmeyerGift, 2.0)
-    ReceiveGiftFromAlly(3, Chrs.Logan, CommonFlags.LoganRescued, ItemLots.LoganGift, 2.0)
-    ReceiveGiftFromAlly(4, Chrs.Quelana, CommonFlags.QuelanaRescued, ItemLots.QuelanaGift, 2.0)
-    ReceiveGiftFromAlly(5, Chrs.Havel, CommonFlags.HavelRescued, ItemLots.HavelGift, 2.0)
-    ReceiveGiftFromAlly(6, Chrs.Mornstein, CommonFlags.MornsteinRescued, ItemLots.MornsteinGift, 2.0)
-    ReceiveGiftFromAlly(7, Chrs.LobosJr, CommonFlags.LobosJrRescued, ItemLots.LobosJrGift, 2.0)
+    ReceiveGiftFromAlly(
+        0, Chrs.Alvina, CommonFlags.LordvesselObtained, ItemLots.AlvinaGift, CommonTexts.ReceiveGiftAlvina, 4.0)
+    ReceiveGiftFromAlly(
+        1, Chrs.Solaire, CommonFlags.SolaireRescued, ItemLots.SolaireGift, CommonTexts.ReceiveGiftSolaire, 2.0)
+    ReceiveGiftFromAlly(
+        2, Chrs.Siegmeyer, CommonFlags.SiegmeyerRescued, ItemLots.SiegmeyerGift, CommonTexts.ReceiveGiftSiegmeyer, 2.0)
+    ReceiveGiftFromAlly(
+        3, Chrs.Logan, CommonFlags.LoganRescued, ItemLots.LoganGift, CommonTexts.ReceiveGiftLogan, 2.0)
+    ReceiveGiftFromAlly(
+        4, Chrs.Quelana, CommonFlags.QuelanaRescued, ItemLots.QuelanaGift, CommonTexts.ReceiveGiftQuelana, 2.0)
+    ReceiveGiftFromAlly(
+        5, Chrs.Havel, CommonFlags.HavelRescued, ItemLots.HavelGift, CommonTexts.ReceiveGiftHavel, 2.0)
+    ReceiveGiftFromAlly(
+        6, Chrs.Mornstein, CommonFlags.MornsteinRescued, ItemLots.MornsteinGift, CommonTexts.ReceiveGiftMornstein, 2.0)
+    ReceiveGiftFromAlly(
+        7, Chrs.LobosJr, CommonFlags.LobosJrRescued, ItemLots.LobosJrGift, CommonTexts.ReceiveGiftLobosJr, 2.0)
 
 
 @RestartOnRest
@@ -96,16 +104,11 @@ def ControlAllyAppearance(_, ally: Character, rescued_flag: Flag):
         return
 
 
-def ReceiveGiftFromAlly(_, ally: Character, rescued_flag: Flag, gift: ItemLot, distance: float):
+def ReceiveGiftFromAlly(_, ally: Character, rescued_flag: Flag, gift: ItemLotParam, prompt: Text, distance: float):
     """ 11022210: Get gift starting ring from ally. """
     if not rescued_flag:
         return
-    Await(DialogPromptActivated(CommonTexts.ReceiveGiftFromAlly, ally, anchor_type=CoordEntityType.Character,
-                                max_distance=distance))
-    # TODO: For Lobos, ally gifts are always available.
-    # if CommonFlags.AllyGiftUnavailable:
-    #     DisplayDialog(CommonTexts.GiftUnavailable, ally)
-    #     return RESTART
+    Await(ActionButton(prompt, ally, anchor_type=CoordEntityType.Character, max_distance=distance))
     if CommonFlags.TwoAllyGiftsReceived:
         DisplayDialog(CommonTexts.TwoGiftsAlreadyReceived, ally)
         return RESTART
@@ -183,14 +186,14 @@ def Event11025050():
 
 def Event11020020():
     """ 11020020: Event 11020020 """
-    IfDialogPromptActivated(0, prompt_text=10010506, anchor_entity=1022120, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True)
+    IfActionButton(0, prompt_text=10010506, anchor_entity=1022120, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0)
     SetStandbyAnimationSettings(PLAYER, standby_animation=7816)
     ForceAnimation(PLAYER, 7815, wait_for_completion=True)
     EnableFlag(11025060)
     WaitFrames(3)
-    IfDialogPromptActivated(1, prompt_text=10010507, anchor_entity=1022120, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True)
+    IfActionButton(1, prompt_text=10010507, anchor_entity=1022120, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0)
     IfCharacterOutsideRegion(2, PLAYER, region=1022120)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
@@ -209,7 +212,7 @@ def Event11020021():
     IfFlagOn(0, 11025060)
     SkipLinesIfFlagOn(1, 11020000)
     Wait(20.0)
-    PlayCutscene(100230, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1812110, 
+    PlayCutscene(100230, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1812110,
                  move_to_map=UNDEAD_ASYLUM)
     PlayCutscene(180130, skippable=True, fade_out=False, player_id=PLAYER)
     WaitFrames(1)
@@ -239,10 +242,10 @@ def Event11020106():
     DisableNetworkSync()
     IfFlagOn(1, 11020100)
     IfFlagOff(1, 11020101)
-    IfDialogPromptActivated(1, prompt_text=10010182, anchor_entity=1021960, anchor_type=CoordEntityType.Object, 
-                            facing_angle=180.0, max_distance=3.4000000953674316, human_or_hollow_only=True)
+    IfActionButton(1, prompt_text=10010182, anchor_entity=1021960, anchor_type=CoordEntityType.Object,
+                   facing_angle=180.0, max_distance=3.4000000953674316)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010184, anchor_entity=1021960, display_distance=3.4000000953674316, 
+    DisplayDialog(10010184, anchor_entity=1021960, display_distance=3.4000000953674316,
                   button_type=ButtonType.Yes_or_No, number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -281,7 +284,7 @@ def Event11020351():
     SkipLinesIfFlagOn(2, 710)
     Kill(PLAYER, award_souls=False)
     End()
-    PlayCutscene(180060, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1802110, 
+    PlayCutscene(180060, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1802110,
                  move_to_map=KILN_OF_THE_FIRST_FLAME)
     WaitFrames(1)
     Restart()
@@ -995,7 +998,7 @@ def Event11026200():
     DisableFlag(820)
     EnableFlag(830)
     EnableCharacter(6331)
-    PlayCutscene(100240, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1802110, 
+    PlayCutscene(100240, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1802110,
                  move_to_map=KILN_OF_THE_FIRST_FLAME)
     PlayCutscene(180040, skippable=True, fade_out=False, player_id=PLAYER)
     WaitFrames(1)
@@ -1044,21 +1047,12 @@ def Event11020110():
 
 def StartRun():
     """ 11020200: Script runs when a run starts. (Not that much to do.) """
-    Await(HasGood(600) and DialogPromptActivated(CommonTexts.StartRun, Chrs.Crow, 180.0, 3.0, -1))
+    Await(HasGood(600) and ActionButton(CommonTexts.StartRun, Chrs.Crow, facing_angle=180.0, max_distance=3.0))
 
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
 
-    DisableFlag(CommonFlags.RunSetupCompleteFlag)
-    EnableFlag(CommonFlags.DoRunSetupFlag)
-    Await(CommonFlags.RunSetupCompleteFlag)  # Wait until mod program has finished setting up new run.
-    DisableFlag(CommonFlags.DoRunSetupFlag)
-
-    # Set life counter to default of 5 unless already set to 1 at bonfire.
-    # TODO: Alvina ring effect. Not compatible with one life mode at bonfire.
-    if FlagDisabled(CommonFlags.LifeCount1):
-        EnableFlag(CommonFlags.LifeCount5)
-
     # Make ring modifications.
+    DisableFlagRange((1961, 1967))  # disable all flags (in case this is triggered multiple times)
     if HasRing(Rings.SolaireRing):
         EnableFlag(CommonFlags.SolaireRingFlag)
     if HasRing(Rings.SiegmeyerRing):
@@ -1072,6 +1066,25 @@ def StartRun():
         EnableFlag(CommonFlags.MornsteinRingFlag)
     if HasRing(Rings.LobosJrRing):
         EnableFlag(CommonFlags.LobosJrRingFlag)
+
+    DisableFlag(CommonFlags.RunSetupCompleteFlag)
+    EnableFlag(CommonFlags.DoRunSetupFlag)
+    Await(CommonFlags.RunSetupCompleteFlag)  # Wait until mod program has finished setting up new run.
+    DisableFlag(CommonFlags.DoRunSetupFlag)
+
+    # Calculate starting lives. May have already been set to 1 by trading four lives at Firelink bonfire.
+    if HasRing(Rings.AlvinaRing):
+        if FlagEnabled(CommonFlags.LifeCount1):
+            # Player has traded four lives for Blessings. Give them four lives back.
+            DisableFlag(CommonFlags.LifeCount1)
+            EnableFlag(CommonFlags.LifeCount5)
+        else:
+            # Player has nine lives.
+            EnableFlag(CommonFlags.LifeCount9)
+    else:
+        if FlagDisabled(CommonFlags.LifeCount1):
+            # Player has NOT traded four lives for Blessings. Start with five lives.
+            EnableFlag(CommonFlags.LifeCount5)
 
 
 def PrologueEvent():
@@ -1156,7 +1169,7 @@ def ShowUncurlMessage():
     return RESTART
 
 
-def GetStartingEquipment(_, trigger_flag: Flag, item_lot: int):
+def GetStartingEquipment(_, trigger_flag: Flag, item_lot: ItemLotParam, item_lot_flag: int):
     """ 11022400: Receive starting equipment from Firelink bonfire. """
     DisableFlag(trigger_flag)
     Await(FlagEnabled(trigger_flag))
@@ -1165,6 +1178,8 @@ def GetStartingEquipment(_, trigger_flag: Flag, item_lot: int):
         DisplayDialog(15000550)
         return RESTART
     AwardItemLot(item_lot, host_only=True)
+    if item_lot_flag != 0:
+        EnableFlag(item_lot_flag)
     EnableFlag(CommonFlags.StartingEquipmentReceived)
     return RESTART
 

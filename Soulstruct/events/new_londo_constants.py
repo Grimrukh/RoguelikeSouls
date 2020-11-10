@@ -55,5 +55,5 @@ class Objects(Object):
     Exit4Prompt = BaseEntity + 253  # Abyss post-boss bonfire
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290

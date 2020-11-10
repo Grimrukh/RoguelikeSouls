@@ -54,5 +54,5 @@ class Objects(Object):
     Exit3Prompt = BaseEntity + 252  # Bonfire in Gwynevere's room. (Done)
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290

@@ -42,8 +42,6 @@ class Chrs(Character):
     Mimic = BaseEntity + 180
 
 
-
-
 class Regions(Region):
     InvaderTrigger = BaseEntity + 200
     InvaderSpawnPoint = BaseEntity + 201
@@ -61,6 +59,6 @@ class Objects(Object):
     # Exit 2 is handled with original ring activation event.
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290
     Boss2Reward = BaseEntity + 280

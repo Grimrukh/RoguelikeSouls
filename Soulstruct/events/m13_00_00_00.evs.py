@@ -149,7 +149,7 @@ def Constructor():
     for enemy in range(100):
         DespawnEnemy(enemy, 1300100 + enemy)
 
-    GetReward(0, 1300130, CommonItemLots.SkeletonKeysLot)
+    GetReward(0, 1300130, CommonItemLots.SkeletonKeysLot, CommonFlags.SkeletonKeyObtained)
 
     DepartLevelUnconditional(
         0, Objects.Exit1Prompt, CommonTexts.DepartLevel, Flags.Exit1Disabled, Flags.Exit1Activated)
@@ -163,9 +163,7 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
-    InvaderTrigger(0, Chrs.Invader, Regions.InvaderSpawnPoint, Regions.InvaderTrigger,
-                   Flags.InvaderSummoned, Flags.InvaderDismissed, Flags.InvaderDead)
-    InvaderKilled(0, Chrs.Invader, Flags.InvaderDead)
+    InvaderTrigger(0, 6990, 6991, Chrs.Invader, Regions.InvaderTrigger, Flags.InvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -182,9 +180,9 @@ def Event11305390():
     """ 11305390: Event 11305390 """
     IfFlagOff(1, 6)
     IfCharacterAlive(1, 1300800)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1302998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=1301990, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1302998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=1301990,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1302997)
     ForceAnimation(PLAYER, 7410)
@@ -196,8 +194,8 @@ def Event11305391():
     IfFlagOff(1, 6)
     IfFlagOn(1, 11305393)
     IfCharacterType(1, PLAYER, CharacterType.WhitePhantom)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1302998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=1301990)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1302998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=1301990)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1302997)
     ForceAnimation(PLAYER, 7410)
@@ -434,7 +432,7 @@ def Event11305330(_, arg_0_3: int, arg_4_7: int):
     ReplanAI(arg_0_3)
 
 
-def Event11305350(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int, 
+def Event11305350(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int,
                   arg_24_27: int):
     """ 11305350: Event 11305350 """
     SkipLinesIfFlagOn(5, 11305399)
@@ -538,21 +536,21 @@ def StatueSpikeTrap(_, statue: int, hazard_flag: int):
 def Event11300300():
     """ 11300300: Event 11300300 """
     IfFlagOff(0, 11300402)
-    CreateHazard(11300301, 1301102, model_point=2, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300301, 1301102, model_point=2, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=0.5, life=10.0, repetition_time=5.0)
-    CreateHazard(11300302, 1301102, model_point=4, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300302, 1301102, model_point=4, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300303, 1301102, model_point=6, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300303, 1301102, model_point=6, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300304, 1301102, model_point=8, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300304, 1301102, model_point=8, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300305, 1301102, model_point=10, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300305, 1301102, model_point=10, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300306, 1301102, model_point=12, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300306, 1301102, model_point=12, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300307, 1301102, model_point=14, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300307, 1301102, model_point=14, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300308, 1301102, model_point=15, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300308, 1301102, model_point=15, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=0.5, life=10.0, repetition_time=5.0)
     IfFlagOn(0, 11300402)
     RemoveObjectFlag(11300301)
@@ -569,27 +567,27 @@ def Event11300300():
 def Event11300350():
     """ 11300350: Event 11300350 """
     IfFlagOff(0, 11300403)
-    CreateHazard(11300351, 1301103, model_point=2, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300351, 1301103, model_point=2, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=0.5, life=10.0, repetition_time=5.0)
-    CreateHazard(11300352, 1301103, model_point=4, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300352, 1301103, model_point=4, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300353, 1301103, model_point=6, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300353, 1301103, model_point=6, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300354, 1301103, model_point=8, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300354, 1301103, model_point=8, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300355, 1301103, model_point=10, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300355, 1301103, model_point=10, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300356, 1301103, model_point=12, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300356, 1301103, model_point=12, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300357, 1301103, model_point=14, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300357, 1301103, model_point=14, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300358, 1301103, model_point=33, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300358, 1301103, model_point=33, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300359, 1301103, model_point=35, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300359, 1301103, model_point=35, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300360, 1301103, model_point=37, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300360, 1301103, model_point=37, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=1.0, life=10.0, repetition_time=5.0)
-    CreateHazard(11300361, 1301103, model_point=39, behavior_param_id=5100, target_type=DamageTargetType.Character, 
+    CreateHazard(11300361, 1301103, model_point=39, behavior_param_id=5100, target_type=DamageTargetType.Character,
                  radius=0.5, life=10.0, repetition_time=5.0)
     IfFlagOn(0, 11300403)
     RemoveObjectFlag(11300351)
@@ -817,7 +815,7 @@ def RevealLadderAfterBoss():
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -890,28 +888,27 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11305200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11302260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11312260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
@@ -919,7 +916,7 @@ def DepartLevelUnconditional(
         _, prompt_object: Object, prompt_text: Text, disabled_flag: Flag,
         end_trigger_flag: Flag):
     """ 11302200: Depart level by interacting with prompt. No conditions. """
-    Await(FlagDisabled(disabled_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -928,7 +925,7 @@ def DepartLevelUnconditional(
 def DepartLevelIfFlag(_, prompt_object: Object, prompt_text: Text, disabled_flag: Flag, required_flag: Flag,
                       end_trigger_flag: Flag):
     """ 11302210: Depart level by interacting with object after a flag is enabled (e.g. boss dead). """
-    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -966,9 +963,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -1088,12 +1085,15 @@ def ReplanMimicAIOnLoad(_, mimic: int):
     ReplanAI(mimic)
 
 
-def GetReward(_, enemy: int, item_lot: ItemLot):
+def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
     """ 11302270: Enemy awards a given item lot when killed. """
     if THIS_SLOT_FLAG:
         return
+    if item_lot_flag:
+        return
     Await(IsDead(enemy))
     AwardItemLot(item_lot)
+    EnableFlag(item_lot_flag)
 
 
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
@@ -1101,7 +1101,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

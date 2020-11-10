@@ -383,60 +383,68 @@ namespace RoguelikeSouls.Installation
 
     class NPCNameGenerator
     {
-        private readonly Random Rand;
-        private readonly MarkovWordGenerator MarkovNames;
-        private readonly List<string> CensoredWords = new List<string>() { "fuck", "shit", "cunt", "rape", "cock", "nigg", "tits", "tard" };
+        Random Rand { get; }
+        MarkovWordGenerator MarkovNames { get; }
+        static List<string> CensoredWords { get; } = new List<string>() { "fuck", "shit", "cunt", "rape", "cock", "nigg", "tits", "tard" };
 
-        const int nameUnitSize = 2;
-        const int minNameLength = 5;
-        const int maxNameLength = 25;
-        const int maxAttempts = 50;
-        const double surnameOdds = 0.3;
-        const double titledNameOdds = 0.9;  // Knight {Name}, Sorcerer {Name}, etc.
-        const double originNameOdds = 0.7;  // {Name} of {Place}
-        const double suffixNameOdds = 0.3;  // "Oscar, Knight of Astora" rather than "Knight Oscar of Astora"
+        static int NameUnitSize { get; } = 2;
+        static int MinNameLength { get; } = 5;
+        static int MaxNameLength { get; } = 26;
+        static int MaxAttempts { get; } = 50;
+        static double TitledNameOdds { get; } = 0.7;  // Knight {Name}, Sorcerer {Name}, etc.
+        static double OriginNameOdds { get; } = 0.5;  // {Name} of {Place}
+        static double MononymOdds { get; } = 0.5;
+        static double SuffixNameOdds { get; } = 0.3;  // "Oscar, Knight of Astora" rather than "Knight Oscar of Astora"
 
         public NPCNameGenerator(Random random)
         {
             Rand = random;
-            MarkovNames = new MarkovWordGenerator(Resources.TextData.AllNPCNames, unitSize: nameUnitSize, random: Rand);
+            MarkovNames = new MarkovWordGenerator(Resources.TextData.AllNPCNames, unitSize: NameUnitSize, random: Rand);
         }
         public string GetRandomName(string npcTitle = "", bool exact = false)
         {
-            bool hasSurname = Rand.NextDouble() < surnameOdds;
-            bool isTitled = npcTitle != "" && Rand.NextDouble() < titledNameOdds;
-            bool hasOrigin = Rand.NextDouble() < originNameOdds;
-            bool withComma = hasOrigin && Rand.NextDouble() < suffixNameOdds;
+            bool isTitled = npcTitle != "" && Rand.NextDouble() < TitledNameOdds;
+            bool hasOrigin = Rand.NextDouble() < OriginNameOdds;
+            bool withComma = hasOrigin && Rand.NextDouble() < SuffixNameOdds;
+            bool hasMononym = Rand.NextDouble() < MononymOdds;
 
             // Keeps trying to get a name that is naturally under the absolute max limit.
             string randomName;
             int attempts = 0;
             do
             {
-                string name = MarkovNames.Generate(minNameLength, exact).Split(' ')[0];
-                if (hasSurname)
-                    name += " " + MarkovNames.Generate(minNameLength, exact);
+                // Name can be twice as long without origin.
+                string name = MarkovNames.Generate(hasOrigin ? MinNameLength : 2 * MinNameLength, exact);
+                if (hasMononym)
+                    // Use longest word in name as mononymous name.4
+                    name = name.Split(' ').OrderByDescending(s => s.Length).First();
                 if (hasOrigin)
                 {
-                    string placeName = MarkovNames.Generate(minNameLength, exact);
+                    string placeName = MarkovNames.Generate(MinNameLength, exact);
                     if (isTitled)
-                        randomName = (withComma ? $"{name}, {npcTitle}" : $"{npcTitle} {name}") + $"of {placeName}";
+                        if (withComma)
+                            randomName = $"{name}, {npcTitle} of {placeName}";
+                        else
+                            randomName = $"{npcTitle} {name} of {placeName}";
                     else
                         randomName = $"{name} of {placeName}";
                 }
                 else
+                {
                     randomName = isTitled ? $"{npcTitle} {name}" : name;
+                }
                 attempts++;
-                if (attempts >= maxAttempts)
+                if (attempts >= MaxAttempts)
                     break;  // keep last name and trim
-            } while (randomName.Length > maxNameLength || randomName.ToLower().ContainsAny(CensoredWords));
+            } while (randomName.Length > MaxNameLength || randomName.ToLower().ContainsAny(CensoredWords));
             
-            if (randomName.Length > maxNameLength)
+            if (randomName.Length > MaxNameLength)
             {
                 //Console.WriteLine("Max attempts exceeded. Getting exact name.");
                 // If max attempt number is exceeded (unlikely), just use a single exact random name.
-                randomName = MarkovNames.Generate(minNameLength - npcTitle.Length, exact: true);
-                return isTitled ? npcTitle + " " + randomName : randomName;
+                int nameLength = Rand.Next(MinNameLength, isTitled ? MaxNameLength - npcTitle.Length : MaxNameLength);
+                randomName = MarkovNames.Generate(nameLength, exact: true);
+                return isTitled ? $"{npcTitle} {randomName}" : randomName;
             }
             return randomName;
         }

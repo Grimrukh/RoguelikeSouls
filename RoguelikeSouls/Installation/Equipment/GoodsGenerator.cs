@@ -331,14 +331,14 @@ namespace RoguelikeSouls.Installation
                 "the joys of stoic companionship." },
             { "Logan's Ring", "Ring marking friendship wtih the inquistive Logan. Increases the occurrence of portals to the " +
                 "Abyss, which should not be entered lightly." },
-            { "Quelana's Ring", "Ring marking friendship with the ancient Quelana. Grants two pyromancies to its wearer " +
+            { "Quelana's Ring", "Ring marking friendship with the ancient Quelana. Grants three pyromancies to its wearer " +
                 "when their journey begins and provides some resistance against lava." },
             { "Havel's Ring", "Ring marking friendship with the indomitable Havel. Greatly increases its wearer's maximum equip " +
                 "load, making for easier travels." },
             { "Mornstein's Ring", "Ring marking friendship with Mornstein, King of Leonia and fearless warrior. Increases the " +
-                "chances of encountering powerful enemies, whose defeat can lead to superior treasure." },
+                "chances of encountering very powerful enemies, whose defeat can lead to superior treasure." },
             { "Lobos Jr's Ring", "Ring marking friendship with Lobos Jr, eternal ally of adventurers. Its wearer will find " +
-                "their journey through Lordran longer and more arduous, but more rewarding." },
+                "their journey through Lordran longer and its foes rarer and more diverse." },
         };
 
         public static Dictionary<string, ushort> Icons = new Dictionary<string, ushort>()
@@ -513,9 +513,69 @@ namespace RoguelikeSouls.Installation
 
         void ModifyObjActs()
         {
-            // Forgot to change Parish cell lock.
-            Mod.GPARAM.ObjActs[1308].SpQualifiedId = 2003;  // Polished Key
+            // Set up ObjActs. These were originally hard-coded in the Param resource.
+
+            Mod.GPARAM.ObjActs[1200].Name = "Sunlight Gate Lever";  // disabled in m10_01 MSB (region trigger used)
+            
+            Mod.GPARAM.ObjActs[1202].Name = "Parish Bell Lever";
+            
+            Mod.GPARAM.ObjActs[1305].Name = "Watchtower Door (Upper)";
+            Mod.GPARAM.ObjActs[1305].SpQualifiedId = 2001;  // Rusted Key
+            Mod.GPARAM.ObjActs[1305].SpQualifiedType2 = 1;  // has good
+            Mod.GPARAM.ObjActs[1305].SpQualifiedId2 = 2100;  // Skeleton Keys
+            
+            Mod.GPARAM.ObjActs[1306].Name = "Door to Depths";  // disabled in m10_01 MSB (region trigger used)
+            
+            Mod.GPARAM.ObjActs[1308].Name = "Parish Cell";
+            Mod.GPARAM.ObjActs[1308].SpQualifiedId = 2003;  // Polished Key (still has Master Key access)
+            
+            Mod.GPARAM.ObjActs[1310].Name = "Burg House";
+            Mod.GPARAM.ObjActs[1310].ActionFailedMsgId = -1;
+            Mod.GPARAM.ObjActs[1310].SpQualifiedType = 0;  // none
+            Mod.GPARAM.ObjActs[1310].SpQualifiedId = 0;
+            Mod.GPARAM.ObjActs[1310].SpQualifiedType2 = 0;  // none
+            Mod.GPARAM.ObjActs[1310].SpQualifiedId2 = 0;
+            
+            Mod.GPARAM.ObjActs[1314].Name = "Lower Burg Shortcut";
+
+            Mod.GPARAM.ObjActs[1317].Name = "Lower Burg House";
+            Mod.GPARAM.ObjActs[1317].ActionFailedMsgId = -1;
+            Mod.GPARAM.ObjActs[1317].SpQualifiedType = 0;  // none
+            Mod.GPARAM.ObjActs[1317].SpQualifiedId = 0;
+            Mod.GPARAM.ObjActs[1317].SpQualifiedType2 = 0;  // none
+            Mod.GPARAM.ObjActs[1317].SpQualifiedId2 = 0;
+            
+            Mod.GPARAM.ObjActs[1465].Name = "Firelink New Londo Gate";  // disabled in m10_02 MSB
+            
+            Mod.GPARAM.ObjActs[1550].Name = "Painted World Sewer Lever";
+            
+            Mod.GPARAM.ObjActs[1580].Name = "Painted World Annex Door";
+            Mod.GPARAM.ObjActs[1580].SpQualifiedId = 2002;  // Tarnished Key
+            Mod.GPARAM.ObjActs[1580].SpQualifiedType2 = 1;  // has good
+            Mod.GPARAM.ObjActs[1580].SpQualifiedId2 = 2100;  // Skeleton Keys
+            
+            Mod.GPARAM.ObjActs[6010].Name = "New Londo to Valley Gate";
+            Mod.GPARAM.ObjActs[6010].ActionFailedMsgId = -1;
+            Mod.GPARAM.ObjActs[6010].SpQualifiedType = 0;  // none
+            Mod.GPARAM.ObjActs[6010].SpQualifiedId = 0;
+            Mod.GPARAM.ObjActs[6010].SpQualifiedType2 = 0;  // none
+            Mod.GPARAM.ObjActs[6010].SpQualifiedId2 = 0;
+
+            Mod.GPARAM.ObjActs[11305].Name = "Watchtower Basement (Lower)";  // disabled in m10_01 MSB (region trigger used)
+            
+            Mod.GPARAM.ObjActs[11312].Name = "Lower Burg Basement Door";
+            Mod.GPARAM.ObjActs[11312].ActionFailedMsgId = -1;
+            Mod.GPARAM.ObjActs[11312].SpQualifiedType = 0;  // none
+            Mod.GPARAM.ObjActs[11312].SpQualifiedId = 0;
+            Mod.GPARAM.ObjActs[11312].SpQualifiedType2 = 0;  // none
+            Mod.GPARAM.ObjActs[11312].SpQualifiedId2 = 0;
+
+            Mod.GPARAM.ObjActs[16010].Name = "New Londo Flood Lever Gate";
+            Mod.GPARAM.ObjActs[16010].SpQualifiedId = 2003;  // Polished Key
+            Mod.GPARAM.ObjActs[16010].SpQualifiedType2 = 1;  // has good
+            Mod.GPARAM.ObjActs[16010].SpQualifiedId2 = 2100;  // Skeleton Keys
         }
+
 
         void ModifyObjects()
         {

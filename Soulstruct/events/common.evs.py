@@ -135,13 +135,15 @@ def Constructor():
 
     for i in range(10):
         LevelIndicatorRequest(i, CommonFlags.RequestLevelBannerBase + i, CommonTexts.LevelMessageBase + i)
+    for i in range(10):
+        LevelIndicatorRequest(i, CommonFlags.RequestCursedLevelBannerBase + i, CommonTexts.CursedLevelMessageBase + i)
     LevelIndicatorRequest(10, CommonFlags.RequestBonusLevelBanner, CommonTexts.BonusLevel)
 
     WarpRequest(0,  CommonFlags.RequestWarpToFirelink, 10, 2, -1, 1102960)  # When run ends.
 
-    WarpRequest(1,  11002005, 10, 0,      1000240, 1000230)
+    WarpRequest(1,  11002005, 10, 0, 1000240, 1000230)
     # No start point at Depths arena drop.
-    WarpRequest(2,  11002025, 10, 0,      1000242, 1000232)
+    WarpRequest(2,  11002025, 10, 0, 1000242, 1000232)
 
     WarpRequest(3,  11012005, 10, 1, 1010240, 1010230)
     WarpRequest(4,  11012015, 10, 1, 1010241, 1010231)
@@ -156,7 +158,7 @@ def Constructor():
     WarpRequest(12, 11012335, 10, 1, 1010543, 1010533)
     WarpRequest(13, 11012345, 10, 1, 1010544, 1010534)
 
-    WarpRequestNoSpawnSet(14, 11102005, 11, 0, 1100240)  # Respawn point not set in Painted World.
+    WarpRequest(14, 11102005, 11, 0, 1100240, 0)  # Respawn point not set in Painted World.
     # No start point at Painted World arena drop.
 
     WarpRequest(15, 11202005, 12, 0, 1200240, 1200230)
@@ -1248,6 +1250,13 @@ def CleanupRun():
     RemoveRingFromPlayer(Rings.MornsteinRing)
     RemoveRingFromPlayer(Rings.LobosJrRing)
 
+    AddSpecialEffect(PLAYER, 3000)  # Divine Blessing effect to restore HP.
+    AddSpecialEffect(PLAYER, 3051)  # Divine Blessing effect to heal bleed.
+    AddSpecialEffect(PLAYER, 3061)  # Divine Blessing effect to heal poison.
+    AddSpecialEffect(PLAYER, 3071)  # Divine Blessing effect to heal toxic.
+    AddSpecialEffect(PLAYER, 3090)  # Purging Stone effect to heal curse.
+    AddSpecialEffect(PLAYER, 3091)  # Egg Vermifuge effect to heal parasite.
+
     DisableFlag(CommonFlags.RunHasStarted)
     EnableFlag(CommonFlags.RunCleanupCompleteFlag)
     EnableFlag(CommonFlags.RequestFirelinkSpawnReset)
@@ -1439,15 +1448,8 @@ def WarpRequest(_, warp_flag: int, map_area: int, map_block: int, start: int, sp
     """ 2600: Warp to given map and start point when flag is enabled. """
     Await(FlagEnabled(warp_flag))
     DisableFlag(warp_flag)
-    SetRespawnPoint(spawn_point)
-    WaitFrames(1)  # Allow flag to be disabled.
-    WarpToMap((map_area, map_block), start)
-
-
-def WarpRequestNoSpawnSet(_, warp_flag: int, map_area: int, map_block: int, start: int):
-    """ 2699: Warp to given map and start point when flag is enabled. """
-    Await(FlagEnabled(warp_flag))
-    DisableFlag(warp_flag)
+    if spawn_point != 0:
+        SetRespawnPoint(spawn_point)
     WaitFrames(1)  # Allow flag to be disabled.
     WarpToMap((map_area, map_block), start)
 

@@ -82,5 +82,15 @@ namespace RoguelikeSouls.Extensions
             }
             throw new Exception($"Could not get weighted random element (roll = {roll}, total = {total}).");
         }
+
+        public static bool Roll(this Random random, double odds)
+        {
+            return random.NextDouble() < odds;
+        }
+
+        public static float NextAngle(this Random random)
+        {
+            return (float)random.NextDouble() * 360.0f - 180.0f;
+        }
     }
 }

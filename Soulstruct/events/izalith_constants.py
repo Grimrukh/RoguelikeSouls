@@ -103,7 +103,7 @@ class Objects(Object):
     IzalithExit3Prompt = IzalithBaseEntity + 252  # Bed of Chaos (bonfire)
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     RuinsBoss1Reward = RuinsBaseEntity + 290
     RuinsBoss2Reward = RuinsBaseEntity + 280
     IzalithBoss1Reward = IzalithBaseEntity + 290

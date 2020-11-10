@@ -30,7 +30,7 @@ namespace RoguelikeSouls.Installation
         public Connection() { }
     }
 
-    class Map
+    class MapInfo
     {
         public string Name { get; set; }
         public int[] MapID { get; set; }
@@ -168,7 +168,7 @@ namespace RoguelikeSouls.Installation
             get => 100000 * MapID[0] + 10000 * MapID[1] + 997;
         }
 
-        public Map() { }
+        public MapInfo() { }
 
         public int GetBossID(int index, bool isTwin = false)
         {
@@ -308,9 +308,9 @@ namespace RoguelikeSouls.Installation
             // No twin.
         };
 
-        public static List<Map> MapList = new List<Map>()
+        public static List<MapInfo> MapList = new List<MapInfo>()
         {
-            new Map()
+            new MapInfo()
             {
                 Name = "Depths",
                 IndexInMap = 0,
@@ -334,7 +334,7 @@ namespace RoguelikeSouls.Installation
                     (-1, true, true, new int[] { }),  // Blighttown door
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "UndeadBurg",
                 IndexInMap = 0,
@@ -364,7 +364,7 @@ namespace RoguelikeSouls.Installation
                     (-2, true, true, new int[] { }),  // (Tarnished Key) Depths door
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "UndeadParish",
                 IndexInMap = 1,
@@ -390,7 +390,7 @@ namespace RoguelikeSouls.Installation
                     (-1, true, false, new int[] { }),  // Sunlight portcullis
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "PaintedWorld",
                 IndexInMap = 0,
@@ -416,7 +416,7 @@ namespace RoguelikeSouls.Installation
                     ( 0, false, true, new int[] { 11102290 }),  // Drop after boss
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "DarkrootGarden",
                 IndexInMap = 0,
@@ -444,7 +444,7 @@ namespace RoguelikeSouls.Installation
                     (30, true, true, new int[] { 11202290, 61200501 }),  // Grave of Artorias (always goes to/comes from Royal Woods or Township)
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "RoyalWood",
                 IndexInMap = 0,
@@ -467,7 +467,7 @@ namespace RoguelikeSouls.Installation
                     (-1, true, true, new int[] { 11210121, 11212280 }),  // Kalameet entrance fog (elevator reversed)
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "OolacileTownship",
                 IndexInMap = 1,
@@ -490,7 +490,7 @@ namespace RoguelikeSouls.Installation
                     (-2, true, true, new int[] { 11210101, 11212580 }),  // Chasm hall (Township shortcut elevator reversed)
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "ChasmOfTheAbyss",
                 IndexInMap = 2,
@@ -513,7 +513,7 @@ namespace RoguelikeSouls.Installation
                     ( 0, false, true, new int[] { 11212890 }),  // Boss bonfire
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "Catacombs",
                 IndexInMap = 0,
@@ -538,7 +538,7 @@ namespace RoguelikeSouls.Installation
                     (-2, false, true, new int[] { 11302290, 11300900 }),  // Pinwheel ladder (top door alredy opened)
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "TombOfTheGiants",
                 IndexInMap = 0,
@@ -564,7 +564,7 @@ namespace RoguelikeSouls.Installation
                     (70, false, true, new int[] { 11312290 }),  // Boss bonfire
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "GreatHollow",
                 IndexInMap = 0,
@@ -587,7 +587,7 @@ namespace RoguelikeSouls.Installation
                     (-2, true, true, new int[] { }),  // Lower exit
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "AshLake",
                 IndexInMap = 1,
@@ -613,7 +613,7 @@ namespace RoguelikeSouls.Installation
                     (0, true, true, new int[] { }),  // Stone Dragon prompt
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "Blighttown",
                 IndexInMap = 0,
@@ -641,7 +641,7 @@ namespace RoguelikeSouls.Installation
                     (-2, true, true, new int[] { 11402290 }),  // Quelaag exit
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "DemonRuins",
                 IndexInMap = 0,
@@ -666,7 +666,7 @@ namespace RoguelikeSouls.Installation
                     (-1, true, true, new int[] { }),  // Covenant door exit
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "LostIzalith",
                 IndexInMap = 1,
@@ -693,7 +693,7 @@ namespace RoguelikeSouls.Installation
                     (70, false, true, new int[] { 11412590 }),  // Bed of Chaos boss bonfire
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "SensFortress",
                 IndexInMap = 0,
@@ -720,7 +720,7 @@ namespace RoguelikeSouls.Installation
                     (+2, false, true, new int[] { 11502290 }),  // Golem arena pickup
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "AnorLondo",
                 IndexInMap = 0,
@@ -747,7 +747,7 @@ namespace RoguelikeSouls.Installation
                     (70, false, true, new int[] { 11512290 }),  // Gwynevere's room
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "NewLondoRuins",
                 IndexInMap = 0,
@@ -775,7 +775,7 @@ namespace RoguelikeSouls.Installation
                     (60, false, true, new int[] { 11602290 }),  // Abyss (goes to completely random map except Painted World, with a 25% chance of Chasm)
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "DukesArchives",
                 IndexInMap = 0,
@@ -801,7 +801,7 @@ namespace RoguelikeSouls.Installation
                     (70, false, true, new int[] { 11702290 }),  // Crystal Cave boss bonfire
                 },
             },
-            new Map()
+            new MapInfo()
             {
                 Name = "KilnOfTheFirstFlame",
                 IndexInMap = 0,
@@ -829,9 +829,9 @@ namespace RoguelikeSouls.Installation
             },
         };
 
-        public static Map GetMap(string mapName)
+        public static MapInfo GetMap(string mapName)
         {
-            IEnumerable<Map> matches = MapList.Where(map => map.Name == mapName);
+            IEnumerable<MapInfo> matches = MapList.Where(map => map.Name == mapName);
             if (!matches.Any())
                 throw new ArgumentException($"Invalid map name: {mapName}");
             return matches.First();

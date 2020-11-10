@@ -21,9 +21,15 @@ namespace SoulsFormatsMod.PARAMS
             {
                 // Add existing Row instances to ParamDict. Writes warnings if the same ID is encountered twice.
                 if (ContainsKey(row.ID))
+                {
+#if DEBUG
                     Console.WriteLine($"WARNING: Key {row.ID} occurred multiple times in Param {ParamName}. Only first entry kept.");
+#endif
+                }
                 else
+                {
                     base[row.ID] = (T)Activator.CreateInstance(typeof(T), row, AllParams, Text);
+                }
             }
         }
 

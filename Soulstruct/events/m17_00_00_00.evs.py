@@ -132,10 +132,9 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
+    InvaderTrigger(0, 6990, 6991, Chrs.Invader, Regions.InvaderTrigger, Flags.InvaderDead)
+
     RescueMornstein()
-    InvaderTrigger(0, Chrs.Invader, Regions.InvaderSpawnPoint, Regions.InvaderTrigger,
-                   Flags.InvaderSummoned, Flags.InvaderDismissed, Flags.InvaderDead)
-    InvaderKilled(0, Chrs.Invader, Flags.InvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -210,7 +209,7 @@ def Event11705397():
     AICommand(1700800, command_id=20, slot=0)
     End()
     IfCharacterBackreadEnabled(0, 1700800)
-    CreateNPCPart(1700800, npc_part_id=5290, part_index=NPCPartType.Part1, part_health=330, damage_correction=1.0, 
+    CreateNPCPart(1700800, npc_part_id=5290, part_index=NPCPartType.Part1, part_health=330, damage_correction=1.0,
                   body_damage_correction=1.0, is_invincible=False, start_in_stop_state=False)
     IfHealthGreaterThan(1, 1700800, 0.0)
     IfCharacterPartHealthLessThanOrEqual(1, 1700800, npc_part_id=5290, value=0)
@@ -221,7 +220,7 @@ def Event11705397():
     EndIfFinishedConditionTrue(2)
     ForceAnimation(1700800, 8000)
     IfHasTAEEvent(0, 1700800, tae_event_id=400)
-    Move(1700801, destination=1700800, destination_type=CoordEntityType.Character, model_point=150, 
+    Move(1700801, destination=1700800, destination_type=CoordEntityType.Character, model_point=150,
          copy_draw_parent=1700800)
     EnableCharacter(1700801)
     SetDisplayMask(1700800, bit_index=1, switch_type=OnOffChange.On)
@@ -235,12 +234,12 @@ def Event11705397():
     AwardItemLot(52910000, host_only=True)
 
 
-def Event11700160(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int, 
+def Event11700160(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int,
                   arg_24_27: int):
     """ 11700160: Event 11700160 """
     IfFlagOff(1, arg_16_19)
-    IfDialogPromptActivated(1, prompt_text=10010501, anchor_entity=arg_4_7, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=192, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010501, anchor_entity=arg_4_7, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=192, trigger_attribute=TriggerAttribute.All)
     IfObjectActivated(2, obj_act_id=arg_8_11)
     IfObjectActivated(3, obj_act_id=arg_12_15)
     IfConditionTrue(-1, input_condition=1)
@@ -269,7 +268,7 @@ def Event11700160(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, 
     Restart()
 
 
-def Event11700105(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int, 
+def Event11700105(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int,
                   arg_24_27: int):
     """ 11700105: Event 11700105 """
     SkipLinesIfFlagOff(4, arg_0_3)
@@ -308,20 +307,20 @@ def Event11700090(_, arg_0_3: int, arg_4_4: uchar, arg_8_11: int, arg_12_15: int
     DisableNetworkSync()
     IfFlagState(1, state=arg_4_4, flag_type=FlagType.Absolute, flag=arg_0_3)
     IfFlagOff(1, arg_12_15)
-    IfDialogPromptActivated(1, prompt_text=10010501, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=195, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010501, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=195, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010170, anchor_entity=arg_8_11, display_distance=3.0, button_type=ButtonType.OK_or_Cancel, 
+    DisplayDialog(10010170, anchor_entity=arg_8_11, display_distance=3.0, button_type=ButtonType.OK_or_Cancel,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
 
 def Event11705150(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     """ 11705150: Event 11705150 """
-    IfDialogPromptActivated(1, prompt_text=10010503, anchor_entity=arg_4_7, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=192, human_or_hollow_only=False)
-    IfDialogPromptActivated(2, prompt_text=10010503, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=192, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010503, anchor_entity=arg_4_7, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=192, trigger_attribute=TriggerAttribute.All)
+    IfActionButton(2, prompt_text=10010503, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=192, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
     IfConditionTrue(0, input_condition=-1)
@@ -349,7 +348,7 @@ def Event11705150(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     Restart()
 
 
-def Event11700200(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int, 
+def Event11700200(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int,
                   arg_24_27: int, arg_28_31: int):
     """ 11700200: Event 11700200 """
     DisableObject(arg_8_11)
@@ -460,7 +459,7 @@ def Event11700300(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     EndIfThisEventSlotOn()
     IfObjectActivated(0, obj_act_id=arg_0_3)
     EnableFlag(arg_0_3)
-    DisplayDialog(arg_4_7, anchor_entity=arg_8_11, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(arg_4_7, anchor_entity=arg_8_11, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
 
 
@@ -490,7 +489,7 @@ def OpenChest(_, arg_0_3: int, arg_4_7: int):
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -566,11 +565,11 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
 @RestartOnRest
 def BossBattleExtraFog(
         _, boss: Character, boss_twin: Character, twin_enabled: Flag,
-        trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+        trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
         fog_1_object: int, fog_1_sfx: int,
         fog_2_object: int, fog_2_sfx: int,
         boss_name: short, boss_twin_name: short,
-        fog_3_object: int, fog_3_sfx: int,):
+        fog_3_object: int, fog_3_sfx: int, ):
     """ 11702055: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
@@ -649,28 +648,27 @@ def BossBattleExtraFog(
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11705200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11702260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11702260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
@@ -701,12 +699,12 @@ def ActivateExitBonfire():
                 DisplayStatus(CommonTexts.LordvesselNotObtained)
     if FlagEnabled(CommonFlags.AbyssBattleVictoryCountBase + 3) or CommonFlags.KilnAvailable:
         # Go to Chasm or Kiln (mod will figure out which).
-        Await(not Flags.Exit2Disabled and DialogPromptActivated(
+        Await(not Flags.Exit2Disabled and ActionButton(
             CommonTexts.DepartLevel, Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, max_distance=2.0))
         EnableFlag(Flags.Exit2Activated)
     else:
         # Go back to Firelink.
-        Await(not Flags.Exit2Disabled and DialogPromptActivated(
+        Await(not Flags.Exit2Disabled and ActionButton(
             CommonTexts.ReturnToFirelink, Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, max_distance=2.0))
         AddSpecialEffect(PLAYER, CommonEffects.QuitRun)
 
@@ -719,9 +717,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -846,7 +844,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

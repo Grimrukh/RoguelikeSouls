@@ -111,9 +111,8 @@ def Constructor():
     for enemy in range(100):
         DespawnEnemy(enemy, 1200100 + enemy)
 
-    GetReward(0, 1200130, CommonItemLots.RustedKeyLot)
-    GetReward(1, 1200131, CommonItemLots.HolySigilLot)
-    GetReward(2, 1200131, CommonItemLots.HolySigilLot)
+    GetReward(0, 1200130, CommonItemLots.RustedKeyLot, CommonFlags.RustedKeyObtained)
+    GetReward(1, 1200131, CommonItemLots.HolySigilLot, CommonFlags.HolySigilObtained)
 
     DepartLevelWithKey_Object(
         0, Objects.Exit1Prompt, CommonTexts.DepartLevel, CommonTexts.RustedKeyRequired,
@@ -136,9 +135,7 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
-    InvaderTrigger(0, Chrs.Invader, Regions.InvaderSpawnPoint, Regions.InvaderTrigger,
-                   Flags.InvaderSummoned, Flags.InvaderDismissed, Flags.InvaderDead)
-    InvaderKilled(0, Chrs.Invader, Flags.InvaderDead)
+    InvaderTrigger(0, 6990, 6991, Chrs.Invader, Regions.InvaderTrigger, Flags.InvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -154,9 +151,9 @@ def Preconstructor():
 def Event11205380():
     """ 11205380: Event 11205380 """
     IfFlagOff(1, 11200900)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1202898, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=1201890, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1202898, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=1201890,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1202894)
     ForceAnimation(PLAYER, 7410)
@@ -168,8 +165,8 @@ def Event11205381():
     IfFlagOff(1, 11200900)
     IfFlagOn(1, 11205383)
     IfCharacterType(1, PLAYER, CharacterType.WhitePhantom)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1202898, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=1201890)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1202898, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=1201890)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1202894)
     ForceAnimation(PLAYER, 7410)
@@ -261,9 +258,9 @@ def Event11200100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, 
     CreateObjectFX(arg_8_11, obj=arg_4_7, model_point=200)
     SkipLinesIfEqual(1, left=arg_16_19, right=1)
     IfPlayerHasGood(1, CommonGoods.HolySigil, including_box=False)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=arg_12_15, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=arg_4_7, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=arg_12_15, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=arg_4_7,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     EnableFlag(arg_0_3)
     EnableFlag(arg_20_23)
@@ -272,7 +269,7 @@ def Event11200100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, 
     SkipLinesIfEqual(1, left=arg_16_19, right=1)
     SkipLinesIfClient(1)
     SkipLinesIfEqual(1, left=arg_16_19, right=1)
-    DisplayDialog(10010861, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010861, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     ForceAnimation(arg_4_7, 1)
     DeleteObjectFX(arg_4_7, erase_root=True)
@@ -286,16 +283,16 @@ def Event11200110(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int):
     IfFlagOn(1, 703)
     SkipLinesIfEqual(1, left=arg_12_15, right=1)
     IfPlayerDoesNotHaveGood(1, CommonGoods.HolySigil, including_box=False)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=arg_4_7)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=arg_4_7)
     IfClient(2)
-    IfDialogPromptActivated(2, prompt_text=10010400, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=arg_4_7)
+    IfActionButton(2, prompt_text=10010400, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=arg_4_7)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
     IfConditionTrue(0, input_condition=-1)
     EndIfFlagOn(arg_0_3)
-    DisplayDialog(10010160, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010160, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -408,7 +405,7 @@ def OpenChest(_, arg_0_3: int, arg_4_7: int):
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -481,34 +478,33 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11205200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11202260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11202260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
 def DepartLevelWithKey_Region(
         _, prompt_region: Region, prompt_text: Text, failure_text: Text, disabled_flag: Flag,
-        key: Good, end_trigger_flag: Flag):
+        key: GoodParam, end_trigger_flag: Flag):
     """ 11202200: Depart level by interacting with prompt with key in inventory. """
     if not FlagEnabled(CommonFlags.InDarkroot):
         return
@@ -516,10 +512,10 @@ def DepartLevelWithKey_Region(
         return
 
     activate_with_key = Condition(FlagDisabled(disabled_flag) and HasGood(key)
-                                  and DialogPromptActivated(
+                                  and ActionButton(
         prompt_text, prompt_region, anchor_type=CoordEntityType.Region, max_distance=2.0), hold=True)
     activate_without_key = Condition(FlagDisabled(disabled_flag) and not HasGood(key)
-                                     and DialogPromptActivated(
+                                     and ActionButton(
         prompt_text, prompt_region, anchor_type=CoordEntityType.Region, max_distance=2.0), hold=True)
     Await(activate_with_key or activate_without_key)
     if activate_with_key:
@@ -533,7 +529,7 @@ def DepartLevelWithKey_Region(
 
 def DepartLevelWithKey_Object(
         _, prompt_object: Object, prompt_text: Text, failure_text: Text, disabled_flag: Flag,
-        key: Good, end_trigger_flag: Flag):
+        key: GoodParam, end_trigger_flag: Flag):
     """ 11202205: Depart level by interacting with prompt with key in inventory. """
     if not FlagEnabled(CommonFlags.InDarkroot):
         return
@@ -541,10 +537,10 @@ def DepartLevelWithKey_Object(
         return
 
     activate_with_key = Condition(FlagDisabled(disabled_flag) and HasGood(key)
-                                  and DialogPromptActivated(
+                                  and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0), hold=True)
     activate_without_key = Condition(FlagDisabled(disabled_flag) and not HasGood(key)
-                                     and DialogPromptActivated(
+                                     and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0), hold=True)
     Await(activate_with_key or activate_without_key)
     if activate_with_key:
@@ -562,7 +558,7 @@ def DepartLevelIfFlag_Region(
     """ 11202210: Depart level by interacting with region after a flag is enabled (e.g. boss dead). """
     if not FlagEnabled(CommonFlags.InDarkroot):
         return
-    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and ActionButton(
         prompt_text, prompt_region, anchor_type=CoordEntityType.Region))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -575,11 +571,11 @@ def DepartLevelIfFlagWithFailure_Object(
     if not FlagEnabled(CommonFlags.InDarkroot):
         return
     activate_with_flag = Condition(
-        FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and DialogPromptActivated(
+        FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and ActionButton(
             prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0),
         hold=True)
     activate_without_flag = Condition(
-        FlagDisabled(disabled_flag) and not required_flag and DialogPromptActivated(
+        FlagDisabled(disabled_flag) and not required_flag and ActionButton(
             prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0),
         hold=True)
     Await(activate_with_flag or activate_without_flag)
@@ -611,9 +607,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -733,12 +729,15 @@ def ReplanMimicAIOnLoad(_, mimic: int):
     ReplanAI(mimic)
 
 
-def GetReward(_, enemy: int, item_lot: ItemLot):
+def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
     """ 11202270: Enemy awards a given item lot when killed. """
     if THIS_SLOT_FLAG:
         return
+    if item_lot_flag:
+        return
     Await(IsDead(enemy))
     AwardItemLot(item_lot)
+    EnableFlag(item_lot_flag)
 
 
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
@@ -746,7 +745,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

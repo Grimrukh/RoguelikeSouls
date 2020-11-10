@@ -210,6 +210,8 @@ namespace RoguelikeSouls.Installation
             Magic template = Mod.VanillaGPARAM.Magic[templateID];
             Magic newSpell = Mod.GPARAM.Magic.CopyRow(template, newParamID);
             newSpell.BaseCastCount = (short)(newSpell.BaseCastCount * (0.75 + 0.5 * Rand.NextDouble()));  // random 0.75 to 1.25 multiplier for casts
+            if (newSpell.BaseCastCount < 1)
+                newSpell.BaseCastCount = 1;
 
             if (newSpell.ReferenceType == 1)
             {

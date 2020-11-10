@@ -376,6 +376,7 @@
     <Compile Include="Installation\Equipment\LegendaryWeapons.cs" />
     <Compile Include="Installation\Maps\MapInfo.cs" />
     <Compile Include="Installation\ObjectInfo.cs" />
+    <Compile Include="ModProgram\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\GameData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -416,7 +417,7 @@
     <Compile Include="Installation\NameGenerators.cs" />
     <Compile Include="Installation\TextGenerator.cs" />
     <Compile Include="ModProgram\MapPointManager.cs" />
-    <Compile Include="ModProgram\MSBGenerator.cs" />
+    <Compile Include="ModProgram\MapGenerator.cs" />
     <Compile Include="ModProgram\RunManager.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\Markov.cs" />
@@ -446,6 +447,7 @@
   <ItemGroup>
     <Content Include="darksign_L5u_icon.ico" />
     <Content Include="GameHook\Resources\Assembly\BonfireWarp.txt" />
+    <Content Include="GameHook\Resources\Assembly\DeathSpeedFix.txt" />
     <Content Include="GameHook\Resources\Assembly\GetItem.txt" />
     <Content Include="GameHook\Resources\Assembly\LevelUp.txt" />
     <Content Include="GameHook\Resources\Bonfires.txt" />

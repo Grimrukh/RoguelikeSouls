@@ -101,11 +101,11 @@ def Constructor():
     RunEvent(11215044)
 
     # Five chests per level.
-    OpenChest(0, 1211650,  11210600)
-    OpenChest(1, 1211651,  11210601)
-    OpenChest(2, 1211652,  11210602)
-    OpenChest(3, 1211653,  11210603)
-    OpenChest(4, 1211654,  11210604)
+    OpenChest(0, 1211650, 11210600)
+    OpenChest(1, 1211651, 11210601)
+    OpenChest(2, 1211652, 11210602)
+    OpenChest(3, 1211653, 11210603)
+    OpenChest(4, 1211654, 11210604)
 
     OpenChest(10, 1211660, 11210610)
     OpenChest(11, 1211661, 11210611)
@@ -202,7 +202,8 @@ def Constructor():
     for enemy in range(100):
         DespawnEnemy(200 + enemy, 1210700 + enemy)
 
-    GetReward(0, 1210130, CommonItemLots.HolySigilLot)  # Not needed in this map, but just for fun.
+    # Holy Sigil isn't needed in this map, but just for fun.
+    GetReward(0, 1210130, CommonItemLots.HolySigilLot, CommonFlags.HolySigilObtained)
 
     DepartLevelIfFlag(
         0, Objects.WoodExit1Prompt, CommonTexts.DepartLevel, Flags.WoodExit1Disabled, Flags.WoodBoss1Dead,
@@ -225,6 +226,10 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
+    InvaderTrigger(0, 6990, 6991, Chrs.WoodInvader, Regions.WoodInvaderTrigger, Flags.WoodInvaderDead)
+    InvaderTrigger(1, 6990, 6991, Chrs.TownshipInvader, Regions.TownshipInvaderTrigger, Flags.TownshipInvaderDead)
+    InvaderTrigger(2, 6990, 6991, Chrs.ChasmInvader, Regions.ChasmInvaderTrigger, Flags.ChasmInvaderDead)
+
     DisableObject(1211220)  # Artorias's gravestone.
 
     # Secret illusory floor.
@@ -233,16 +238,6 @@ def Preconstructor():
     RunEvent(11210347)
     EndOfAnimation(1211606, 0)
     EndOfAnimation(1211607, 0)
-
-    InvaderTrigger(0, Chrs.WoodInvader, Regions.WoodInvaderSpawnPoint, Regions.WoodInvaderTrigger,
-                   Flags.WoodInvaderSummoned, Flags.WoodInvaderDismissed, Flags.WoodInvaderDead)
-    InvaderTrigger(1, Chrs.TownshipInvader, Regions.TownshipInvaderSpawnPoint, Regions.TownshipInvaderTrigger,
-                   Flags.TownshipInvaderSummoned, Flags.TownshipInvaderDismissed, Flags.TownshipInvaderDead)
-    InvaderTrigger(2, Chrs.ChasmInvader, Regions.ChasmInvaderSpawnPoint, Regions.ChasmInvaderTrigger,
-                   Flags.ChasmInvaderSummoned, Flags.ChasmInvaderDismissed, Flags.ChasmInvaderDead)
-    InvaderKilled(0, Chrs.WoodInvader, Flags.WoodInvaderDead)
-    InvaderKilled(1, Chrs.TownshipInvader, Flags.TownshipInvaderDead)
-    InvaderKilled(2, Chrs.ChasmInvader, Flags.ChasmInvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -259,9 +254,9 @@ def Preconstructor():
 def Event11215020():
     """ 11215020: Event 11215020 """
     IfFlagOff(1, 11210002)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1212998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=1211990, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1212998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=1211990,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1212997)
     ForceAnimation(PLAYER, 7410, wait_for_completion=True)
@@ -273,8 +268,8 @@ def Event11215021():
     IfFlagOff(1, 11210002)
     IfFlagOn(1, 11215023)
     IfCharacterType(1, PLAYER, CharacterType.WhitePhantom)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1212998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=1211990)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1212998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=1211990)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1212997)
     ForceAnimation(PLAYER, 7410)
@@ -306,7 +301,7 @@ def Event11215027():
     PlayCutscene(120140, skippable=True, fade_out=False, player_id=PLAYER, move_to_region=1212022, move_to_map=OOLACILE)
     SkipLines(4)
     SkipLinesIfClient(2)
-    PlayCutscene(120140, skippable=False, fade_out=False, player_id=PLAYER, move_to_region=1212022, 
+    PlayCutscene(120140, skippable=False, fade_out=False, player_id=PLAYER, move_to_region=1212022,
                  move_to_map=OOLACILE)
     SkipLines(1)
     PlayCutscene(120140, skippable=False, fade_out=False, player_id=PLAYER)
@@ -402,9 +397,9 @@ def Event11215060():
     """ 11215060: Event 11215060 """
     IfFlagOn(1, 11210592)
     IfFlagOff(1, 11210004)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1212908, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=1211690, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1212908, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=1211690,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1212907)
     ForceAnimation(PLAYER, 7410, wait_for_completion=True)
@@ -417,8 +412,8 @@ def Event11215061():
     IfFlagOff(1, 11210004)
     IfFlagOn(1, 11215062)
     IfCharacterType(1, PLAYER, CharacterType.WhitePhantom)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1212908, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=1211690)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1212908, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=1211690)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1212907)
     ForceAnimation(PLAYER, 7410)
@@ -486,8 +481,8 @@ def Event11215066():
     IfFlagOff(1, 11210004)
     IfFlagOn(1, 11215062)
     IfCharacterType(1, PLAYER, CharacterType.WhitePhantom)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1212908, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=1211690)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1212908, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=1211690)
     IfConditionTrue(0, input_condition=1)
     WaitFrames(75)
     EnableFlag(11215067)
@@ -520,7 +515,7 @@ def Event11210340():
     IfAttacked(-1, 6760, attacking_character=PLAYER)
     IfConditionTrue(1, input_condition=-1)
     IfConditionTrue(0, input_condition=1)
-    ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True, 
+    ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True,
                                       skip_transition=False, arg1=5.0)
     DisableCharacter(6760)
     Move(6760, destination=1212331, destination_type=CoordEntityType.Region, model_point=-1, copy_draw_parent=6760)
@@ -538,7 +533,7 @@ def Event11210341():
     IfAttacked(-1, 6760, attacking_character=PLAYER)
     IfConditionTrue(1, input_condition=-1)
     IfConditionTrue(0, input_condition=1)
-    ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True, 
+    ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True,
                                       skip_transition=False, arg1=5.0)
     DisableCharacter(6760)
     Move(6760, destination=1212332, destination_type=CoordEntityType.Region, model_point=-1, copy_draw_parent=6760)
@@ -557,7 +552,7 @@ def Event11210345():
     IfAttacked(-1, 6760, attacking_character=PLAYER)
     IfConditionTrue(1, input_condition=-1)
     IfConditionTrue(0, input_condition=1)
-    ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True, 
+    ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True,
                                       skip_transition=False, arg1=5.0)
     DisableCharacter(6760)
     DeleteFX(1213125, erase_root_only=True)
@@ -622,8 +617,8 @@ def Event11215040():
     IfFlagOff(1, 17)
     IfFlagOn(1, 11210021)
     IfCharacterHuman(1, PLAYER)
-    IfDialogPromptActivated(1, prompt_text=50000000, anchor_entity=1212300, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, model_point=0, human_or_hollow_only=True)
+    IfActionButton(1, prompt_text=50000000, anchor_entity=1212300, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, model_point=0)
     IfConditionTrue(0, input_condition=1)
     DisplayBattlefieldMessage(140010, display_location_index=0)
     SkipLinesIfClient(1)
@@ -1180,9 +1175,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -1348,7 +1343,7 @@ def CutCorpseOnRope(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -1421,28 +1416,27 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11215200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11212260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11212260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
@@ -1462,19 +1456,19 @@ def DepartLevelUnconditional(_, prompt_region: Region, prompt_text: Text, disabl
     """ 11212200: Depart level by interacting with prompt. No conditions. """
     if not FlagEnabled(in_map_flag):
         return
-    Await(FlagDisabled(disabled_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and ActionButton(
         prompt_text, prompt_region, anchor_type=CoordEntityType.Object))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
 
 
-def DepartLevelIfFlag(_, prompt_region: Region, prompt_text: Text, disabled_flag: Flag, required_flag: Flag,
+def DepartLevelIfFlag(_, prompt_object: Object, prompt_text: Text, disabled_flag: Flag, required_flag: Flag,
                       end_trigger_flag: Flag, in_map_flag: Flag):
     """ 11212210: Depart level by interacting with prompt after boss is defeated. """
     if not FlagEnabled(in_map_flag):
         return
-    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and DialogPromptActivated(
-        prompt_text, prompt_region, anchor_type=CoordEntityType.Object))
+    Await(FlagDisabled(disabled_flag) and FlagEnabled(required_flag) and ActionButton(
+        prompt_text, prompt_object, anchor_type=CoordEntityType.Object))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
 
@@ -1496,7 +1490,7 @@ def ActivateExitBonfire():
                 DisplayStatus(CommonTexts.LordvesselNotObtained)
 
     # Wait for player to touch bonfire.
-    Await(not Flags.ChasmExit2Disabled and DialogPromptActivated(
+    Await(not Flags.ChasmExit2Disabled and ActionButton(
         CommonTexts.ReturnToFirelink, Objects.ChasmExit2Prompt, max_distance=2.0))
     AddSpecialEffect(PLAYER, CommonEffects.QuitRun)
 
@@ -1510,12 +1504,15 @@ def InvincibleChasmFall():
     return RESTART
 
 
-def GetReward(_, enemy: int, item_lot: ItemLot):
+def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
     """ 11212270: Enemy awards a given item lot when killed. """
     if THIS_SLOT_FLAG:
         return
+    if item_lot_flag:
+        return
     Await(IsDead(enemy))
     AwardItemLot(item_lot)
+    EnableFlag(item_lot_flag)
 
 
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
@@ -1523,7 +1520,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

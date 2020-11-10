@@ -1,0 +1,22 @@
+
+--- ROGUELIKE SOULS FUTURE UPDATES ---
+
+MAJOR CHANGES:
+	- Add Paintings. At least one for each map, shouldn't take long. (And get Anor Londo one working the same way.)
+	- Will have bonfires appear whenever a boss is defeated, so you can buy any remaining Motes in that level.
+	- Shopkeepers currently refuse to sell to you in that level if hit, even if they don't become hostile. This is because I can't figure out how to remove their general "aggro" with ESD.
+	- Magic will be improved.
+	- Random allies. Try white soapstone sign system - but there might be issues getting them into the boss fight, then.
+	- Enemy "squads". Certain enemies (like small humanoids, or bugs) have a chance of spawning the same enemy nearby, with the same patrol points, if any.
+	- "Story mode". More on this later...
+
+MINOR CHANGES:
+	- Fix map load trigger in Undead Parish elevator (add to Firelink).
+	- Record Cast Light head effects and inject into m12_01 EMEVD event for opening special light door.
+	- Add a Nito sword event to every map, then add a call to the constructor (with Nito's ID as an argument) only if Nito is in that map (just check for bosses and Very Rare enemies).
+	- Fix Pine Resin usage.
+	- Check Dire weapon damage.
+	- Add invisible wall near Logan.
+	- What happens in Abyss battles if you've already defeated the real Abyss boss in New Londo Ruins?
+	- Using a Homeward Bone in the Abyss after defeating the real boss there causes issues.
+	- Add spells to merchants.

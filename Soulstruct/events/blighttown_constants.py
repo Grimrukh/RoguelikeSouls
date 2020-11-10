@@ -63,6 +63,6 @@ class Objects(Object):
     Exit4Prompt = BaseEntity + 253  # Quelaag's exit.
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290
     Boss2Reward = BaseEntity + 280

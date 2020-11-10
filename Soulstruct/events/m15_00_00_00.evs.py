@@ -189,7 +189,7 @@ def Constructor():
     ReplanMimicAIOnLoad(0, Chrs.Mimic)
 
     # Tarnished Key drop for Cage (sometimes, since 1500136 won't always be spawned).
-    GetReward(0, 1500136, CommonItemLots.TarnishedKeyLot)
+    GetReward(0, 1500136, CommonItemLots.TarnishedKeyLot, CommonFlags.TarnishedKeyObtained)
 
     # Despawn rare/red phantom enemies.
     for enemy in range(100):
@@ -203,9 +203,7 @@ def Constructor():
 
 def Preconstructor():
     """ 50: Event 50 """
-    InvaderTrigger(0, Chrs.Invader, Regions.InvaderSpawnPoint, Regions.InvaderTrigger,
-                   Flags.InvaderSummoned, Flags.InvaderDismissed, Flags.InvaderDead)
-    InvaderKilled(0, Chrs.Invader, Flags.InvaderDead)
+    InvaderTrigger(0, 6990, 6991, Chrs.Invader, Regions.InvaderTrigger, Flags.InvaderDead)
 
     AggravateMerchant(0, CommonChrs.Andre, CommonFlags.AndreHostile, 9000)
     AggravateMerchant(1, CommonChrs.Vamos, CommonFlags.VamosHostile, 9003)
@@ -226,50 +224,50 @@ def Event1000000000():
 
 def Event11505300():
     """ 11505300: Event 11505300 """
-    CreateHazard(11505301, 1501850, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505301, 1501850, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505302, 1501851, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505302, 1501851, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505303, 1501852, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505303, 1501852, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505304, 1501853, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505304, 1501853, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505305, 1501854, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505305, 1501854, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505306, 1501855, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505306, 1501855, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505307, 1501856, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505307, 1501856, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505308, 1501857, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505308, 1501857, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505309, 1501858, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505309, 1501858, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505310, 1501859, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505310, 1501859, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505311, 1501860, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505311, 1501860, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505312, 1501861, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505312, 1501861, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505313, 1501862, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505313, 1501862, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505314, 1501863, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505314, 1501863, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505315, 1501864, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505315, 1501864, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505316, 1501865, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505316, 1501865, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505317, 1501866, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character, 
+    CreateHazard(11505317, 1501866, model_point=101, behavior_param_id=5040, target_type=DamageTargetType.Character,
                  radius=0.30000001192092896, life=0.0, repetition_time=2.0)
-    CreateHazard(11505290, 1501010, model_point=101, behavior_param_id=5060, target_type=DamageTargetType.Character, 
+    CreateHazard(11505290, 1501010, model_point=101, behavior_param_id=5060, target_type=DamageTargetType.Character,
                  radius=1.2000000476837158, life=0.0, repetition_time=0.5)
 
 
 def Event11505390():
     """ 11505390: Event 11505390 """
     IfFlagOff(1, 11)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1502998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=True, line_intersects=1501990, 
-                            boss_version=True)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1502998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, line_intersects=1501990,
+                   boss_version=True)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1502997)
     ForceAnimation(PLAYER, 7410)
@@ -281,8 +279,8 @@ def Event11505391():
     IfFlagOff(1, 11)
     IfFlagOn(1, 11505393)
     IfCharacterType(1, PLAYER, CharacterType.WhitePhantom)
-    IfDialogPromptActivated(1, prompt_text=10010403, anchor_entity=1502998, anchor_type=CoordEntityType.Region, 
-                            facing_angle=0.0, max_distance=0.0, human_or_hollow_only=False, line_intersects=1501990)
+    IfActionButton(1, prompt_text=10010403, anchor_entity=1502998, anchor_type=CoordEntityType.Region,
+                   facing_angle=0.0, max_distance=0.0, trigger_attribute=TriggerAttribute.All, line_intersects=1501990)
     IfConditionTrue(0, input_condition=1)
     RotateToFaceEntity(PLAYER, 1502997)
     ForceAnimation(PLAYER, 7410)
@@ -380,14 +378,14 @@ def Event11505351():
     EndIfFlagOn(11)
     EnableNetworkSync()
     IfFlagOff(0, 11505355)
-    CreateNPCPart(1500800, npc_part_id=2320, part_index=NPCPartType.Part2, part_health=200, damage_correction=1.0, 
+    CreateNPCPart(1500800, npc_part_id=2320, part_index=NPCPartType.Part2, part_health=200, damage_correction=1.0,
                   body_damage_correction=1.0, is_invincible=False, start_in_stop_state=False)
     SetNPCPartEffects(1500800, npc_part_id=2320, material_special_effect_id=56, material_fx_id=56)
     IfCharacterPartHealthLessThanOrEqual(0, 1500800, npc_part_id=2320, value=0)
     EzstateAIRequest(1500800, command_id=1300, slot=0)
     IfHasTAEEvent(0, 1500800, tae_event_id=1204)
     EnableFlag(11505355)
-    CreateNPCPart(1500800, npc_part_id=2321, part_index=NPCPartType.Part2, part_health=100, damage_correction=1.0, 
+    CreateNPCPart(1500800, npc_part_id=2321, part_index=NPCPartType.Part2, part_health=100, damage_correction=1.0,
                   body_damage_correction=1.0, is_invincible=False, start_in_stop_state=False)
     SetNPCPartEffects(1500800, npc_part_id=2321, material_special_effect_id=56, material_fx_id=56)
     DisableNetworkSync()
@@ -481,7 +479,7 @@ def Event11500791():
     ForceAnimation(1500110, 500, wait_for_completion=True)
     ForceAnimation(1500110, 603, wait_for_completion=True)
     EnableAI(1500110)
-    CreateHazard(11505200, 1501800, model_point=101, behavior_param_id=5050, target_type=DamageTargetType.Character, 
+    CreateHazard(11505200, 1501800, model_point=101, behavior_param_id=5050, target_type=DamageTargetType.Character,
                  radius=1.7000000476837158, life=1.0, repetition_time=0.0)
     ForceAnimation(1501800, 12, wait_for_completion=True)
     DisableObject(1501800)
@@ -651,7 +649,7 @@ def Event11500700(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: float
     """ 11500700: Event 11500700 """
     DisableCollision(1503210)
     ForceAnimation(arg_16_19, 1)
-    CreateHazard(arg_0_3, arg_4_7, model_point=101, behavior_param_id=5050, target_type=DamageTargetType.Character, 
+    CreateHazard(arg_0_3, arg_4_7, model_point=101, behavior_param_id=5050, target_type=DamageTargetType.Character,
                  radius=1.7000000476837158, life=arg_12_15, repetition_time=0.20000000298023224)
     ForceAnimation(arg_4_7, arg_8_11, wait_for_completion=True)
     RemoveObjectFlag(arg_0_3)
@@ -660,7 +658,7 @@ def Event11500700(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: float
     DisableFlag(arg_20_23)
 
 
-def Event11500750(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int, 
+def Event11500750(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, arg_16_19: int, arg_20_23: int,
                   arg_24_27: int, arg_28_31: int):
     """ 11500750: Event 11500750 """
     DisableCollision(1503210)
@@ -668,7 +666,7 @@ def Event11500750(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, 
     EnableObject(arg_4_7)
     DisableObject(arg_28_31)
     ForceAnimation(arg_16_19, 1)
-    CreateHazard(arg_0_3, arg_4_7, model_point=101, behavior_param_id=5050, target_type=DamageTargetType.Character, 
+    CreateHazard(arg_0_3, arg_4_7, model_point=101, behavior_param_id=5050, target_type=DamageTargetType.Character,
                  radius=1.7000000476837158, life=12.5, repetition_time=0.20000000298023224)
     ForceAnimation(arg_4_7, arg_8_11, wait_for_completion=True)
     EnableCollision(arg_12_15)
@@ -699,11 +697,11 @@ def Event11500850():
     """ 11500850: Event 11500850 """
     DisableFlag(11505250)
     IfFlagOff(1, 11505250)
-    IfDialogPromptActivated(1, prompt_text=10010502, anchor_entity=1501790, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=104, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010502, anchor_entity=1501790, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=104, trigger_attribute=TriggerAttribute.All)
     IfFlagOff(2, 11505250)
-    IfDialogPromptActivated(2, prompt_text=10010502, anchor_entity=1501790, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=102, human_or_hollow_only=False)
+    IfActionButton(2, prompt_text=10010502, anchor_entity=1501790, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=102, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
     IfConditionTrue(0, input_condition=-1)
@@ -957,14 +955,14 @@ def Event11500102():
     End()
     IfThisEventOff(1)
     IfPlayerHasGood(1, 2003, including_box=False)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1501011, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=2.0, model_point=105, human_or_hollow_only=True)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1501011, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=2.0, model_point=105)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=1501011, destination_type=CoordEntityType.Object, model_point=120, short_move=True)
     ForceAnimation(PLAYER, 7111)
     ForceAnimation(1501011, 10)
     EndIfClient()
-    DisplayDialog(10010862, anchor_entity=-1, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010862, anchor_entity=-1, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
 
 
@@ -973,10 +971,10 @@ def Event11500103():
     DisableNetworkSync()
     IfFlagOff(1, 11500102)
     IfPlayerDoesNotHaveGood(1, 2003, including_box=False)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1501011, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=2.0, model_point=105, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1501011, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=2.0, model_point=105, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010163, anchor_entity=-1, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010163, anchor_entity=-1, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -985,10 +983,10 @@ def Event11500106():
     """ 11500106: Event 11500106 """
     DisableNetworkSync()
     IfFlagOff(1, 11500105)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1501001, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=101, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1501001, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=101, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
-    DisplayDialog(10010161, anchor_entity=1501001, display_distance=3.0, button_type=ButtonType.OK_or_Cancel, 
+    DisplayDialog(10010161, anchor_entity=1501001, display_distance=3.0, button_type=ButtonType.OK_or_Cancel,
                   number_buttons=NumberButtons.NoButton)
     Restart()
 
@@ -999,8 +997,8 @@ def Event11500107():
     EndOfAnimation(1501001, 0)
     End()
     IfFlagOff(1, 11500105)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=1501001, anchor_type=CoordEntityType.Object, 
-                            facing_angle=60.0, max_distance=1.5, model_point=100, human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=1501001, anchor_type=CoordEntityType.Object,
+                   facing_angle=60.0, max_distance=1.5, model_point=100, trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     EnableFlag(11500105)
     Move(PLAYER, destination=1501001, destination_type=CoordEntityType.Object, model_point=120, short_move=True)
@@ -1019,10 +1017,10 @@ def Event11500110(_, arg_0_3: int, arg_4_7: int):
     EndIfClient()
     IfPlayerHasGood(1, 2003, including_box=False)
     SkipLinesIfConditionTrue(2, 1)
-    DisplayDialog(10010883, anchor_entity=arg_0_3, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010883, anchor_entity=arg_0_3, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     SkipLines(1)
-    DisplayDialog(10010862, anchor_entity=arg_0_3, display_distance=3.0, button_type=ButtonType.Yes_or_No, 
+    DisplayDialog(10010862, anchor_entity=arg_0_3, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
 
 
@@ -1303,9 +1301,8 @@ def DepartAfterBoss():
     IfTimeElapsed(0, 5.0)
     IfFlagOn(0, Flags.Boss1Dead)
     CreateFX(1503010)
-    IfDialogPromptActivated(0, prompt_text=CommonTexts.DepartLevel, anchor_entity=1502505,
-                            anchor_type=CoordEntityType.Region, facing_angle=0.0, max_distance=0.0,
-                            human_or_hollow_only=True)
+    IfActionButton(0, prompt_text=CommonTexts.DepartLevel, anchor_entity=1502505,
+                   anchor_type=CoordEntityType.Region, facing_angle=0.0, max_distance=0.0)
     EnableFlag(Flags.Exit2Activated)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
 
@@ -1516,7 +1513,7 @@ def Event11505032():
 
 @RestartOnRest
 def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLot,
+               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
                fog_1_object: int, fog_1_sfx: int,
                fog_2_object: int, fog_2_sfx: int,
                boss_name: short, boss_twin_name: short):
@@ -1589,28 +1586,27 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     AwardItemLot(reward_item_lot, True)
 
 
-def InvaderTrigger(_, invader: Character, spawn_point: Region, trigger: Region,
-                   summoned_flag: Flag, dismissed_flag: Flag, dead_flag: Flag, ):
-    """ 11505200: Invasion is triggered. Human not needed. """
-    DisableNetworkSync()
-    EndIfFlagOn(summoned_flag)
-    IfHost(1)
-    IfFlagOff(1, dead_flag)
-    SkipLinesIfThisEventOn(1)
-    IfCharacterInsideRegion(1, PLAYER, region=trigger)
-    IfConditionTrue(0, input_condition=1)
-    PlaceSummonSign(SummonSignType.BlackEyeSign, invader, region=spawn_point,
-                    summon_flag=summoned_flag, dismissal_flag=dismissed_flag)
-    Wait(20.0)
-    Restart()
-
-
-def InvaderKilled(_, invader: Character, dead_flag: Flag):
-    """ 11502260: Invader in this map has been killed. Also disables them on startup. """
+def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Character, trigger: Region, dead_flag: Flag):
+    """ 11502260: Invasion is triggered. Human not needed. """
     DisableCharacter(invader)
     if THIS_SLOT_FLAG:
         return
+    IfHost(1)
+    IfFlagOff(1, dead_flag)
+    IfCharacterInsideRegion(1, PLAYER, region=trigger)
+    IfConditionTrue(0, input_condition=1)
+    Wait(3.0)
+    EnableCharacter(invader)
+    ForceAnimation(invader, PlayerAnimations.SummonSpawn, wait_for_completion=True)
+    ReplanAI(invader)
+    SetTeamType(invader, TeamType.BlackPhantom)
+    DisplayBattlefieldMessage(invasion_message, 0)
+
+    # TODO: If player dies while invader is active (two possible outcomes here), give them a Black Eye Orb and register
+    #  future possible vengeance invasion by checking that flag in the run manager.
     Await(IsDead(invader))
+
+    DisplayBattlefieldMessage(dead_message, 0)
     EnableFlag(dead_flag)
 
 
@@ -1619,7 +1615,7 @@ def DepartLevelUnconditional(_, prompt_object: Object, prompt_text: Text, disabl
     """ 11502200: Depart level by interacting with prompt. No conditions. """
     if not CommonFlags.InSensFortress:
         return
-    Await(FlagDisabled(disabled_flag) and DialogPromptActivated(
+    Await(FlagDisabled(disabled_flag) and ActionButton(
         prompt_text, prompt_object, anchor_type=CoordEntityType.Object, max_distance=2.0))
     EnableFlag(end_trigger_flag)
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
@@ -1644,9 +1640,9 @@ def OpenMimic(_, mimic: Character):
     IfCharacterHasSpecialEffect(1, mimic, 5421)
     IfCharacterType(2, PLAYER, CharacterType.BlackPhantom)
     IfConditionFalse(1, input_condition=2)
-    IfDialogPromptActivated(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
-                            facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
-                            human_or_hollow_only=False)
+    IfActionButton(1, prompt_text=10010400, anchor_entity=mimic, anchor_type=CoordEntityType.Character,
+                   facing_angle=45.0, max_distance=1.2000000476837158, model_point=7,
+                   trigger_attribute=TriggerAttribute.All)
     IfConditionTrue(0, input_condition=1)
     Move(PLAYER, destination=mimic, destination_type=CoordEntityType.Character, model_point=100,
          copy_draw_parent=mimic)
@@ -1766,12 +1762,15 @@ def ReplanMimicAIOnLoad(_, mimic: int):
     ReplanAI(mimic)
 
 
-def GetReward(_, enemy: int, item_lot: ItemLot):
+def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
     """ 11502270: Enemy awards a given item lot when killed. """
     if THIS_SLOT_FLAG:
         return
+    if item_lot_flag:
+        return
     Await(IsDead(enemy))
     AwardItemLot(item_lot)
+    EnableFlag(item_lot_flag)
 
 
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
@@ -1779,7 +1778,7 @@ def ActivateAbyssPortal(_, portal: int, fx_id: int):
     if CommonFlags.DisableAbyssPortal:
         DeleteFX(fx_id, erase_root_only=False)
         return
-    Await(DialogPromptActivated(
+    Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
         anchor_type=CoordEntityType.Character))
 

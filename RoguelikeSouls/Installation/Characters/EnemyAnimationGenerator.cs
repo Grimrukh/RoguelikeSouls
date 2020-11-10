@@ -44,18 +44,17 @@ namespace RoguelikeSouls.Installation
             MaxSpeedPoints = (int)(MaxSpeedMultiplier / QuantizedSpeed);
         }
 
-        public void Install(bool skipAnimRandomizer = false)
+        public void Install()
         {
             AddSpeedEffects();
             AddAttackDamageEffects();
-            if (!skipAnimRandomizer)
-                RandomizeAllEnemySpeeds();
             AddFadingAnimations();
-            ResetSpeedInDeathAnimations();
+            // ResetSpeedInDeathAnimations();  // doesn't work
         }
 
         void ResetSpeedInDeathAnimations()
         {
+            // Doesn't work. Need George's proper fix.
             foreach (int chrID in Mod.Characters.Keys)
             {
                 if (chrID != 0)
@@ -67,7 +66,7 @@ namespace RoguelikeSouls.Installation
             }
         }
 
-        void RandomizeAllEnemySpeeds()
+        public void RandomizeAllEnemySpeeds()
         {
             foreach (int chrID in Mod.Characters.Keys)
             {
@@ -148,6 +147,8 @@ namespace RoguelikeSouls.Installation
         {
             // Randomizes speeds of relevant animations in enemy TAE. Also adjusts attack damage based on new speed (excludes Bullets).
             if (enemyID == 0) throw new ArgumentException("`RandomizeEnemySpeed` is not for the player.");
+            if (DEBUG)
+                Console.WriteLine($"Randomizing animation speeds for enemy: {enemyID}");
             TAE tae = Mod[enemyID].GetTAE(enemyID);
             foreach (var animation in tae.Animations)
             {
@@ -279,7 +280,7 @@ namespace RoguelikeSouls.Installation
             // Each speed point adds `quantizedSpeed` to the speed modifier for that frame.
             if (speedPointTotal < frameCount)
             {
-                throw new ArgumentException("Cannot use RoryAlgorithm with less speed points than frame count.");
+                throw new ArgumentException($"Cannot use RoryAlgorithm with less speed points ({speedPointTotal}) than frame count ({frameCount}).");
             }
             List<int> function = Enumerable.Repeat(UseRemovalRory ? speedPointTotal / frameCount : 1, frameCount).ToList();
             for (int i = 0; i < speedPointTotal - frameCount; i++)

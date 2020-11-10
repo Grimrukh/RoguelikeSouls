@@ -4,7 +4,7 @@ namespace RoguelikeSouls.Installation
 {
     static class Objects
     {
-        public static List<int> CorpsePoses = new List<int>()
+        public static List<short> CorpsePoses = new List<short>()
         {
             10,  // Lying on stomach, right knee slightly crooked, head turned slightly right. (add 0.25 to your Y)
             11,  // As above, but head turned more to the left. (add 0.25 to your Y)
@@ -21,9 +21,9 @@ namespace RoguelikeSouls.Installation
             // 95,  // Floating face-down in water.
         };
 
-        public static Dictionary<int, float> CorpsePoseYOffsets = new Dictionary<int, float>()
+        public static Dictionary<short, float> CorpsePoseYOffsets = new Dictionary<short, float>()
         {
-            { 10, -0.1f },
+            { 10, 0.0f },  // adding 0.25f was wrong
             { 11, 0.25f },
             { 20, 0.0f },
             { 21, 0.0f },

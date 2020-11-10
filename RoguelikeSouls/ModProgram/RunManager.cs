@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Microsoft.Win32.SafeHandles;
 
 namespace RoguelikeSouls.ModProgram
 {
@@ -14,28 +15,26 @@ namespace RoguelikeSouls.ModProgram
         SoulsMod Mod { get; }
         Random Rand { get; }
         DSRHook Hook { get; }
-        MSBGenerator MapGenerator { get; }
         bool InitialRestartDone { get; set; } = false;
 
-        string DEBUG_MAP { get; } = "";        
+        public static string DEBUG_MAP { get; } = "";        
 
-        const int MinLabelCount = 6;
-        const int MaxLabelCount = 10;
-        const int MaxMapLevel = 10;
-
-        // Current map instance. Is NOT updated when you go to the Painted World or an Abyss battle.
-        Map CurrentMap { get; set; }
+        // Current map instance. This is NOT updated when you go to the Painted World or an Abyss battle.
+        MapInfo CurrentMap { get; set; }
 
         // Maps are sampled and removed from this list as they are used in the run.
         // Excludes Painted World, Kiln, and Abyss, which are special cases for access.
-        public List<Map> MapsAvailable { get; } = new List<Map>();
+        public List<MapInfo> MapsAvailable { get; } = new List<MapInfo>();
 
         // Maps visited, which is particularly useful for recording when Painted World has been visited.
-        public List<Map> MapsVisited { get; } = new List<Map>();
+        public List<MapInfo> MapsVisited { get; } = new List<MapInfo>();
 
         // List of boss categories used in the current run, which will prevent the same
         // category appearing again.
         public List<int> BossCategoriesUsed { get; } = new List<int>();
+        
+        // Same, but for Abyss battles.
+        public List<int> AbyssBossCategoriesUsed { get; } = new List<int>();
 
         // List of invaders that are still available for appearance.
         public List<int> InvadersAvailable { get; } = new List<int>(Enumerable.Range(0, 30));
@@ -58,6 +57,8 @@ namespace RoguelikeSouls.ModProgram
             }
             set
             {
+                if (value < 1 || value > 10)
+                    throw new Exception($"Cannot set map level to {value}. Must range from 1 to 10.");
                 for (int level = 1; level <= 10; level++)
                     DisableFlag(GameFlag.MapLevelBaseFlag + level);
                 EnableFlag(GameFlag.MapLevelBaseFlag + value);
@@ -65,7 +66,7 @@ namespace RoguelikeSouls.ModProgram
         }
 
         // Dictionary of all map labels for current run (generated when run starts).
-        public Dictionary<Map, List<Label>> MapLabels { get; } = new Dictionary<Map, List<Label>>();
+        public Dictionary<MapInfo, List<Label>> MapLabels { get; } = new Dictionary<MapInfo, List<Label>>();
 
         public RunManager(SoulsMod mod, DSRHook hook, string inputSeed = "")
         {
@@ -76,8 +77,7 @@ namespace RoguelikeSouls.ModProgram
             Mod = mod;
             Rand = inputSeed == "" ? new Random() : new Random(inputSeed.GetHashCode());
             Hook = hook;
-            MapGenerator = new MSBGenerator(this, Mod, Rand);
-
+            
             if (GetFlag(GameFlag.RunStartedFlag))
             {
                 Console.WriteLine("Loading existing journey...");
@@ -136,7 +136,7 @@ namespace RoguelikeSouls.ModProgram
 #if DEBUG
                             Console.WriteLine($"Activating map based on end trigger flag {connection.EndTriggerFlag}");
 #endif
-                            Map newMap = ActivateMap(connection.EndTriggerFlag);
+                            MapInfo newMap = ActivateMap(connection.EndTriggerFlag);
                             Console.WriteLine($"Travelling to new region: {newMap.Name} (level {MapLevel})");
                         }
                     }
@@ -206,7 +206,7 @@ namespace RoguelikeSouls.ModProgram
             ResetRunData();
             List<Label> allLabels = new List<Label>(Enum.GetValues(typeof(Label)).Cast<Label>());
             {
-                foreach (Map map in Maps.MapList)
+                foreach (MapInfo map in Maps.MapList)
                 {
                     if (GetFlag(map.IsVisitedFlag))
                     {
@@ -222,6 +222,8 @@ namespace RoguelikeSouls.ModProgram
                 {
                     if (GetFlag(GameFlag.BossCategoryUsedBaseFlag + category))
                         BossCategoriesUsed.Add(category);
+                    if (GetFlag(GameFlag.AbyssBossCategoryUsedBaseFlag + category))
+                        AbyssBossCategoriesUsed.Add(category);
                 }
             }
 
@@ -249,6 +251,7 @@ namespace RoguelikeSouls.ModProgram
             InvadersAvailable.AddRange(Enumerable.Range(0, 30));
             InvadersUsed.Clear();
             BossCategoriesUsed.Clear();
+            AbyssBossCategoriesUsed.Clear();
             MapsAvailable.Clear();
             MapsAvailable.AddRange(Maps.MapList.Where(map => -2 <= map.Rating && map.Rating <= 2));
             MapsVisited.Clear();
@@ -259,16 +262,52 @@ namespace RoguelikeSouls.ModProgram
         {
             // Labels chosen for each map independently.
             Dictionary<Label, int> weightedLabels = GetWeightedLabels();
-            foreach (Map map in Maps.MapList)
+            foreach (MapInfo map in Maps.MapList)
             {
-                int labelCount = Rand.Next(MinLabelCount, MaxLabelCount + 1);
                 List<Label> mapLabels = new List<Label>();
-                for (int i = 0; i < labelCount; i++)
+                if (GetFlag(GameFlag.LobosJrRingFlag))
                 {
-                    Dictionary<Label, int> weightedOptions = weightedLabels.Where(kv => !mapLabels.Contains(kv.Key)).ToDictionary(item => item.Key, item => item.Value);
-                    mapLabels.Add(weightedOptions.GetWeightedRandomElement(Rand));
+                    // Choose a (large) number of random labels for high enemy variety.
+                    while (mapLabels.Count < Settings.LobosJrLabelCount)
+                    {
+                        Dictionary<Label, int> weightedOptions = weightedLabels.Where(
+                            kv => !mapLabels.Contains(kv.Key)).ToDictionary(item => item.Key, item => item.Value);
+                        Label chosenLabel = weightedOptions.GetWeightedRandomElement(Rand);
+                        mapLabels.Add(chosenLabel);
+                    }
                 }
+                else
+                {
+                    // Labels will keep being added until the size of the common/uncommon enemy pool
+                    // is above a minimum enemy count drawn from a certain range. If only one
+                    // label ends up being chosen, there's a 50% chance of adding a second.
+                    int basicEnemyTypeCount = 0;
+                    int desiredBasicEnemyTypeCount = Rand.Next(Settings.MinBasicEnemyTypeCount, Settings.MaxBasicEnemyTypeCount + 1);
+                    while (basicEnemyTypeCount < desiredBasicEnemyTypeCount)
+                    {
+                        Dictionary<Label, int> weightedOptions = weightedLabels.Where(
+                            kv => !mapLabels.Contains(kv.Key)).ToDictionary(item => item.Key, item => item.Value);
+                        Label chosenLabel = weightedOptions.GetWeightedRandomElement(Rand);
+                        mapLabels.Add(chosenLabel);
+                        basicEnemyTypeCount += EnemyGenerator.EnemyList.Where(enemy =>
+                            enemy.Labels.Contains(chosenLabel)
+                            && enemy.Rarity.In(EnemyRarity.Common, EnemyRarity.Uncommon)
+                        ).Count();
+                    }
+                    if (mapLabels.Count == 1 && Rand.Roll(0.5))
+                    {
+                        Dictionary<Label, int> weightedOptions = weightedLabels.Where(
+                            kv => !mapLabels.Contains(kv.Key)).ToDictionary(item => item.Key, item => item.Value);
+                        Label chosenLabel = weightedOptions.GetWeightedRandomElement(Rand);
+                        mapLabels.Add(chosenLabel);
+                    }
+                }
+                
                 MapLabels[map] = mapLabels;
+#if DEBUG
+                Console.WriteLine($"{map.Name} labels:\n  {string.Join(", ", mapLabels)}");
+#endif
+
                 // EMEVD cleanup function disables all these record-keeping flag ranges.
                 foreach (Label label in MapLabels[map])
                     EnableFlag(map.HasLabelFlagBase + (int)label);
@@ -283,7 +322,7 @@ namespace RoguelikeSouls.ModProgram
             andreArmor.PopRandomElement(Rand);
             foreach (int offset in andreArmor)
             {
-                EnableFlag(11817000 + 40 * offset);
+                EnableFlag(11817000 + 40 * offset +  0);
                 EnableFlag(11817000 + 40 * offset + 10);
                 EnableFlag(11817000 + 40 * offset + 20);
                 EnableFlag(11817000 + 40 * offset + 30);
@@ -293,35 +332,27 @@ namespace RoguelikeSouls.ModProgram
             andreEmbers.PopRandomElement(Rand);
             andreEmbers.PopRandomElement(Rand); ;
             foreach (int offset in andreEmbers)
-            {
                 EnableFlag(11817200 + 10 * offset);
-            }
 
             List<int> vamosWeapons = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
             vamosWeapons.PopRandomElement(Rand);
             vamosWeapons.PopRandomElement(Rand);
             vamosWeapons.PopRandomElement(Rand);
             foreach (int offset in vamosWeapons)
-            {
                 EnableFlag(11817400 + 10 * offset);
-            }
 
             List<int> vamosEmbers = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
             vamosEmbers.PopRandomElement(Rand);
             vamosEmbers.PopRandomElement(Rand);
             foreach (int offset in vamosEmbers)
-            {
                 EnableFlag(11817500 + 10 * offset);
-            }
 
             List<int> undeadMerchantWeapons = new List<int>() { 0, 1, 2, 3, 4 };
             undeadMerchantWeapons.PopRandomElement(Rand);
             foreach (int offset in undeadMerchantWeapons)
-            {
                 EnableFlag(11817600 + 10 * offset);
-            }
             // Always sells keys, too lazy. But 50% chance of selling Piercing Eye.
-            if (Roll(0.5))
+            if (Rand.Roll(0.5))
                 EnableFlag(11817680);
 
             List<int> chesterWeapons = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -329,33 +360,42 @@ namespace RoguelikeSouls.ModProgram
             chesterWeapons.PopRandomElement(Rand);
             chesterWeapons.PopRandomElement(Rand);
             foreach (int offset in chesterWeapons)
-            {
                 EnableFlag(11817700 + 10 * offset);
-            }
 
             List<int> chesterArmor = new List<int>() { 0, 1, 2, 3, 4 };
             chesterArmor.PopRandomElement(Rand);
             chesterArmor.PopRandomElement(Rand);
             foreach (int offset in chesterArmor)
-            {
                 EnableFlag(11817800 + 10 * offset);
-            }
         }
 
         void ResetPlayerLevel()
         {
+#if DEBUG
+            Hook.Vitality = 99;
+            Hook.Attunement = 99;
+            Hook.Endurance = 99;
+            Hook.Strength = 99;
+            Hook.Dexterity = 99;
+            Hook.Resistance = 99;
+            Hook.Intelligence = 99;
+            Hook.Faith = 99;
+            Hook.SoulLevel = 99;
+            Hook.MaxHealth = 999;
+            Hook.MaxStamina = 150;
+#else
             Hook.Vitality = 14;
             Hook.Attunement = 11;
-            Hook.Endurance = 25;  // Nice and high for equip load reasons.
+            Hook.Endurance = 25;  // Starts nice and high for equip load.
             Hook.Strength = 12;
             Hook.Dexterity = 12;
             Hook.Resistance = 10;
             Hook.Intelligence = 10;
             Hook.Faith = 10;
             Hook.SoulLevel = 20;
-
             Hook.MaxHealth = 659;  // Appropriate for vitality 14.
             Hook.MaxStamina = 95;  // Actually for 12 endurance, not 20.
+#endif
         }
 
         void ClearAttunementSlots()
@@ -401,26 +441,27 @@ namespace RoguelikeSouls.ModProgram
             return weightedLabels;
         }
 
-        public Map ActivateMap(int triggerFlag)
+        public MapInfo ActivateMap(int triggerFlag)
         {
             // Enemies get harder (unless at max).
-            if (MapLevel < MaxMapLevel)
+            if (MapLevel < 10)
                 MapLevel += 1;
 
 #if DEBUG
             Console.WriteLine($"Requesting map with level: {MapLevel}");
 #endif
 
-            Map newMap = GetNextMap();
+            MapInfo newMap = GetNextMap();
             Connection startPoint = GetStartPoint(newMap, 0, ignoreDepth: true);
-            // Connection endPoint = CurrentMap.GetEndPointFromTriggerFlag(triggerFlag);
-            // Connection startPoint = GetStartPoint(newMap, endPoint.Depth);  // Not using depth for now; going full random.
+
+            // Not using depth for now; going full random.
+            //Connection endPoint = CurrentMap.GetEndPointFromTriggerFlag(triggerFlag);
+            //Connection startPoint = GetStartPoint(newMap, endPoint.Depth);
 #if DEBUG
             Console.WriteLine($"Activating map: {newMap.Name}");
             Console.WriteLine($"    Labels: {string.Join(", ", MapLabels[newMap])}");
             Console.WriteLine($"    Start point index: {startPoint.IndexInLevel}");
 #endif
-            
             // Disable map's "dead enemies" flags.
             for (int i = 0; i < 100; i++)
                 DisableFlag(newMap.DeadEnemyFlagBase + i);
@@ -430,7 +471,9 @@ namespace RoguelikeSouls.ModProgram
                 DisableFlag(11027000 + i);  // Includes "bonfire shop" (11027090).
 
             // Generate MSB, LUABND, and tweaked EMEVD for new map.
-            MapGenerator.GenerateMapData(newMap, redPhantomOdds: GetFlag(GameFlag.MornsteinRingFlag) ? 0.2 : 0.1);
+            double redPhantomOdds = GetFlag(GameFlag.MornsteinRingFlag) ? 0.2 : 0.1;
+            MapGenerator mapGen = new MapGenerator(Mod, this, newMap, Rand, redPhantomOdds);
+            mapGen.Generate();
 
             foreach (int startFlag in startPoint.AllStartFlags)
             {
@@ -462,21 +505,23 @@ namespace RoguelikeSouls.ModProgram
             return newMap;
         }
 
-        Map GetNextMap()
+        MapInfo GetNextMap()
         {
             // First maps are completely random (sans endpoint maps), with random start points.
             // Last map is an endpoint: Anor Londo, Duke's Archives, New Londo Ruins, Lost Izalith, or Tomb of the Giants.
             // It's Anor Londo if you don't have the Lordvessel (and the others will never appear).
             // Otherwise, it's a random map from among the endpoints you haven't beaten.
+            // If you've beaten them all, it's any endpoint.
             if (DEBUG_MAP != "")
                 return Maps.GetMap(DEBUG_MAP);
+
             int mapLevel = MapLevel;  // Note that map level is incremented just before this is called, so it's the level of THIS upcoming map.
             int endMapLevel = GetFlag(GameFlag.LobosJrRingFlag) ? 9 : 6;
             if (mapLevel < endMapLevel)
             {
-                List<Map> options = new List<Map>(Maps.MapList.Where(map => -1 <= map.Rating && map.Rating <= 1 && MapsAvailable.Contains(map)));
+                List<MapInfo> options = new List<MapInfo>(Maps.MapList.Where(map => -1 <= map.Rating && map.Rating <= 1 && MapsAvailable.Contains(map)));
                 // 80% chance to remove Great Hollow and Ash Lake from options.
-                if (options.Count > 2 && Roll(0.8))
+                if (options.Count > 2 && Rand.Roll(0.8))
                 {
                     if (options.Contains(Maps.GetMap("AshLake")))
                         options.Remove(Maps.GetMap("AshLake"));
@@ -489,13 +534,17 @@ namespace RoguelikeSouls.ModProgram
             {
                 if (!GetFlag(GameFlag.LordvesselObtained))
                 {
+                    // If you don't have the Lordvessel, the final level is always Anor Londo,
+                    // with the only possible exit being Gwynevere's bonfire.
                     EnableFlag(11512000);  // Disable Batwing exit.
                     EnableFlag(11512010);  // Disable Archives exit.
                     return Maps.GetMap("AnorLondo");
                 }
                 else
                 {
-                    List<Map> options = new List<Map>(Maps.MapList.Where(
+                    // If you have the Lordvessel, the final level is one of the four Lord Soul areas
+                    // whose boss you have not yet defeated.
+                    List<MapInfo> options = new List<MapInfo>(Maps.MapList.Where(
                         map => (Math.Abs(map.Rating) == 2 || map.Name == "NewLondoRuins") && map.Name != "AnorLondo" && MapsAvailable.Contains(map)));
                     if (GetFlag(GameFlag.ArchivesBossDefeated))
                         options.Remove(Maps.GetMap("DukesArchives"));
@@ -506,9 +555,9 @@ namespace RoguelikeSouls.ModProgram
                     if (GetFlag(GameFlag.NewLondoBossDefeated))
                         options.Remove(Maps.GetMap("NewLondoRuins"));
                     if (!options.Any())
-                        // All Lord Souls obtained; go to any rating 2 map.
-                        options = new List<Map>(Maps.MapList.Where(map => Math.Abs(map.Rating) == 2 && MapsAvailable.Contains(map)));
-                    Map chosen = options.GetRandomElement(Rand);
+                        // All Lord Souls have been obtained. Go to any rating 2 map instead.
+                        options = new List<MapInfo>(Maps.MapList.Where(map => Math.Abs(map.Rating) == 2 && MapsAvailable.Contains(map)));
+                    MapInfo chosen = options.GetRandomElement(Rand);
                     if (chosen.Name == "NewLondoRuins")
                     {
                         // No way out of New Londo except into the Abyss at this point.
@@ -540,7 +589,7 @@ namespace RoguelikeSouls.ModProgram
 
             MapLevel = 1;  // should already be done in EMEVD cleanup
 
-            Map firstMap = GetNextMap();  // Any map rated from -1 to 1.
+            MapInfo firstMap = GetNextMap();  // Any map rated from -1 to 1.
 
             // Get random start point.
             Connection startPoint = GetStartPoint(firstMap, 0, ignoreDepth: true);
@@ -567,7 +616,10 @@ namespace RoguelikeSouls.ModProgram
             for (int i = 0; i < 100; i++)
                 DisableFlag(11027000 + i);  // Includes "bonfire shop" (11027090).
 
-            MapGenerator.GenerateMapData(firstMap, redPhantomOdds: GetFlag(GameFlag.MornsteinRingFlag) ? 0.2 : 0.1);
+            // Generate MSB, LUABND, EMEVD, FFXBND.
+            double redPhantomOdds = GetFlag(GameFlag.MornsteinRingFlag) ? 0.2 : 0.1;
+            MapGenerator mapGen = new MapGenerator(Mod, this, firstMap, Rand, redPhantomOdds);
+            mapGen.Generate();
 
             CurrentMap = firstMap;
             foreach (var map in Maps.MapList)
@@ -586,7 +638,7 @@ namespace RoguelikeSouls.ModProgram
             EnableFlag(startPoint.WarpRequestFlag);
         }
 
-        Connection GetStartPoint(Map newMap, int fromDepth, bool ignoreDepth = false)
+        Connection GetStartPoint(MapInfo newMap, int fromDepth, bool ignoreDepth = false)
         {
             if (ignoreDepth)  // e.g. for first map
             {
@@ -623,7 +675,7 @@ namespace RoguelikeSouls.ModProgram
         void RequestBonfireCreation()
         {
             Hook.GetStablePosition(out float x, out float y, out float z, out float angle);
-            int bonfireSpawnID = MapGenerator.CreateBonfire(CurrentMap, x, y, z, angle);
+            int bonfireSpawnID = MapGenerator.CreateBonfire(Mod.GameDir, CurrentMap, x, y, z, angle, Rand);
             if (bonfireSpawnID == -1)
             {
                 EnableFlag(GameFlag.BonfireRequestUnsuccessful);  // could not create bonfire
@@ -641,7 +693,8 @@ namespace RoguelikeSouls.ModProgram
         void RequestAbyssFight()
         {
             Console.WriteLine("Delving into the Abyss...");
-            MapGenerator.GenerateAbyssBattleMSB(MapLevel, BossCategoriesUsed);
+            MapGenerator abyssGen = new MapGenerator(Mod, this, Maps.GetMap("NewLondoRuins"), Rand, redPhantomOdds: 1.0);
+            abyssGen.GenerateAbyssVisit();
             EnableFlag(GameFlag.AbyssBattleRequestComplete);
         }
 
@@ -652,44 +705,54 @@ namespace RoguelikeSouls.ModProgram
             {
                 if (GetFlag(GameFlag.BoostVitalityBase + i))
                 {
+                    int oldVitality = Hook.Vitality;
                     Hook.Vitality += i + 1;
-                    Hook.MaxHealth += (i + 1) * 25;  // 25 HP per level
+                    if (Hook.Vitality > 99) Hook.Vitality = 99;
+                    Hook.MaxHealth += (Hook.Vitality - oldVitality) * 25;  // 25 HP per level
                     DisableFlag(GameFlag.BoostVitalityBase + i);
                 }
                 if (GetFlag(GameFlag.BoostAttunementBase + i))
                 {
                     Hook.Attunement += i + 1;
+                    if (Hook.Attunement > 99) Hook.Attunement = 99;
                     DisableFlag(GameFlag.BoostAttunementBase + i);
                 }
                 if (GetFlag(GameFlag.BoostEnduranceBase + i))
                 {
+                    int oldEndurance = Hook.Endurance;
                     Hook.Endurance += i + 1;
-                    Hook.MaxStamina += (i + 1) * 2;  // 2 stamina points per level
+                    if (Hook.Endurance > 99) Hook.Endurance = 99;
+                    Hook.MaxStamina += (Hook.Endurance - oldEndurance) * 2;  // 2 stamina points per level
                     DisableFlag(GameFlag.BoostEnduranceBase + i);
                 }
                 if (GetFlag(GameFlag.BoostStrengthBase + i))
                 {
                     Hook.Strength += i + 1;
+                    if (Hook.Strength > 99) Hook.Strength = 99;
                     DisableFlag(GameFlag.BoostStrengthBase + i);
                 }
                 if (GetFlag(GameFlag.BoostDexterityBase + i))
                 {
                     Hook.Dexterity += i + 1;
+                    if (Hook.Dexterity > 99) Hook.Dexterity = 99;
                     DisableFlag(GameFlag.BoostDexterityBase + i);
                 }
                 if (GetFlag(GameFlag.BoostResistanceBase + i))
                 {
                     Hook.Resistance += i + 1;
+                    if (Hook.Resistance > 99) Hook.Resistance = 99;
                     DisableFlag(GameFlag.BoostResistanceBase + i);
                 }
                 if (GetFlag(GameFlag.BoostIntelligenceBase + i))
                 {
                     Hook.Intelligence += i + 1;
+                    if (Hook.Intelligence > 99) Hook.Intelligence = 99;
                     DisableFlag(GameFlag.BoostIntelligenceBase + i);
                 }
                 if (GetFlag(GameFlag.BoostFaithBase + i))
                 {
                     Hook.Faith += i + 1;
+                    if (Hook.Faith > 99) Hook.Faith = 99;
                     DisableFlag(GameFlag.BoostFaithBase + i);
                 }
             }
@@ -742,11 +805,6 @@ namespace RoguelikeSouls.ModProgram
         public bool GetFlag(GameFlag flag)
         {
             return Hook.ReadEventFlag((int)flag);
-        }
-
-        bool Roll(double odds)
-        {
-            return Rand.NextDouble() < odds;
         }
     }
 }

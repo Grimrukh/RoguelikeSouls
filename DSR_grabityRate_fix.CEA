@@ -1,0 +1,77 @@
+{ Game   : DarkSoulsRemastered.exe
+  Version: 
+  Date   : 2020-05-28
+  Author : geeeeeorge
+
+  fixes post-death grabityRate issue for DSR by setting grabityRate to default speed if a character dies.
+
+  if chr HP is zero, write float 1 to grabityRate (default speed)
+  injects during a shared "check a character's HP" script.
+
+  rbx is set after injectionand is free
+  cmp is used after injection
+}
+
+define(address,"DarkSoulsRemastered.exe"+33B019)
+define(bytes,83 BB E8 03 00 00 00)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000,"DarkSoulsRemastered.exe"+33B019)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  cmp dword ptr [rbx+000003E8],00 //compare chr HP to value 0
+  jg skip //skip if HP is greater than 0
+  mov rbx,[rbx+68] //offset
+  mov rbx,[rbx+18] //offset
+  mov [rbx+78],3f800000 //write float 1 to chr grabityRate
+skip:
+  //cmp dword ptr [rbx+000003E8],00   //default code
+  jmp return
+
+address:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // cmp dword ptr [rbx+000003E8],00
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DarkSoulsRemastered.exe"+33B019
+
+"DarkSoulsRemastered.exe"+33AFEB: 48 8B 49 68                       -  mov rcx,[rcx+68]
+"DarkSoulsRemastered.exe"+33AFEF: E8 EC 12 04 00                    -  call DarkSoulsRemastered.exe+37C2E0
+"DarkSoulsRemastered.exe"+33AFF4: 84 C0                             -  test al,al
+"DarkSoulsRemastered.exe"+33AFF6: 0F 84 AA 01 00 00                 -  je DarkSoulsRemastered.exe+33B1A6
+"DarkSoulsRemastered.exe"+33AFFC: 48 8B 4F 48                       -  mov rcx,[rdi+48]
+"DarkSoulsRemastered.exe"+33B000: E8 3B 55 FE FF                    -  call DarkSoulsRemastered.exe+320540
+"DarkSoulsRemastered.exe"+33B005: 84 C0                             -  test al,al
+"DarkSoulsRemastered.exe"+33B007: 0F 85 99 01 00 00                 -  jne DarkSoulsRemastered.exe+33B1A6
+"DarkSoulsRemastered.exe"+33B00D: 48 89 9C 24 B8 00 00 00           -  mov [rsp+000000B8],rbx
+"DarkSoulsRemastered.exe"+33B015: 48 8B 5F 48                       -  mov rbx,[rdi+48]
+// ---------- INJECTING HERE ----------
+"DarkSoulsRemastered.exe"+33B019: 83 BB E8 03 00 00 00              -  cmp dword ptr [rbx+000003E8],00
+// ---------- DONE INJECTING  ----------
+"DarkSoulsRemastered.exe"+33B020: 0F 8E 78 01 00 00                 -  jng DarkSoulsRemastered.exe+33B19E
+"DarkSoulsRemastered.exe"+33B026: 48 8B 9B B0 00 00 00              -  mov rbx,[rbx+000000B0]
+"DarkSoulsRemastered.exe"+33B02D: 0F 29 B4 24 90 00 00 00           -  movaps [rsp+00000090],xmm6
+"DarkSoulsRemastered.exe"+33B035: 48 85 DB                          -  test rbx,rbx
+"DarkSoulsRemastered.exe"+33B038: 74 37                             -  je DarkSoulsRemastered.exe+33B071
+"DarkSoulsRemastered.exe"+33B03A: 48 8D 54 24 20                    -  lea rdx,[rsp+20]
+"DarkSoulsRemastered.exe"+33B03F: 48 8B CB                          -  mov rcx,rbx
+"DarkSoulsRemastered.exe"+33B042: E8 29 C7 D9 FF                    -  call DarkSoulsRemastered.exe+D7770
+"DarkSoulsRemastered.exe"+33B047: 48 8B D0                          -  mov rdx,rax
+"DarkSoulsRemastered.exe"+33B04A: 48 8B CF                          -  mov rcx,rdi
+}

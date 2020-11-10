@@ -46,5 +46,5 @@ class Objects(Object):
     Exit2Prompt = BaseEntity + 251  # Bonfire that appears after boss.
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290

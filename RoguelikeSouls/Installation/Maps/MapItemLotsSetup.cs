@@ -332,7 +332,7 @@ namespace RoguelikeSouls.Installation
 
         void CreateTreasureLots()
         {
-            foreach (Map map in Maps.MapList)
+            foreach (MapInfo map in Maps.MapList)
             {
                 UsedItems = new List<(ItemLotCategory category, int itemID)>();
                 AvailableSpells = new List<long>(Mod.GPARAM.Magic.Keys.Where(id => 3000 <= id && id < 6000));
@@ -410,12 +410,15 @@ namespace RoguelikeSouls.Installation
                     break;
                 case TreasureType.Key:
                     // First lot is a corpse or chest renewable. Second lot is key, using shared flag with standard key lot.
-                    CreateLot(Rand.NextDouble() < 0.3 ? TreasureType.ChestRenewable : TreasureType.CorpseRenewable, itemLotID, mapRating, itemLotFlag);
+                    ItemLot backupLot = CreateLot(
+                        Rand.NextDouble() < 0.3 ? TreasureType.ChestRenewable : TreasureType.CorpseRenewable, itemLotID, mapRating, itemLotFlag
+                    );
+                    backupLot.Name = $"Bonus Key (Backup)";
                     int keyLotFlag;
                     (itemID, keyLotFlag) = KeyIDs.GetRandomElement(Rand);
                     ItemLot extraLot = GetCleanItemLot(itemLotID + 1);
                     extraLot.SetSimpleItem(ItemLotCategory.Good, itemID, 1, keyLotFlag);
-                    extraLot.Name = $"Bonus Key";
+                    extraLot.Name = $"Bonus Key (Key)";
                     UsedItems.Add((ItemLotCategory.Good, itemID));
                     break;
                 case TreasureType.Spell:

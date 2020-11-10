@@ -137,7 +137,7 @@ class Objects(Object):
     ChasmExit2Prompt = ChasmBaseEntity + 250  # Bonfire appears after final boss.
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     WoodBoss1Reward = WoodBaseEntity + 290
     WoodBoss2Reward = WoodBaseEntity + 280
     TownshipBoss1Reward = TownshipBaseEntity + 290

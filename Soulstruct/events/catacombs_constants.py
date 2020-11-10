@@ -60,6 +60,6 @@ class Objects(Object):
     Exit3Prompt = BaseEntity + 252  # Ladder after Pinwheel. (Done)
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290
     Boss2Reward = BaseEntity + 280

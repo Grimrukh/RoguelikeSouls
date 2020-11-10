@@ -41,5 +41,5 @@ class Regions(Region):
     MimicNest = BaseEntity + 185
 
 
-class ItemLots(ItemLot):
+class ItemLots(ItemLotParam):
     Boss1Reward = BaseEntity + 290

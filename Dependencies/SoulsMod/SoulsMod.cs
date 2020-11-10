@@ -27,7 +27,8 @@ namespace SoulsFormatsMod
 
         public StartingClass[] StartingClasses = new StartingClass[10];
 
-        public SoulsMod(string gameDir, string backupExt = ".smbak", 
+        public SoulsMod(
+            string gameDir, string backupExt = ".smbak", 
             byte[] paramBNDData = null, byte[] paramdefBNDData = null, 
             byte[] itemMSGBNDData = null, byte[] menuMSGBNDData = null)
         {
@@ -147,18 +148,19 @@ namespace SoulsFormatsMod
 
         public void Install()
         {
-            Console.WriteLine("Final installation...");
+
 #if DEBUG
-            //Console.Write($"Exporting GameParam...");
+            Console.WriteLine("Final installation...");
+            Console.Write($"Exporting GameParam...");
 #endif
             GPARAM.Export(GameDir);
 #if DEBUG
-            //Console.Write($"Done.\n");
-            //Console.Write($"Exporting Text...");
+            Console.Write($"Done.\n");
+            Console.Write($"Exporting Text...");
 #endif
             Text.Export(GameDir);
 #if DEBUG
-            //Console.Write($"Done.\n");
+            Console.Write($"Done.\n");
 #endif
 
             foreach (KeyValuePair<int, ChrHandler> kv in Characters)
@@ -185,9 +187,6 @@ namespace SoulsFormatsMod
                     else Console.WriteLine(Environment.NewLine);
                 }
             }
-
-            Console.WriteLine("\nInstallation successful! Press ENTER to exit.");
-            Console.ReadLine();
         }
 
         public void RestoreBackups()

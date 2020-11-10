@@ -309,8 +309,8 @@ namespace RoguelikeSouls.Installation
             {
                 TemplateParamID = 6000,
                 RightHand1 = "StraightSword",
+                RightHand2 = "Talisman",
                 LeftHand1 = "Shield",
-                LeftHand2 = "Talisman",
                 ArmorWeight = "Medium",
                 SpellType = "Miracle",
                 SpellCount = 2,
@@ -424,10 +424,11 @@ namespace RoguelikeSouls.Installation
             new Invader()  // Ciaran template
             {
                 TemplateParamID = 6740,
-                RightHand1 = "Dagger",
-                LeftHand1 = "CurvedSword",
+                RightHand2 = "Dagger",  // Note her weapons are in slot 2, as Ciaran is unarmed by default.
+                LeftHand2 = "CurvedSword",
                 ArmorWeight = "Light",
-                TitleNames = new string[] { "Twinblade", "Stalker", "Assassin", "Mercenary" } 
+                TitleNames = new string[] { "Twinblade", "Stalker", "Assassin", "Mercenary" },
+                UsesOffensiveGood = true,
             },
         };
 
@@ -439,6 +440,7 @@ namespace RoguelikeSouls.Installation
         const double NoHelmOdds = 0.2;
         const int InvaderParamOffset = 7000;
         const int InvaderNameTextOffset = 700;
+        const int InvaderEventTextOffset = 7000;
 
         static ItemList BonfireShop { get; } = new ItemList()
         {
@@ -454,6 +456,7 @@ namespace RoguelikeSouls.Installation
         };
 
         string[] CharacterStatFields { get; } = new string[] { "baseVit", "baseWil", "baseEnd", "baseStr", "baseDex", "baseMag", "baseFai", "baseLuc" };
+        int[] OffensiveGoods { get; } = new int[] { 290, 291, 292, 293, 297 };
 
         public CharacterGenerator(SoulsMod mod, Random random)
         {
@@ -465,6 +468,7 @@ namespace RoguelikeSouls.Installation
         public void Install()
         {
             CreateAllies();
+            ModifyDebugPlayer();
             CreateMerchants();
             CreateInvaders();
             CreateBonfireShop();
@@ -483,6 +487,48 @@ namespace RoguelikeSouls.Installation
             newLine = Mod.GPARAM.Talks.CopyRow(Mod.GPARAM.Talks[23010020], 23010024);
             newLine.MsgId = 23010024;
             newLine.VoiceId = 23010024;
+        }
+
+        void ModifyDebugPlayer()
+        {
+            ChrInit debugPlayer = Mod.GPARAM.ChrInits[9000];
+            debugPlayer.RightHandWeapon1 = 50000;  // Sunlight Straight Sword
+            debugPlayer.RightHandWeapon2 = 51000;  // Sunlight Talisman
+            debugPlayer.LeftHandWeapon1 = 52000;  // Sunlight Shield
+            debugPlayer.LeftHandWeapon2 = -1;
+            debugPlayer.HeadArmor = 50000;  // Gold-Hemmed set
+            debugPlayer.BodyArmor = 51000;  // Gold-Hemmed set
+            debugPlayer.ArmsArmor = 52000;  // Gold-Hemmed set
+            debugPlayer.LegsArmor = 53000;  // Gold-Hemmed set
+            debugPlayer.RingSlot1 = -1;  // No rings.
+            debugPlayer.RingSlot2 = -1;
+            debugPlayer.SpellSlot1 = -1;
+            debugPlayer.SpellSlot2 = -1;
+            debugPlayer.SpellSlot3 = -1;
+            debugPlayer.SpellSlot4 = -1;
+            debugPlayer.SpellSlot5 = -1;
+            debugPlayer.SpellSlot6 = -1;
+            debugPlayer.SpellSlot7 = -1;
+            debugPlayer.GoodSlot1 = 240;  // Divine Blessing
+            debugPlayer.GoodSlot1Count = 50;
+            debugPlayer.GoodSlot2 = -1;
+            debugPlayer.GoodSlot2Count = 0;
+            debugPlayer.GoodSlot3 = -1;
+            debugPlayer.GoodSlot3Count = 0;
+            debugPlayer.GoodSlot4 = -1;
+            debugPlayer.GoodSlot4Count = 0;
+            debugPlayer.GoodSlot5 = -1;
+            debugPlayer.GoodSlot5Count = 0;
+            debugPlayer.GoodSlot6 = -1;
+            debugPlayer.GoodSlot7 = -1;
+            debugPlayer.GoodSlot8 = -1;
+            debugPlayer.GoodSlot9 = -1;
+            debugPlayer.GoodSlot10 = -1;
+            debugPlayer.ArrowSlot1 = -1;
+            debugPlayer.ArrowSlot1Count = 0;
+            debugPlayer.BoltSlot1 = -1;
+            debugPlayer.BoltSlot1Count = 0;
+            debugPlayer.Sex = 0;  // Female
         }
 
         void CreateMerchants()
@@ -517,6 +563,10 @@ namespace RoguelikeSouls.Installation
         void CreateInvaders()
         {
             // Fresh set of random invaders each install, based on some templates with compatible AI.
+            Mod.GPARAM.NPCs.DeleteRowRange(InvaderParamOffset, InvaderParamOffset + 10 * InvaderCount);
+            Mod.GPARAM.AI.DeleteRowRange(InvaderParamOffset, InvaderParamOffset + 10 * InvaderCount);
+            Mod.GPARAM.ChrInits.DeleteRowRange(InvaderParamOffset, InvaderParamOffset + 10 * InvaderCount);
+            Mod.GPARAM.ItemLots.DeleteRowRange(InvaderParamOffset, InvaderParamOffset + 10 * InvaderCount);
             for (int invaderIndex = 0; invaderIndex < InvaderCount; invaderIndex++)
                 CreateRandomInvader(invaderIndex);
         }
@@ -528,7 +578,6 @@ namespace RoguelikeSouls.Installation
 
             string title = invader.TitleNames[Rand.Next(invader.TitleNames.Length)];
             string invaderName = NameGenerator.GetRandomName(title, exact: false);
-            Mod.Text.NPCNames[InvaderNameTextOffset + invaderIndex] = invaderName;
             bool noHelm = Rand.NextDouble() < NoHelmOdds;
             int invaderID = InvaderParamOffset + (10 * invaderIndex);
             int invaderNameID = InvaderNameTextOffset + invaderIndex;
@@ -538,17 +587,53 @@ namespace RoguelikeSouls.Installation
             Mod.GPARAM.ChrInits.DeleteRow(invaderID);
             Mod.GPARAM.ItemLots.DeleteRowRange(invaderID, invaderID + 10);
 
+            // Add invader name and invasion messages.
+            Mod.Text.NPCNames[InvaderNameTextOffset + invaderIndex] = invaderName;
+            Mod.Text.EventText[InvaderEventTextOffset + 10 * invaderIndex + 0] = $"Dark spirit {invaderName} has invaded!";
+            Mod.Text.EventText[InvaderEventTextOffset + 10 * invaderIndex + 1] = $"Dark spirit {invaderName} was vanquished";
+            Mod.Text.EventText[InvaderEventTextOffset + 10 * invaderIndex + 2] = $"Invading the world of {invaderName}";
+            Mod.Text.EventText[InvaderEventTextOffset + 10 * invaderIndex + 3] = $"Vengeance claimed upon {invaderName}";
+
             NPC invaderNPC = Mod.GPARAM.NPCs.CopyRow(Mod.VanillaGPARAM.NPCs[invader.TemplateParamID], invaderID);
             invaderNPC.Name = invaderName;
             invaderNPC.NameID = invaderNameID;
+            invaderNPC.DrawType = 2;  // Red phantom
+            invaderNPC.NPCType = 0;  // Normal
+            invaderNPC.TeamType = 0;  // Enemy
             invaderNPC.ItemLotID1 = invaderID;  // not sure if invaders give Humanity automatically when killed
+            invaderNPC.SpecialEffectID4 = 7001;
+            invaderNPC.NewGamePlusSpecialEffect = 7401;
             for (int lot = 2; lot < 7; lot++)  // Clear remaining item lots.
                 invaderNPC.Row[$"itemLotId_{lot}"].Value = -1;
+            
+            // Create level variants. They all have the same drop table.
+            for (int level = 1; level < 10; level++)
+            {
+                NPC levelParam = Mod.GPARAM.NPCs.CopyRow(invaderNPC, invaderID + level);
+                levelParam.Name = invaderNPC.Name + $" ({level + 1})";
+                levelParam.SpecialEffectID4 = 7000 + level + 1;
+                levelParam.NewGamePlusSpecialEffect = 7400 + level + 1;
+            }
 
             NPCThought invaderAI = Mod.GPARAM.AI.CopyRow(Mod.VanillaGPARAM.AI[invader.TemplateParamID], invaderID);
             invaderAI.Name = invaderName;
+            invaderAI.SightDistance = 40;
+            invaderAI.HearingDistance = 0;
+            invaderAI.SmellDistance = 9999;
+            invaderAI.MaxRetreatDistance = 9999;
+            invaderAI.BattleRetreatDistance = 9999;
+            invaderAI.RetreatBattleStartDistance = 9999;
+            invaderAI.BattleStartDistance = 9999;
+            invaderAI.SearchGoalAction = 3;
+
             ChrInit invaderChr = Mod.GPARAM.ChrInits.CopyRow(Mod.VanillaGPARAM.ChrInits[invader.TemplateParamID], invaderID);
             invaderChr.Name = invaderName;
+            invaderChr.NPCType = 0;  // Normal
+            if (invader.UsesOffensiveGood)
+            {
+                int offensiveGood = OffensiveGoods.GetRandomElement(Rand);
+                invaderChr.GoodSlot1 = offensiveGood;
+            }  // Otherwise, leave goods as they are.
             RandomizeChrInit(invaderChr, Rand);
 
             List<int> itemIDs = new List<int>();
@@ -557,45 +642,84 @@ namespace RoguelikeSouls.Installation
             // Assign random weapons of given types.
             if (invader.RightHand1 != "")
             {
-                invaderChr.RightHandWeapon1 = GetRandomWeaponFromSubclass(invader.RightHand1);
+                Weapon rightHandWeapon1 = GetRandomWeaponFromSubclass(invader.RightHand1);
+                invaderChr.RightHandWeapon1 = rightHandWeapon1;
                 itemIDs.Add(invaderChr.RightHandWeapon1);
                 itemCategories.Add(ItemLotCategory.Weapon);
+                EnsureRequiredWeaponStats(invaderChr, rightHandWeapon1);
+            }
+            else
+            {
+                invaderChr.RightHandWeapon1 = -1;
             }
             if (invader.RightHand2 != "")
             {
-                invaderChr.RightHandWeapon2 = GetRandomWeaponFromSubclass(invader.RightHand2);
+                Weapon rightHandWeapon2 = GetRandomWeaponFromSubclass(invader.RightHand2);
+                invaderChr.RightHandWeapon2 = rightHandWeapon2;
                 itemIDs.Add(invaderChr.RightHandWeapon2);
                 itemCategories.Add(ItemLotCategory.Weapon);
+                EnsureRequiredWeaponStats(invaderChr, rightHandWeapon2);
+            }
+            else
+            {
+                invaderChr.RightHandWeapon2 = -1;
             }
             if (invader.LeftHand1 != "")
             {
-                invaderChr.LeftHandWeapon1 = GetRandomWeaponFromSubclass(invader.LeftHand1);
+                Weapon leftHandWeapon1 = GetRandomWeaponFromSubclass(invader.LeftHand1);
+                invaderChr.LeftHandWeapon1 = leftHandWeapon1;
                 itemIDs.Add(invaderChr.LeftHandWeapon1);
                 itemCategories.Add(ItemLotCategory.Weapon);
+                EnsureRequiredWeaponStats(invaderChr, leftHandWeapon1);
+            }
+            else
+            {
+                invaderChr.LeftHandWeapon1 = -1;
             }
             if (invader.LeftHand2 != "")
             {
-                invaderChr.LeftHandWeapon2 = GetRandomWeaponFromSubclass(invader.LeftHand2);
+                Weapon leftHandWeapon2 = GetRandomWeaponFromSubclass(invader.LeftHand2);
+                invaderChr.LeftHandWeapon2 = leftHandWeapon2;
                 itemIDs.Add(invaderChr.LeftHandWeapon2);
                 itemCategories.Add(ItemLotCategory.Weapon);
+                EnsureRequiredWeaponStats(invaderChr, leftHandWeapon2);
+            }
+            else
+            {
+                invaderChr.LeftHandWeapon2 = -1;
             }
 
             // Assign random armor.
             if (invader.ArmorWeight != "")
             {
                 int headArmorID = GetRandomHeadArmorIDFromWeight(invader.ArmorWeight);
-                if (!noHelm)
+                if (noHelm)
+                {
+                    invaderChr.HeadArmor = -1;
+                }
+                else
                 {
                     invaderChr.HeadArmor = headArmorID;
                     itemIDs.Add(invaderChr.HeadArmor);
                     itemCategories.Add(ItemLotCategory.Armor);
                 }
+
                 invaderChr.BodyArmor = headArmorID + 1000;
                 itemIDs.Add(invaderChr.BodyArmor);
                 itemCategories.Add(ItemLotCategory.Armor);
-                invaderChr.ArmsArmor = headArmorID + 2000;
-                itemIDs.Add(invaderChr.ArmsArmor);
-                itemCategories.Add(ItemLotCategory.Armor);
+
+                if (Mod.GPARAM.Armor.ContainsKey(headArmorID + 2000))
+                {
+                    // Arms may be missing from set.
+                    invaderChr.ArmsArmor = headArmorID + 2000;
+                    itemIDs.Add(invaderChr.ArmsArmor);
+                    itemCategories.Add(ItemLotCategory.Armor);
+                }
+                else
+                {
+                    invaderChr.ArmsArmor = -1;
+                }
+
                 invaderChr.LegsArmor = headArmorID + 3000;
                 itemIDs.Add(invaderChr.LegsArmor);
                 itemCategories.Add(ItemLotCategory.Armor);
@@ -611,14 +735,26 @@ namespace RoguelikeSouls.Installation
             invaderLot.Name = $"{invaderName} Drop";
             ItemLot humanityLot = Mod.GPARAM.ItemLots.AddRow(invaderID + 1);
             humanityLot.SetSimpleItem(ItemLotCategory.Good, 500, 1, -1);  // Guaranteed humanity drop.
+            humanityLot.Name = "Humanity";
             invaderLot.Name = $"{invaderName} Drop";
+        }
+
+        void EnsureRequiredWeaponStats(ChrInit character, Weapon weapon)
+        {
+            character.Strength = Math.Max(character.Strength, weapon.RequiredStrength);
+            character.Dexterity = Math.Max(character.Dexterity, weapon.RequiredDexterity);
+            character.Intelligence = Math.Max(character.Intelligence, weapon.RequiredIntelligence);
+            character.Faith = Math.Max(character.Faith, weapon.RequiredFaith);
         }
 
         Weapon GetRandomWeaponFromSubclass(string weaponSubclass, bool matchModel = true)
         {
             // Matches model rather than base weapon, by default, since weight is important.
             if (weaponSubclass == "Flame")
-                return Mod.GPARAM.Weapons[WeaponGenerator.FixedWeapons["Pyromancy Flame"]];
+            {
+                int flameId = WeaponGenerator.FixedWeapons["Pyromancy Flame"];
+                return Mod.GPARAM.Weapons[flameId];
+            }
             string match = matchModel ? $"<{weaponSubclass}|" : $"|{weaponSubclass}>";
             List<Weapon> options = new List<Weapon>(Mod.GPARAM.Weapons.Values.Where(w => w.Row.Name.Contains(match)));
             if (!options.Any())
@@ -639,10 +775,12 @@ namespace RoguelikeSouls.Installation
 
         void RandomizeChrInit(ChrInit invaderChr, Random random)
         {
+            // Randomizes sex and randomly adds a number in [-3, 3] interval to each stat.
+            // Insufficient stats for their weapons will be fixed afterward.
             foreach (string stat in CharacterStatFields)
             {
                 byte oldStat = Convert.ToByte(invaderChr.Row[stat].Value);
-                invaderChr.Row[stat].Value = (byte)(oldStat + random.Next(-3, 4));
+                invaderChr.Row[stat].Value = (byte)Math.Max(1, oldStat + random.Next(-3, 4));
             }
             invaderChr.Sex = (byte)(random.NextDouble() < 0.5 ? 0 : 1);
         }
