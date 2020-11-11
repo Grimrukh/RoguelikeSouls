@@ -55,11 +55,29 @@ namespace RoguelikeSouls.ModProgram
             return point;
         }
 
-        public GamePoint CheckOutRandomPoint(string occupantLabel, int minNearbyCount = 0, string regionLabel = "")
+        public GamePoint CheckOutRandomPoint(string occupantLabel, int minNearbyCount = 0, string regionLabel = "", Vector3? avoidPoint = null, double avoidRadiusSq = 0.0)
         {
             // Returns a random unoccupied point with at least the given `minNearbyCount` and checks it out (marks it as occupied).
-            List<GamePoint> available = new List<GamePoint>(MapPoints.Where(
-                point => !OccupiedPoints.Contains(point) && point.NearbyCount >= minNearbyCount && (regionLabel == "" || point.RegionLabel == regionLabel)));
+            List<GamePoint> available;
+            if (avoidPoint == null || avoidRadiusSq == 0.0)
+            {
+                available = new List<GamePoint>(MapPoints.Where(point => 
+                    !OccupiedPoints.Contains(point)
+                    && point.NearbyCount >= minNearbyCount
+                    && (regionLabel == "" || point.RegionLabel == regionLabel)
+                ));
+            }
+            else
+            {
+                Vector3 vector = (Vector3)avoidPoint;
+                available = new List<GamePoint>(MapPoints.Where(point =>
+                    !OccupiedPoints.Contains(point)
+                    && point.NearbyCount >= minNearbyCount
+                    && (regionLabel == "" || point.RegionLabel == regionLabel)
+                    && !ValidPointDistance(point, vector, maxDistanceSq: avoidRadiusSq)
+                ));
+            }
+
             GamePoint chosen = available.GetRandomElement(Rand);
             return CheckOutPoint(chosen, occupantLabel);
         }
@@ -153,6 +171,14 @@ namespace RoguelikeSouls.ModProgram
             if (minDistanceSq == -1.0 && maxDistanceSq == -1.0)
                 return true;
             float sqDistance = point1.SquaredDistanceFromPoint(point2);
+            return (minDistanceSq == -1.0 || minDistanceSq <= sqDistance) && (maxDistanceSq == -1.0 || sqDistance < maxDistanceSq);
+        }
+
+        bool ValidPointDistance(GamePoint point1, Vector3 vector, double minDistanceSq = -1.0, double maxDistanceSq = -1.0)
+        {
+            if (minDistanceSq == -1.0 && maxDistanceSq == -1.0)
+                return true;
+            float sqDistance = point1.SquaredDistanceFromPoint(vector);
             return (minDistanceSq == -1.0 || minDistanceSq <= sqDistance) && (maxDistanceSq == -1.0 || sqDistance < maxDistanceSq);
         }
     }

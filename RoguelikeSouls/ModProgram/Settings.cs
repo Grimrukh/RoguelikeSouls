@@ -32,6 +32,8 @@
         public static double LobosJrUncommonEnemyOdds { get; } = 0.33;  // otherwise common
         public static double TwinBossOdds { get; } = 0.5;  // odds only apply if twin boss is possible
 
+        public static double MinEnemyDistanceFromSpawnPoint { get; } = 10.0;
+
         public static double MinInvaderDistanceFromTrigger { get; } = 10.0;
         public static double MaxInvaderDistanceFromTrigger { get; } = 20.0;
 

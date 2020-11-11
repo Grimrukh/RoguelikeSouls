@@ -34,6 +34,7 @@ namespace RoguelikeSouls.ModProgram
         Random Rand { get; }
         HashSet<int> LogicGoalIDs { get; }
         HashSet<int> BattleGoalIDs { get; }
+        Vector3? PlayerStartPoint { get; }
         double RedPhantomOdds { get; }
 
         const int BasicEnemyOffset = 0;
@@ -53,7 +54,7 @@ namespace RoguelikeSouls.ModProgram
         string ModMSBPath { get; } = @"Package\map\MapStudio\";
         string ModEMEVDPath { get; } = @"Package\event\";
 
-        public MapGenerator(SoulsMod mod, RunManager run, MapInfo map, Random rand, double redPhantomOdds)
+        public MapGenerator(SoulsMod mod, RunManager run, MapInfo map, Random rand, double redPhantomOdds, Connection startPoint)
         {
             Mod = mod;
             Run = run;
@@ -67,6 +68,7 @@ namespace RoguelikeSouls.ModProgram
             LogicGoalIDs.UnionWith(map.DefaultLogicScriptIDs);
             BattleGoalIDs = new HashSet<int>();
             BattleGoalIDs.UnionWith(map.DefaultBattleScriptIDs);
+            PlayerStartPoint = startPoint?.GetTranslateVector(MSB);                
         }
 
         public void Generate()
@@ -204,13 +206,11 @@ namespace RoguelikeSouls.ModProgram
                 throw new Exception($"Could not find information about location for (non-twin) boss ID {bossEntityID}.");
             (GamePoint bossPoint, int emevdIndex, int[] invalidCategories) = Maps.BossLocations[bossEntityID];
             List<int> invalidBossCategories;
-            if (isAbyss)
-                invalidBossCategories = new List<int>(Run.BossCategoriesUsed);
-            else
-                invalidBossCategories = new List<int>(Run.AbyssBossCategoriesUsed);
+            invalidBossCategories = Run.GetBossCategoriesUsed(abyss: isAbyss);
             invalidBossCategories.AddRange(invalidCategories);
             Boss boss = EnemyGenerator.GetRandomBoss(Rand, bossPoint.ArenaSize, invalidBossCategories);
 #if DEBUG
+            Console.WriteLine($"Excluded Boss Categories: {string.Join(", ", invalidBossCategories)}");
             Console.WriteLine($"Boss {bossIndex}: {boss.Name}");
 #endif
             Enemy bossEnemy = EnemyGenerator.GetEnemy(boss.Name);
@@ -219,16 +219,10 @@ namespace RoguelikeSouls.ModProgram
             var bossPart = bossEnemy.CreateMSBPart($"Boss {bossIndex}", bossEntityID, bossPoint, bossPoint.Angle, Run.MapLevel, isRedPhantom);
             MSB.Parts.Enemies.Add(bossPart);
             UpdateGoalIDs(bossPart);
-            if (isAbyss)
-            {
-                Run.AbyssBossCategoriesUsed.Add(boss.Category);
-                Run.EnableFlag(GameFlag.AbyssBossCategoryUsedBaseFlag + boss.Category);
-            }
-            else
-            {
-                Run.BossCategoriesUsed.Add(boss.Category);
-                Run.EnableFlag(GameFlag.BossCategoryUsedBaseFlag + boss.Category);
-            }
+            Run.EnableBossCategoryFlag(boss.Category, abyss: isAbyss);
+#if DEBUG
+            Console.WriteLine($"Boss Categories Used: {string.Join(", ", Run.GetBossCategoriesUsed(abyss: isAbyss))}");
+#endif
 
             // TWIN BOSSES:
             // If arena is Large or Giant, there's a chance of a twin boss (capping their combined aggression).
@@ -253,16 +247,7 @@ namespace RoguelikeSouls.ModProgram
                     $"Boss {bossIndex} Twin", bossEntityID + 1, twinBossPoint, twinBossPoint.Angle, Run.MapLevel, twinIsRedPhantom);
                 MSB.Parts.Enemies.Add(twinPart);
                 UpdateGoalIDs(twinPart);
-                if (isAbyss)
-                {
-                    Run.AbyssBossCategoriesUsed.Add(twinBoss.Category);
-                    Run.EnableFlag(GameFlag.AbyssBossCategoryUsedBaseFlag + twinBoss.Category);
-                }
-                else
-                {
-                    Run.BossCategoriesUsed.Add(twinBoss.Category);
-                    Run.EnableFlag(GameFlag.BossCategoryUsedBaseFlag + twinBoss.Category);
-                }
+                Run.EnableBossCategoryFlag(twinBoss.Category, abyss: isAbyss);
                 Run.EnableFlag(Map.GetBossTwinFlag(bossIndex));
             }
             else
@@ -287,7 +272,7 @@ namespace RoguelikeSouls.ModProgram
         {
             string regionLabel = GetRegionLabel();
 
-            int invaderIndex = Run.InvadersAvailable.GetRandomElement(Rand);
+            int invaderIndex = Run.CheckOutInvader();
             int invaderParamID = 7000 + 10 * invaderIndex;  // also invasion event text base ID
             int invaderEntityID = Map.BaseNPCEntityID + 50;
 
@@ -301,10 +286,7 @@ namespace RoguelikeSouls.ModProgram
             float angle = MapPointManager.GetFacingPoint(spawnPoint, triggerPoint);
             MSB1.Part.Enemy invader = GetInvaderPart(invaderEntityID, spawnPoint.Position, angle, spawnPoint.CollisionName, invaderParamID, Run.MapLevel);
             MSB.Parts.Enemies.Add(invader);
-            Run.InvadersAvailable.Remove(invaderIndex);
-            Run.InvadersUsed.Add(invaderIndex);
-            Run.EnableFlag(GameFlag.InvaderUsedBaseFlag + invaderIndex);
-
+            
             MSB1.Region triggerRegion = new MSB1.Region()
             {
                 Name = "Invader Trigger",
@@ -315,8 +297,6 @@ namespace RoguelikeSouls.ModProgram
             MSB.Regions.Regions.Add(triggerRegion);
 
             // All invader AI scripts are already present in the `aiCommon.luabnd.dcx` file in the Roguelike `Package` folder.
-            // LogicGoalIDs.Add(Mod.GPARAM.AI[invaderParamID].LogicID);
-            // BattleGoalIDs.Add(Mod.GPARAM.AI[invaderParamID].BattleID);
 
             // Inject invasion message IDs into EMEVD preconstructor (always first instruction, plus area offset).
             EMEVD.Event preconstructor = EMEVD.Events.Where(evt => evt.ID == 50).First();
@@ -332,7 +312,13 @@ namespace RoguelikeSouls.ModProgram
             string regionLabel = GetRegionLabel();
             int entityID = Map.BaseEntityID + VeryRareEnemyOffset;
             Enemy enemy = EnemyGenerator.GetRandomEnemyWithRarity(Rand, EnemyRarity.VeryRare, Run.MapLabels[Map]);
-            GamePoint point = Points.CheckOutRandomPoint("VeryRare Enemy", (int)enemy.Size, regionLabel);
+            GamePoint point = Points.CheckOutRandomPoint(
+                "VeryRare Enemy",
+                (int)enemy.Size,
+                regionLabel,
+                avoidPoint: PlayerStartPoint,
+                avoidRadiusSq: Math.Pow(Settings.MinEnemyDistanceFromSpawnPoint, 2)
+            );
             if (Map.Name == "NewLondoRuins" && point.RegionLabel == "Lower")
                 entityID += NewLondoVeryRareEnemyOffset;
             var enemyPart = enemy.CreateMSBPart("VeryRare Enemy 1", entityID, point, Rand.NextAngle(), Run.MapLevel, isRedPhantom: Rand.Roll(RedPhantomOdds));
@@ -347,7 +333,12 @@ namespace RoguelikeSouls.ModProgram
 
         void GenerateAbyssPortal()
         {
-            GamePoint point = Points.CheckOutRandomPoint("Abyss Portal", 0);
+            GamePoint point = Points.CheckOutRandomPoint(
+                "Abyss Portal",
+                0,
+                avoidPoint: PlayerStartPoint,
+                avoidRadiusSq: Math.Pow(Settings.MinEnemyDistanceFromSpawnPoint, 2)
+            );
             MSB1.Part.Player portalWarpBack = new MSB1.Part.Player()
             {
                 Name = "Portal Return",
@@ -566,7 +557,13 @@ namespace RoguelikeSouls.ModProgram
                 if (isRedPhantom)
                     rarePhantomCount++;
 
-                GamePoint point = Points.CheckOutRandomPoint("Rare Enemy", (int)enemy.Size, regionLabel);
+                GamePoint point = Points.CheckOutRandomPoint(
+                    "Rare Enemy",
+                    (int)enemy.Size,
+                    regionLabel,
+                    avoidPoint: PlayerStartPoint,
+                    avoidRadiusSq: Math.Pow(Settings.MinEnemyDistanceFromSpawnPoint, 2)
+                );
                 int entityID = Map.BaseEntityID + RareEnemyOffset + i;
                 if (Map.Name == "NewLondoRuins" && point.RegionLabel == "Lower")
                     entityID += NewLondoLowerRareEnemyOffset;
@@ -621,7 +618,13 @@ namespace RoguelikeSouls.ModProgram
                     basicNonPhantomCount++;
 
                 int entityID = Map.BaseEntityID + (isRedPhantom ? BasicPhantomOffset + basicPhantomCount : BasicEnemyOffset + basicNonPhantomCount);
-                GamePoint point = Points.CheckOutRandomPoint("Basic Enemy", (int)enemy.Size, regionLabel);
+                GamePoint point = Points.CheckOutRandomPoint(
+                    "Basic Enemy",
+                    (int)enemy.Size,
+                    regionLabel,
+                    avoidPoint: PlayerStartPoint,
+                    avoidRadiusSq: Math.Pow(Settings.MinEnemyDistanceFromSpawnPoint, 2)
+                );
                 if (Map.Name == "NewLondoRuins" && point.RegionLabel == "Lower")
                     entityID += isRedPhantom ? NewLondoLowerBasicPhantomOffset : NewLondoLowerBasicEnemyOffset;
                 MSB1.Part.Enemy enemyPart = enemy.CreateMSBPart($"Basic Enemy {i}", entityID, point, Rand.NextAngle(), Run.MapLevel, isRedPhantom);
@@ -679,7 +682,13 @@ namespace RoguelikeSouls.ModProgram
             bool isRedPhantom = Rand.Roll(redPhantomOdds);
             int entityID = Map.BaseEntityID + VagrantOffset;
             Enemy vagrant = EnemyGenerator.GetEnemy(Rand.Roll(Settings.EvilVagrantOdds) ? "Evil Vagrant" : "Good Vagrant");
-            GamePoint point = Points.CheckOutRandomPoint("Vagrant", (int)vagrant.Size, regionLabel);
+            GamePoint point = Points.CheckOutRandomPoint(
+                "Vagrant",
+                (int)vagrant.Size,
+                regionLabel,
+                avoidPoint: PlayerStartPoint,
+                avoidRadiusSq: Math.Pow(Settings.MinEnemyDistanceFromSpawnPoint, 2)
+            );
             MSB1.Part.Enemy vagrantPart = vagrant.CreateMSBPart($"Vagrant", entityID, point, Rand.NextAngle(), Run.MapLevel, isRedPhantom);
             MSB.Parts.Enemies.Add(vagrantPart);
             UpdateGoalIDs(vagrantPart);

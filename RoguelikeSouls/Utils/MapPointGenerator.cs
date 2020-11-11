@@ -156,7 +156,12 @@ namespace RoguelikeSouls
 
         public float SquaredDistanceFromPoint(GamePoint otherPoint)
         {
-            Vector3 delta = Position - otherPoint.Position;
+            return SquaredDistanceFromPoint(otherPoint.Position);
+        }
+
+        public float SquaredDistanceFromPoint(Vector3 otherPoint)
+        {
+            Vector3 delta = Position - otherPoint;
             delta *= delta;
             return delta.X + delta.Y + delta.Z;
         }

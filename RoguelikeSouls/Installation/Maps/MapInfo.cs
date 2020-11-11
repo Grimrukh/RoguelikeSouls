@@ -1,7 +1,9 @@
 ﻿using RoguelikeSouls.Extensions;
+using SoulsFormats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using ConnectionList = System.Collections.Generic.List<(int depth, bool isStart, bool isEnd, int[] extraStartFlags)>;
 
 namespace RoguelikeSouls.Installation
@@ -28,6 +30,14 @@ namespace RoguelikeSouls.Installation
         }
         
         public Connection() { }
+
+        public Vector3 GetTranslateVector(MSB1 msb)
+        {
+            MSB1.Part.Player playerStart = msb.Parts.Players.Where(p => p.EntityID == WarpPointID).FirstOrDefault();
+            if (playerStart == null)
+                throw new Exception($"Could not find PlayerStart entity for connection {IndexInLevel} in given MSB.");
+            return playerStart.Position;
+        }
     }
 
     class MapInfo
@@ -254,8 +264,8 @@ namespace RoguelikeSouls.Installation
             { 1210280, (new GamePoint(892.929f, -344.418f, 767.920f, 46.424f, "h0011B1", "", ArenaSize.Large), 1, new int[] {}) },  // Pre-Kalameet ravine arena
             { 1210281, (new GamePoint(900.139f, -344.285f, 767.027f, 59.232f, "h0011B1", "", ArenaSize.Large), 1, new int[] {}) },
 
-            { 1210590, (new GamePoint(1059.899f, -330.0f, 811.875f, 87.282f, "h0095B1", "", ArenaSize.Giant), 2, new int[] {}) },  // Artorias arena
-            { 1210591, (new GamePoint(1060.724f, -330.0f, 823.403f, 71.193f, "h0095B1", "", ArenaSize.Giant), 2, new int[] {}) },
+            { 1210590, (new GamePoint(1051.373f, -330.0f, 810.799f, -172.729f, "h0095B1", "", ArenaSize.Giant), 2, new int[] {}) },  // Artorias arena
+            { 1210591, (new GamePoint(1064.977f, -330.0f, 810.461f, 150.136f, "h0095B1", "", ArenaSize.Giant), 2, new int[] {}) },
             { 1210580, (new GamePoint(909.924f, -400.500f, 937.150f, -56.975f, "h0106B1", "", ArenaSize.Giant), 3, new int[] {}) },  // Pre-Chasm hall arena
             { 1210581, (new GamePoint(904.864f, -400.500f, 933.410f, -82.590f, "h0106B1", "", ArenaSize.Giant), 3, new int[] {}) },
             

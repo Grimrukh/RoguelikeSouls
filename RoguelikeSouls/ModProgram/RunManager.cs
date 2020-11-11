@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Microsoft.Win32.SafeHandles;
 
 namespace RoguelikeSouls.ModProgram
 {
@@ -28,19 +27,6 @@ namespace RoguelikeSouls.ModProgram
 
         // Maps visited, which is particularly useful for recording when Painted World has been visited.
         public List<MapInfo> MapsVisited { get; } = new List<MapInfo>();
-
-        // List of boss categories used in the current run, which will prevent the same
-        // category appearing again.
-        public List<int> BossCategoriesUsed { get; } = new List<int>();
-        
-        // Same, but for Abyss battles.
-        public List<int> AbyssBossCategoriesUsed { get; } = new List<int>();
-
-        // List of invaders that are still available for appearance.
-        public List<int> InvadersAvailable { get; } = new List<int>(Enumerable.Range(0, 30));
-
-        // List of invaders that have been used.
-        public List<int> InvadersUsed { get; } = new List<int>();
 
         // Current map difficulty level in current run. Ranges from 1 to 10.
         public int MapLevel
@@ -217,23 +203,6 @@ namespace RoguelikeSouls.ModProgram
                     if (GetFlag(map.InMapFlag))
                         CurrentMap = map;
                 }
-                int maxBossCategory = EnemyGenerator.LastBossCategory;
-                for (int category = 0; category <= maxBossCategory; category++)
-                {
-                    if (GetFlag(GameFlag.BossCategoryUsedBaseFlag + category))
-                        BossCategoriesUsed.Add(category);
-                    if (GetFlag(GameFlag.AbyssBossCategoryUsedBaseFlag + category))
-                        AbyssBossCategoriesUsed.Add(category);
-                }
-            }
-
-            foreach (int invader in InvadersAvailable.ToArray())
-            {
-                if (GetFlag(GameFlag.InvaderUsedBaseFlag + invader))
-                {
-                    InvadersAvailable.Remove(invader);
-                    InvadersUsed.Add(invader);
-                }
             }
         }
 
@@ -247,11 +216,6 @@ namespace RoguelikeSouls.ModProgram
 
         void ResetRunData()
         {
-            InvadersAvailable.Clear();
-            InvadersAvailable.AddRange(Enumerable.Range(0, 30));
-            InvadersUsed.Clear();
-            BossCategoriesUsed.Clear();
-            AbyssBossCategoriesUsed.Clear();
             MapsAvailable.Clear();
             MapsAvailable.AddRange(Maps.MapList.Where(map => -2 <= map.Rating && map.Rating <= 2));
             MapsVisited.Clear();
@@ -380,7 +344,7 @@ namespace RoguelikeSouls.ModProgram
             Hook.Resistance = 99;
             Hook.Intelligence = 99;
             Hook.Faith = 99;
-            Hook.SoulLevel = 99;
+            Hook.SoulLevel = 713;
             Hook.MaxHealth = 999;
             Hook.MaxStamina = 150;
 #else
@@ -454,9 +418,6 @@ namespace RoguelikeSouls.ModProgram
             MapInfo newMap = GetNextMap();
             Connection startPoint = GetStartPoint(newMap, 0, ignoreDepth: true);
 
-            // Not using depth for now; going full random.
-            //Connection endPoint = CurrentMap.GetEndPointFromTriggerFlag(triggerFlag);
-            //Connection startPoint = GetStartPoint(newMap, endPoint.Depth);
 #if DEBUG
             Console.WriteLine($"Activating map: {newMap.Name}");
             Console.WriteLine($"    Labels: {string.Join(", ", MapLabels[newMap])}");
@@ -470,9 +431,9 @@ namespace RoguelikeSouls.ModProgram
             for (int i = 0; i < 100; i++)
                 DisableFlag(11027000 + i);  // Includes "bonfire shop" (11027090).
 
-            // Generate MSB, LUABND, and tweaked EMEVD for new map.
+            // Generate MSB, LUABND, FFXBND, and tweaked EMEVD for new map.
             double redPhantomOdds = GetFlag(GameFlag.MornsteinRingFlag) ? 0.2 : 0.1;
-            MapGenerator mapGen = new MapGenerator(Mod, this, newMap, Rand, redPhantomOdds);
+            MapGenerator mapGen = new MapGenerator(Mod, this, newMap, Rand, redPhantomOdds, startPoint);
             mapGen.Generate();
 
             foreach (int startFlag in startPoint.AllStartFlags)
@@ -618,7 +579,7 @@ namespace RoguelikeSouls.ModProgram
 
             // Generate MSB, LUABND, EMEVD, FFXBND.
             double redPhantomOdds = GetFlag(GameFlag.MornsteinRingFlag) ? 0.2 : 0.1;
-            MapGenerator mapGen = new MapGenerator(Mod, this, firstMap, Rand, redPhantomOdds);
+            MapGenerator mapGen = new MapGenerator(Mod, this, firstMap, Rand, redPhantomOdds, startPoint);
             mapGen.Generate();
 
             CurrentMap = firstMap;
@@ -693,7 +654,7 @@ namespace RoguelikeSouls.ModProgram
         void RequestAbyssFight()
         {
             Console.WriteLine("Delving into the Abyss...");
-            MapGenerator abyssGen = new MapGenerator(Mod, this, Maps.GetMap("NewLondoRuins"), Rand, redPhantomOdds: 1.0);
+            MapGenerator abyssGen = new MapGenerator(Mod, this, Maps.GetMap("NewLondoRuins"), Rand, redPhantomOdds: 1.0, null);
             abyssGen.GenerateAbyssVisit();
             EnableFlag(GameFlag.AbyssBattleRequestComplete);
         }
@@ -777,6 +738,49 @@ namespace RoguelikeSouls.ModProgram
                     Hook.SetSpellCasts(slot, newCastCount);
                 }
             }
+        }
+
+        List<int> GetAvailableInvaders()
+        {
+            // Get a list of invader (indices) that have not yet been used in this run.
+            return new List<int>(Enumerable.Range(0, 30).Where(i => !GetFlag(GameFlag.InvaderUsedBaseFlag + i)));
+        }
+
+        List<int> GetUsedInvaders()
+        {
+            // Get a list of invaders (indices) that HAVE been used in this run.
+            return new List<int>(Enumerable.Range(0, 30).Where(i => GetFlag(GameFlag.InvaderUsedBaseFlag + i)));
+        }
+
+        void EnableInvaderUsedFlag(int invaderIndex)
+        {
+            EnableFlag(GameFlag.InvaderUsedBaseFlag + invaderIndex);
+        }
+
+        public int CheckOutInvader()
+        {
+            int invaderIndex = GetAvailableInvaders().GetRandomElement(Rand);
+            EnableInvaderUsedFlag(invaderIndex);
+            return invaderIndex;
+        }
+
+        public List<int> GetBossCategoriesUsed(bool abyss = false)
+        {
+            // List of boss categories used in the current run, which will prevent the same
+            // category appearing again.
+            List<int> bossCategoriesUsed = new List<int>();
+            int maxBossCategory = EnemyGenerator.LastBossCategory;
+            GameFlag baseFlag = abyss ? GameFlag.AbyssBossCategoryUsedBaseFlag : GameFlag.BossCategoryUsedBaseFlag;
+            for (int category = 0; category <= maxBossCategory; category++)
+                if (GetFlag(baseFlag + category)) bossCategoriesUsed.Add(category);
+            return bossCategoriesUsed;
+        }
+
+        public void EnableBossCategoryFlag(int category, bool abyss = false)
+        {
+            // These are disabled in EMEVD on run cleanup.
+            GameFlag baseFlag = abyss ? GameFlag.AbyssBossCategoryUsedBaseFlag : GameFlag.BossCategoryUsedBaseFlag;
+            EnableFlag(baseFlag + category);
         }
 
         public void EnableFlag(int flag)

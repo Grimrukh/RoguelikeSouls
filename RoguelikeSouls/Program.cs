@@ -105,9 +105,9 @@ COMMANDS:
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            if (File.Exists("ROGUE-LIKE_SOULS.cfg"))
+            if (File.Exists("ROGUELIKE_SOULS.cfg"))
             {
-                MOD_PATH = File.ReadAllText("ROGUE-LIKE_SOULS.cfg");
+                MOD_PATH = File.ReadAllText("ROGUELIKE_SOULS.cfg");
             }
 
             Console.WriteLine(@"
@@ -130,7 +130,9 @@ COMMANDS:
                                     v1.6
                                
                                  by Grimrukh
-
+");
+            Thread.Sleep(1000);
+            Console.WriteLine(@"  
   BASIC INSTRUCTIONS:
 
      - Run the ""install"" command to generate a fresh set of parameters.
@@ -220,7 +222,7 @@ COMMANDS:
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 string name = Path.GetDirectoryName(ofd.FileName) + "\\";
-                File.WriteAllText("ROGUE-LIKE_SOULS.cfg", name);
+                File.WriteAllText("ROGUELIKE_SOULS.cfg", name);
                 return name;
             }
             else
@@ -457,7 +459,7 @@ COMMANDS:
 
         static void UNINSTALL()
         {
-            if (!File.Exists("ROGUE-LIKE_SOULS.cfg"))
+            if (!File.Exists("ROGUELIKE_SOULS.cfg"))
             {
                 MOD_PATH = AskForDir();
             }
@@ -465,7 +467,7 @@ COMMANDS:
             {
                 Console.WriteLine("\nUninstall previously-specified game directory? (Y/N)");
                 bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
-                MOD_PATH = yes ? File.ReadAllText("ROGUE-LIKE_SOULS.cfg") : AskForDir();
+                MOD_PATH = yes ? File.ReadAllText("ROGUELIKE_SOULS.cfg") : AskForDir();
             }
 
             if (MOD_PATH == null)

@@ -143,7 +143,7 @@ class CommonFlags(Flag):
     HookErrorFlag = 11812098
     HookCheckFlag = 11812099
     BossCategoryUsedBaseFlag = 11812100
-    AbyssBossCategoryUsedBaseFlag = 11812200
+    AbyssBossCategoryUsedBaseFlag = 11812150
 
     # Key item lots.
     RustedKeyObtained = 50050010

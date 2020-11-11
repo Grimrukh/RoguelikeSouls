@@ -2,23 +2,25 @@
 --- ROGUELIKE SOULS 1.6 NOTES ---
 
 MAJOR CHANGES:
-	- You may be invaded by random NPCs. (For technical/aesthetic reasons, they don't look like black phantoms.)
+	- You may be invaded by random NPCs. (For technical/aesthetic reasons, they don't glow like normal invaders.)
 	- Weapon stats are now more varied and balanced.
-	- Enemy attack speeds are not randomized by default. They can be randomized and re-randomized when desired with a separate command.
-	- Alvina's Ring restored. It is available if you have the Lordvessel.
-	- LobosJr's Ring now also increases enemy variety and rarity.
+	- Some enemies will patrol their environment.
+	- Enemy attack speeds are not randomized by default. They can be randomized and re-randomized when desired with a separate command.	
 
 MINOR CHANGES:
+	- Alvina's Ring restored. It is available if you have the Lordvessel.
+	- LobosJr's Ring now also increases enemy variety and rarity.
 	- All status ailments, including curse and egg, are healed whenever a run ends.
+	- Rare enemy appearance fixed in New Londo Ruins.
+	- Enemies will not appear too close to your spawn point in each level.
 	- Player stats can't increase above 99.
-	- Stone Dragon can no longer be spoken to.
 	- Abyss bosses award more souls.
 	- NG+ enemy health boost reduced.
 	- Bosses won't repeat in a run. (They may still appear in the Abyss.)
 	- Moonlight Butterfly boss now awards souls.
 	- Vagrants appear less often.
 	- Drakes have less defense.
-	- Key items no longer drop multiple times.
-	- Some missing enemy visual effects fixed (possibly not all).
-	- Spells won't have less than 1 cast.
-	- Various small bug fixes, e.g. bugged item drops.
+	- Key items no longer drop multiple times in a run.
+	- Enemy visual effects are missing less often.
+	- Spells won't have zero casts.
+	- Various small bug/typo fixes.

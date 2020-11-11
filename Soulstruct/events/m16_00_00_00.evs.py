@@ -251,8 +251,8 @@ def DisableLowerEnemiesPreDrain():
     for basic_phantom in range(15):
         DisableBackread(1600115 + basic_phantom)
     for rare_enemy in range(15):
-        DisableBackread(1600130 + rare_enemy)
-    DisableBackread(1600170)
+        DisableBackread(1600145 + rare_enemy)
+    DisableBackread(1600175)
 
     Await(Flags.NewLondoDrained)
 
@@ -261,8 +261,8 @@ def DisableLowerEnemiesPreDrain():
     for basic_phantom in range(15):
         EnableBackread(1600115 + basic_phantom)
     for rare_enemy in range(15):
-        EnableBackread(1600130 + rare_enemy)
-    EnableBackread(1600170)
+        EnableBackread(1600145 + rare_enemy)
+    EnableBackread(1600175)
 
 
 def DrainNewLondo():
