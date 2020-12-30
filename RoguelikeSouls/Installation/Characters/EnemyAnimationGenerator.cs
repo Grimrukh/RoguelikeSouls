@@ -107,40 +107,46 @@ namespace RoguelikeSouls.Installation
             }
         }
 
-        void AddSpeedEffects()
+        public void AddSpeedEffects(bool noParamEdit = false)
         {
             // Adds speed modifier SpEffects (9000 range) to GPARAM and registers in dictionary for easy lookup here.
             int speedEffectCount = (int)(MaxSpeedMultiplier / QuantizedSpeed);
             for (int i = 1; i <= speedEffectCount; i++)
             {
                 float speed = (float)Math.Round(i * QuantizedSpeed, 2);
-                SpEffect effect = Mod.GPARAM.SpEffects.CopyRow(81001, 9000 + i);
-                effect.Name = $"SpeedMultiplier ({speed:0.00}x)";
-                effect.EffectDuration = 0;
-                effect.SpecialState = 0;
-                effect.SpecialEffectCategory = 0;
-                effect.AnimationSpeedMultiplier = speed;
-                effect.CanAffectAll = true;
-                SpeedEffects[speed] = Convert.ToInt32(effect);
+                if (!noParamEdit)
+                {
+                    SpEffect effect = Mod.GPARAM.SpEffects.CopyRow(81001, 9000 + i);
+                    effect.Name = $"SpeedMultiplier ({speed:0.00}x)";
+                    effect.EffectDuration = 0;
+                    effect.SpecialState = 0;
+                    effect.SpecialEffectCategory = 0;
+                    effect.AnimationSpeedMultiplier = speed;
+                    effect.CanAffectAll = true;
+                }
+                SpeedEffects[speed] = 9000 + i;
             }
         }
-        void AddAttackDamageEffects()
+        public void AddAttackDamageEffects(bool noParamEdit = false)
         {
             // Adds blanket attack damage modifier SpEffects (9100 range) to GPARAM and registers in dictionary for easy lookup here.
             int attackEffectCount = (int)(2.0f / 0.05f);
             for (int i = 1; i <= attackEffectCount; i++)
             {
                 float attackMultiplier = (float)Math.Round(i * 0.05, 2);
-                SpEffect effect = Mod.GPARAM.SpEffects.CopyRow(81001, 9100 + i);
-                effect.Name = $"AttackDamageMultiplier ({attackMultiplier:0.00}x)";
-                effect.EffectDuration = 0;
-                effect.OutgoingPhysicalDamageMultiplier = attackMultiplier;
-                effect.OutgoingMagicDamageMultiplier = attackMultiplier;
-                effect.OutgoingFireDamageMultiplier = attackMultiplier;
-                effect.OutgoingLightningDamageMultiplier = attackMultiplier;
-                effect.OutgoingStaminaDamageMultiplier = attackMultiplier;
-                effect.CanAffectAll = true;
-                AttackDamageEffects[attackMultiplier] = Convert.ToInt32(effect);
+                if (!noParamEdit)
+                {
+                    SpEffect effect = Mod.GPARAM.SpEffects.CopyRow(81001, 9100 + i);
+                    effect.Name = $"AttackDamageMultiplier ({attackMultiplier:0.00}x)";
+                    effect.EffectDuration = 0;
+                    effect.OutgoingPhysicalDamageMultiplier = attackMultiplier;
+                    effect.OutgoingMagicDamageMultiplier = attackMultiplier;
+                    effect.OutgoingFireDamageMultiplier = attackMultiplier;
+                    effect.OutgoingLightningDamageMultiplier = attackMultiplier;
+                    effect.OutgoingStaminaDamageMultiplier = attackMultiplier;
+                    effect.CanAffectAll = true;
+                }
+                AttackDamageEffects[attackMultiplier] = 9100 + i;
             }
         }
         void RandomizeEnemySpeed(int enemyID)
@@ -272,7 +278,7 @@ namespace RoguelikeSouls.Installation
         {
             // Rounds attackPowerScale to nearest multiple of 0.05.
             attackPowerScale = (int)Math.Round(20 * attackPowerScale) / 20.0f;
-            if (!AttackDamageEffects.ContainsKey(attackPowerScale)) throw new KeyNotFoundException($"No speed effect with multiplier {attackPowerScale}");
+            if (!AttackDamageEffects.ContainsKey(attackPowerScale)) throw new KeyNotFoundException($"No attack effect with multiplier {attackPowerScale}");
             animation.ApplyEffect(AttackDamageEffects[attackPowerScale], startTime, endTime);
         }
         List<int> RoryAlgorithm(int frameCount, int speedPointTotal)

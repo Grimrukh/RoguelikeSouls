@@ -162,9 +162,16 @@ namespace SoulsFormatsMod
 #if DEBUG
             Console.Write($"Done.\n");
 #endif
+            InstallAnimations();
+        }
+
+        public void InstallAnimations(bool skipPlayer = false) { 
 
             foreach (KeyValuePair<int, ChrHandler> kv in Characters)
             {
+                if (skipPlayer && kv.Key == 0)
+                    continue;
+                
                 string chrFile = $"c{kv.Key:0000}";
                 //Console.Write($"Exporting {chrFile}...");
                 try

@@ -127,7 +127,7 @@ COMMANDS:
                 |_______||_______||_______||_______||_______|   
 
                         ~~ The Binding of Lordran ~~~
-                                    v1.6
+                                   v1.6.1
                                
                                  by Grimrukh
 ");
@@ -142,12 +142,17 @@ COMMANDS:
        Dark Souls Remastered alongside it (each time you play). You can also
        start the manager quickly by pressing Enter below without a command.
      - Run the ""manager-restart"" command if you get soft-locked in a run.
-     - Re-run ""install"" or ""randomizer-enemy-attack-speeds"" whenever you
+     - Re-run ""install"" or ""randomize-enemy-attack-speeds"" whenever you
        want a fresh set of game parameters. This won't affect game progress.
 
   Use the ""help"" command for more information about each option.
 
-  ~ All puns and cat voices are courtesy of Soycrates. ~
+  You will be prompted once to specify your Dark Souls Remastered installation
+  directory, which will then be stored in 'ROGUELIKE_SOULS.cfg' next to this
+  executable for automatic future use. Delete that file and restart this mod
+  program to be prompted again.
+
+  ~ All puns and cat voices are courtesy of Soycrates (@Soycrates). ~
 ");
 
 #if DEBUG
@@ -213,17 +218,25 @@ COMMANDS:
             }
         }
 
-        static string AskForDir()
+        static string GetGameDir()
         {
+            if (MOD_PATH != null)
+            {
+                //Console.WriteLine("\nUse previously-specified game directory? (Y/N)");
+                //if (ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y)
+                //    return MOD_PATH;
+                return MOD_PATH;
+            }
+
             Console.WriteLine("\nPress ENTER to select your Dark Souls Remastered executable.");
             Console.ReadLine();
             OpenFileDialog ofd = new OpenFileDialog { Filter = "EXE Files|*.exe" };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                string name = Path.GetDirectoryName(ofd.FileName) + "\\";
-                File.WriteAllText("ROGUELIKE_SOULS.cfg", name);
-                return name;
+                MOD_PATH = Path.GetDirectoryName(ofd.FileName) + "\\";
+                File.WriteAllText("ROGUELIKE_SOULS.cfg", MOD_PATH);
+                return MOD_PATH;
             }
             else
             {
@@ -244,22 +257,7 @@ COMMANDS:
             Random random;
             random = inputSeed == "" ? new Random() : new Random(inputSeed.GetHashCode());
 
-            if (MOD_PATH == null)
-            {
-                MOD_PATH = AskForDir();
-            }
-            else
-            {
-#if DEBUG
-                // Use existing path.
-#else
-                Console.WriteLine("\nUse previously-specified game directory? (Y/N)");
-                bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
-                if (!yes)
-                    MOD_PATH = AskForDir();
-#endif
-            }
-
+            MOD_PATH = GetGameDir();
             if (MOD_PATH == null) {
                 Console.WriteLine("No EXE selected. Cancelling installation.");
                 return;
@@ -404,6 +402,13 @@ COMMANDS:
 
         static void RANDOMIZE_ENEMY_ATTACK_SPEEDS(string inputSeed)
         {
+            MOD_PATH = GetGameDir();
+            if (MOD_PATH == null)
+            {
+                Console.WriteLine("No EXE selected. Cancelling attack speed randomization.");
+                return;
+            }
+
             Random random;
             random = inputSeed == "" ? new Random() : new Random(inputSeed.GetHashCode());
             SoulsMod mod = new SoulsMod(MOD_PATH, ".rsbak");
@@ -414,7 +419,10 @@ COMMANDS:
 #else
             Console.WriteLine("Stepping into time vortex...");
 #endif
+            animSetup.AddSpeedEffects(noParamEdit: true);  // just registers effect IDs in setup
+            animSetup.AddAttackDamageEffects(noParamEdit: true);  // just registers effect IDs in setup
             animSetup.RandomizeAllEnemySpeeds();
+            mod.InstallAnimations(skipPlayer: true);
             Thread.CurrentThread.Join(0);
 
             Console.WriteLine("\nEnemy attack speeds randomized successfully! Press ENTER to return to the prompt.");
@@ -439,6 +447,13 @@ COMMANDS:
 
         static void MANAGE_RUN(string inputSeed, bool immediateRestart = false)
         {
+            MOD_PATH = GetGameDir();
+            if (MOD_PATH == null)
+            {
+                Console.WriteLine("No EXE selected. Aborting run manager.");
+                return;
+            }
+
             SoulsMod mod = new SoulsMod(MOD_PATH, ".rsbak");
             DSRHook hook = new DSRHook(5000, 5000);
             hook.Start();
@@ -459,17 +474,7 @@ COMMANDS:
 
         static void UNINSTALL()
         {
-            if (!File.Exists("ROGUELIKE_SOULS.cfg"))
-            {
-                MOD_PATH = AskForDir();
-            }
-            else
-            {
-                Console.WriteLine("\nUninstall previously-specified game directory? (Y/N)");
-                bool yes = ReadKey(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
-                MOD_PATH = yes ? File.ReadAllText("ROGUELIKE_SOULS.cfg") : AskForDir();
-            }
-
+            MOD_PATH = GetGameDir();
             if (MOD_PATH == null)
             {
                 Console.WriteLine("No EXE selected. Cancelling uninstallation.");

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Numerics;
 using RoguelikeSouls.Installation;
 using RoguelikeSouls.Extensions;
-using System.Windows.Forms;
 
 namespace RoguelikeSouls.ModProgram
 {
