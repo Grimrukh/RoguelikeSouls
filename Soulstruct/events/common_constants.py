@@ -12,7 +12,8 @@ from soulstruct.game_types import *
 
 class CommonFlags(Flag):
     NeverEnabled = 1400  # Dummy flag for boss battles.
-    InvaderUsedBaseFlag = 1500  # Mod use only.
+    InvaderUsedBaseFlag = 1500  # Disabled in Firelink startup script; otherwise handled by companion program.
+    InvaderUsedLastFlag = 1529
 
     AndreHostile = 1600
     AndreDead = 1601

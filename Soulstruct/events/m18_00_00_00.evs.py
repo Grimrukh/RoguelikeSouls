@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .kiln_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from kiln_constants import *
 
 
 def Constructor():
@@ -26,7 +26,7 @@ def Constructor():
 
     RegisterBonfire(11800992, obj=1801960, reaction_distance=2.0, reaction_angle=180.0, initial_kindle_level=0)
     DisableObject(1801994)
-    DeleteFX(1801995, erase_root_only=False)
+    DeleteVFX(1801995, erase_root_only=False)
 
     # Don't want to actually end the game.
     # RunEvent(20)
@@ -87,7 +87,7 @@ def ActivateExitBonfire():
         Await(Flags.Boss1Dead)
 
         AwardItemLot(CommonItemLots.HeartLot)
-        CreateTemporaryFX(90014, anchor_entity=Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
+        CreateTemporaryVFX(90014, anchor_entity=Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
         Wait(2.0)
         EnableObject(1801111)
         EnableObject(Objects.Exit2Prompt)
@@ -186,19 +186,22 @@ def InvaderTrigger(_, invasion_message: int, dead_message: int, invader: Charact
     EnableFlag(dead_flag)
 
 
+# noinspection PyUnusedLocal
 @RestartOnRest
-def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
-               trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
-               fog_1_object: int, fog_1_sfx: int,
-               fog_2_object: int, fog_2_sfx: int,
-               boss_name: short, boss_twin_name: short):
+def BossBattle(
+    _, boss: Character, boss_twin: Character, twin_enabled: Flag,
+    trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
+    fog_1_object: int, fog_1_sfx: int,
+    fog_2_object: int, fog_2_sfx: int,
+    boss_name: short, boss_twin_name: short
+):
     """ 11802080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -214,10 +217,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -250,10 +253,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -287,7 +290,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11805820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -394,7 +397,7 @@ def ReplanMimicAIOnLoad(_, mimic: int):
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11802999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

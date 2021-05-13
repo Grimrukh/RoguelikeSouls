@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .lake_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from lake_constants import *
 
 
 def Constructor():
@@ -29,7 +29,7 @@ def Constructor():
     RegisterStatue(1321907, game_map=ASH_LAKE, statue_type=StatueType.Stone)
 
     DisableObject(1321994)
-    DeleteFX(1321995, erase_root_only=False)
+    DeleteVFX(1321995, erase_root_only=False)
     # Fog 1321700 (old checkpoint) not deleted, used as prompt on both sides.
 
     # Stone Dragon and tail.
@@ -196,7 +196,7 @@ def Event11325110(_, arg_0_1: short, arg_2_3: short, arg_4_7: int, arg_8_11: int
                   body_damage_correction=1.0, is_invincible=False, start_in_stop_state=False)
     IfCharacterPartHealthLessThanOrEqual(1, 1320700, npc_part_id=arg_4_7, value=0)
     IfFlagOff(1, 11325120)
-    IfAttacked(1, 1320700, attacking_character=PLAYER)
+    IfAttacked(1, 1320700, attacker=PLAYER)
     IfHealthLessThanOrEqual(2, 1320700, 0.0)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
@@ -435,7 +435,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11325820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -564,7 +564,7 @@ def RescueSiegmeyer():
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11322999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

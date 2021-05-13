@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .painted_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from painted_constants import *
 
 
 def Constructor():
@@ -26,7 +26,7 @@ def Constructor():
     RegisterLadder(start_climbing_flag=11100016, stop_climbing_flag=11100017, obj=1101143)
 
     DisableObject(1101702)
-    DeleteFX(1101703, False)
+    DeleteVFX(1101703, False)
 
     # Undead Dragon always goes back to sleep on reload.
     SkipLinesIfClient(1)
@@ -101,12 +101,12 @@ def Event11100070(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int):
     End()
     DisableTreasure(arg_4_7)
     SkipLinesIfClient(1)
-    CreateObjectFX(99005, obj=arg_4_7, model_point=90)
+    CreateObjectVFX(99005, obj=arg_4_7, model_point=90)
     ForceAnimation(arg_4_7, arg_8_11, loop=True)
     IfObjectDestroyed(0, arg_0_3)
     ForceAnimation(arg_4_7, arg_12_15, wait_for_completion=True)
     SkipLinesIfClient(1)
-    DeleteObjectFX(arg_4_7, erase_root=True)
+    DeleteObjectVFX(arg_4_7, erase_root=True)
     EnableTreasure(arg_4_7)
 
 
@@ -120,7 +120,7 @@ def UndeadDragonAwakens():
     IfConditionFalse(1, input_condition=3)
     IfCharacterInsideRegion(1, PLAYER, region=1102070)
     IfConditionFalse(2, input_condition=3)
-    IfAttacked(2, 1100170, attacking_character=PLAYER)
+    IfAttacked(2, 1100170, attacker=PLAYER)
     IfConditionTrue(-2, input_condition=1)
     IfConditionTrue(-2, input_condition=2)
     IfConditionTrue(0, input_condition=-2)
@@ -154,10 +154,10 @@ def Event11100100(_, arg_0_3: int, arg_4_7: int):
     SkipLinesIfThisEventSlotOff(4)
     DestroyObject(arg_0_3, slot=1)
     ForceAnimation(arg_0_3, 0)
-    DeleteFX(arg_4_7, erase_root_only=False)
+    DeleteVFX(arg_4_7, erase_root_only=False)
     End()
     IfObjectDestroyed(0, arg_0_3)
-    DeleteFX(arg_4_7, erase_root_only=True)
+    DeleteVFX(arg_4_7, erase_root_only=True)
 
 
 @RestartOnRest
@@ -271,10 +271,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11102080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -290,10 +290,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -326,10 +326,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -398,7 +398,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11105820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)

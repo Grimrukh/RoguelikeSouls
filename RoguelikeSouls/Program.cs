@@ -127,7 +127,7 @@ COMMANDS:
                 |_______||_______||_______||_______||_______|   
 
                         ~~ The Binding of Lordran ~~~
-                                   v1.6.1
+                                   v1.6.3
                                
                                  by Grimrukh
 ");

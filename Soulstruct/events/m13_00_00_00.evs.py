@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .catacombs_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from catacombs_constants import *
 
 
 def Constructor():
@@ -48,9 +48,9 @@ def Constructor():
     SkipLinesIfClient(3)
     DisableFlag(11300000)
     DisableObject(1301994)
-    DeleteFX(1301995, erase_root_only=False)
+    DeleteVFX(1301995, erase_root_only=False)
     DisableObject(1301700)
-    DeleteFX(1301701, erase_root_only=False)
+    DeleteVFX(1301701, erase_root_only=False)
 
     # Spike bridges.
     RunEvent(11300300)
@@ -252,7 +252,7 @@ def Event11300001():
     EnableFlag(6)
     KillBoss(1300800)
     DisableObject(1301990)
-    DeleteFX(1301991, erase_root_only=True)
+    DeleteVFX(1301991, erase_root_only=True)
     RegisterLadder(start_climbing_flag=11300016, stop_climbing_flag=11300017, obj=1301143)
     RunEvent(11300880)
 
@@ -768,7 +768,7 @@ def Event11300100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int):
     IfCharacterInsideRegion(1, PLAYER, region=arg_4_7)
     IfConditionTrue(0, input_condition=1)
     DestroyObject(arg_8_11, slot=1)
-    CreateTemporaryFX(130000, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Object, model_point=-1)
+    CreateTemporaryVFX(130000, anchor_entity=arg_8_11, anchor_type=CoordEntityType.Object, model_point=-1)
     PlaySoundEffect(anchor_entity=arg_8_11, sound_type=SoundType.o_Object, sound_id=arg_12_15)
 
 
@@ -822,10 +822,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11302080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -841,10 +841,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -877,10 +877,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -981,7 +981,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11305820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -1099,7 +1099,7 @@ def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11302999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

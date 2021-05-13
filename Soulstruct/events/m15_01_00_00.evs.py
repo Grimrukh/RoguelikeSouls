@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .anor_londo_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from anor_londo_constants import *
 
 
 def Constructor():
@@ -29,22 +29,22 @@ def Constructor():
 
     # Delete Lautrec fog in palace.
     DisableObject(1511750)
-    DeleteFX(1511751, erase_root_only=False)
+    DeleteVFX(1511751, erase_root_only=False)
     DisableObject(1511752)
-    DeleteFX(1511753, erase_root_only=False)
+    DeleteVFX(1511753, erase_root_only=False)
     DisableObject(1511754)
-    DeleteFX(1511755, erase_root_only=False)
+    DeleteVFX(1511755, erase_root_only=False)
 
     # Disable Gwyndolin fog.
     DisableObject(1511890)
-    DeleteFX(1511891, erase_root_only=False)
+    DeleteVFX(1511891, erase_root_only=False)
     DisableObject(1511892)
-    DeleteFX(1511893, erase_root_only=False)
+    DeleteVFX(1511893, erase_root_only=False)
 
     DisableFlag(11510304)
     SkipLinesIfClient(2)
     DisableObject(1511994)
-    DeleteFX(1511995, erase_root_only=False)
+    DeleteVFX(1511995, erase_root_only=False)
     DisableObject(1511310)
     DisableCollision(1513301)
     DisableCollision(1513302)
@@ -74,9 +74,9 @@ def Constructor():
     DisableObject(1511450)
     DisableFlag(11510460)
     DisableObject(1511700)
-    DeleteFX(1511701, False)
+    DeleteVFX(1511701, False)
     DisableObject(1511702)
-    DeleteFX(1511703, False)
+    DeleteVFX(1511703, False)
 
     # Palace door.
     RunEvent(11510200)
@@ -188,14 +188,14 @@ def Event11510100():
     End()
     DisableTreasure(1511600)
     SkipLinesIfClient(1)
-    CreateObjectFX(99010, obj=1511600, model_point=90)
+    CreateObjectVFX(99010, obj=1511600, model_point=90)
     ForceAnimation(1511600, 110, loop=True)
     IfObjectDestroyed(0, 1511100)
     ForceAnimation(1511600, 111)
     ForceAnimation(1511101, 0)
     ForceAnimation(1511102, 0, wait_for_completion=True)
     SkipLinesIfClient(1)
-    DeleteObjectFX(1511600, erase_root=True)
+    DeleteObjectVFX(1511600, erase_root=True)
     EnableTreasure(1511600)
     DestroyObject(1511102, slot=1)
 
@@ -846,7 +846,7 @@ def Event11515050():
     End()
     DisableImmortality(1510100)
     SetStandbyAnimationSettings(1510100, standby_animation=9000)
-    IfAttacked(-1, 1510100, attacking_character=PLAYER)
+    IfAttacked(-1, 1510100, attacker=PLAYER)
     IfFlagOn(-1, 11515050)
     IfConditionTrue(0, input_condition=-1)
     EnableFlag(11515050)
@@ -981,13 +981,13 @@ def BossBattleExtraFog(
     """ 11512080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
     if fog_3_object != 0:
         DisableObject(fog_3_object)
-        DeleteFX(fog_3_sfx, erase_root_only=False)
+        DeleteVFX(fog_3_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -1003,13 +1003,13 @@ def BossBattleExtraFog(
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
     if fog_3_object != 0:
         EnableObject(fog_3_object)
-        CreateFX(fog_3_sfx)
+        CreateVFX(fog_3_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -1042,13 +1042,13 @@ def BossBattleExtraFog(
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     if fog_3_object != 0:
         DisableObject(fog_3_object)
-        DeleteFX(fog_3_sfx, erase_root_only=True)
+        DeleteVFX(fog_3_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -1072,7 +1072,7 @@ def DepartWithGwynevereBonfire():
     if not HasGood(CommonGoods.Lordvessel):
         DisableObject(Objects.Exit3Prompt)
         Await(HasGood(CommonGoods.Lordvessel))  # Given by Gwynevere.
-        CreateTemporaryFX(90014, anchor_entity=Objects.Exit3Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
+        CreateTemporaryVFX(90014, anchor_entity=Objects.Exit3Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
         Wait(4.0)
         EnableObject(Objects.Exit3Prompt)
         if not CommonFlags.LordvesselObtained:
@@ -1159,7 +1159,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11515820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -1298,7 +1298,7 @@ def RescueSolaire():
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11512999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

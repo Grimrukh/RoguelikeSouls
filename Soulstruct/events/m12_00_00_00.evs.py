@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .darkroot_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from darkroot_constants import *
 
 
 def Constructor():
@@ -30,17 +30,17 @@ def Constructor():
 
     SkipLinesIfClient(10)
     DisableObject(1201994)
-    DeleteFX(1201995, erase_root_only=False)
+    DeleteVFX(1201995, erase_root_only=False)
     DisableObject(1201996)
-    DeleteFX(1201997, erase_root_only=False)
+    DeleteVFX(1201997, erase_root_only=False)
     DisableObject(1201998)
-    DeleteFX(1201999, erase_root_only=False)
+    DeleteVFX(1201999, erase_root_only=False)
     DisableObject(1201988)
-    DeleteFX(1201989, erase_root_only=False)
+    DeleteVFX(1201989, erase_root_only=False)
     DisableObject(1201986)
-    DeleteFX(1201987, erase_root_only=False)
+    DeleteVFX(1201987, erase_root_only=False)
     DisableObject(1201700)
-    DeleteFX(1201701, False)
+    DeleteVFX(1201701, False)
 
     # Crest door now opens with Holy Sigil.
     RunEvent(11200100, slot=0, args=(11200110, 1201000, 120020, 1202500, 0, 61200500))
@@ -73,9 +73,9 @@ def Constructor():
     SkipLinesIfFlagOff(6, 11200900)
     RunEvent(11205382)
     DisableObject(1201890)
-    DeleteFX(1201891, erase_root_only=False)
+    DeleteVFX(1201891, erase_root_only=False)
     DisableObject(1201892)
-    DeleteFX(1201893, erase_root_only=False)
+    DeleteVFX(1201893, erase_root_only=False)
     SkipLines(17)
     RunEvent(11205380)
     RunEvent(11205381)
@@ -211,9 +211,9 @@ def Event11200900():
     DisplayBanner(BannerType.VictoryAchieved)
     DisableBossHealthBar(Chrs.MoonlightButterfly, name=3230, slot=0)
     DisableObject(1201890)
-    DeleteFX(1201891, erase_root_only=True)
+    DeleteVFX(1201891, erase_root_only=True)
     DisableObject(1201892)
-    DeleteFX(1201893, erase_root_only=True)
+    DeleteVFX(1201893, erase_root_only=True)
     AwardItemLot(32300000)
 
 
@@ -255,7 +255,7 @@ def Event11200100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, 
     SkipLinesIfThisEventSlotOff(2)
     EndOfAnimation(arg_4_7, 1)
     End()
-    CreateObjectFX(arg_8_11, obj=arg_4_7, model_point=200)
+    CreateObjectVFX(arg_8_11, obj=arg_4_7, model_point=200)
     SkipLinesIfEqual(1, left=arg_16_19, right=1)
     IfPlayerHasGood(1, CommonGoods.HolySigil, including_box=False)
     IfActionButton(1, prompt_text=10010400, anchor_entity=arg_12_15, anchor_type=CoordEntityType.Region,
@@ -272,7 +272,7 @@ def Event11200100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int, 
     DisplayDialog(10010861, anchor_entity=arg_4_7, display_distance=3.0, button_type=ButtonType.Yes_or_No,
                   number_buttons=NumberButtons.NoButton)
     ForceAnimation(arg_4_7, 1)
-    DeleteObjectFX(arg_4_7, erase_root=True)
+    DeleteObjectVFX(arg_4_7, erase_root=True)
 
 
 def Event11200110(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int):
@@ -412,10 +412,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11202080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -431,10 +431,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -467,10 +467,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -625,7 +625,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11205820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -743,7 +743,7 @@ def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11202999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

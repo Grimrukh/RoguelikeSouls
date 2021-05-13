@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .izalith_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from izalith_constants import *
 
 
 def Constructor():
@@ -35,44 +35,44 @@ def Constructor():
     RegisterBonfire(11410992, obj=1411960, reaction_distance=2.0, reaction_angle=180.0, initial_kindle_level=0)
 
     # DisableObject(1411994)  # Repurposed as Ruins exit prompt.
-    # DeleteFX(1411995, erase_root_only=False)
+    # DeleteVFX(1411995, erase_root_only=False)
     DisableObject(1411996)
-    DeleteFX(1411997, erase_root_only=False)
+    DeleteVFX(1411997, erase_root_only=False)
     DisableObject(1411998)
-    DeleteFX(1411999, erase_root_only=False)
+    DeleteVFX(1411999, erase_root_only=False)
     DisableObject(1411988)
-    DeleteFX(1411989, erase_root_only=False)
+    DeleteVFX(1411989, erase_root_only=False)
     # DisableObject(1411986)  # Repurposed as Izalith exit prompt.
-    # DeleteFX(1411987, erase_root_only=False)
+    # DeleteVFX(1411987, erase_root_only=False)
     DisableObject(1411984)
-    DeleteFX(1411985, erase_root_only=False)
+    DeleteVFX(1411985, erase_root_only=False)
     DisableObject(1411982)
-    DeleteFX(1411983, erase_root_only=False)
+    DeleteVFX(1411983, erase_root_only=False)
 
     # Bed of Chaos orbs (now always destroyed).
     EnableFlag(11410291)
     EnableFlag(11410292)
     SkipLinesIfFlagOff(3, 11410291)
     DisableObject(1411121)
-    DeleteFX(1413400, erase_root_only=True)
-    DeleteFX(1413410, erase_root_only=True)
+    DeleteVFX(1413400, erase_root_only=True)
+    DeleteVFX(1413410, erase_root_only=True)
     SkipLinesIfFlagOff(3, 11410292)
     DisableObject(1411122)
-    DeleteFX(1413401, erase_root_only=True)
-    DeleteFX(1413411, erase_root_only=True)
+    DeleteVFX(1413401, erase_root_only=True)
+    DeleteVFX(1413411, erase_root_only=True)
 
     # Golden fog gone.
     DisableObject(1411710)
-    DeleteFX(1411711, erase_root_only=False)
+    DeleteVFX(1411711, erase_root_only=False)
     DisableFlag(402)  # Invasions allowed (theoretically).
 
     # Ceaseless and Firesage fogs gone.
     DisableObject(1411790)
-    DeleteFX(1411791, erase_root_only=False)
+    DeleteVFX(1411791, erase_root_only=False)
     DisableObject(1411410)
-    DeleteFX(1411411, erase_root_only=False)
+    DeleteVFX(1411411, erase_root_only=False)
     DisableObject(1411412)
-    DeleteFX(1411413, erase_root_only=False)
+    DeleteVFX(1411413, erase_root_only=False)
 
     # Lava drained.
     DisableObject(1411100)
@@ -114,7 +114,7 @@ def Constructor():
 
     # Izalith boss battle handled with original Bed of Chaos events (but no entrance fog).
     DisableObject(1411990)
-    DeleteFX(1411991, erase_root_only=False)
+    DeleteVFX(1411991, erase_root_only=False)
     DisableSoundEvent(1413800)
     if Flags.IzalithBoss1Dead:
         RunEvent(11415392, slot=0, args=(1001,), arg_types="h")
@@ -262,7 +262,7 @@ def BedOfChaosDeath():
     DisableBossHealthBar(1410802, name=5400, slot=0)
     SetLockedCameraSlot(game_map=LOST_IZALITH, camera_slot=0)
     DisableObject(1411990)
-    DeleteFX(1411991, erase_root_only=True)
+    DeleteVFX(1411991, erase_root_only=True)
     DisableNetworkSync()
 
 
@@ -270,8 +270,9 @@ def ActivateExitBonfire():
     """ 11412240: Exit bonfire appears and can be activated. """
     if not Flags.IzalithBoss1Dead:
         DisableObject(Objects.IzalithExit3Prompt)
-        CreateTemporaryFX(90014, anchor_entity=Objects.IzalithExit3Prompt, anchor_type=CoordEntityType.Object,
-                          model_point=-1)
+        CreateTemporaryVFX(
+            90014, anchor_entity=Objects.IzalithExit3Prompt, anchor_type=CoordEntityType.Object, model_point=-1
+        )
         Await(Flags.IzalithBoss1Dead)
         Wait(4.0)
         EnableObject(Objects.IzalithExit3Prompt)
@@ -396,12 +397,12 @@ def Event11415300():
     EndIfFlagOn(Flags.IzalithBoss1Dead)
     SkipLinesIfFinishedConditionFalse(4, 1)
     EnableFlag(11410291)
-    DeleteFX(1413400, erase_root_only=True)
-    DeleteFX(1413410, erase_root_only=True)
+    DeleteVFX(1413400, erase_root_only=True)
+    DeleteVFX(1413410, erase_root_only=True)
     Restart()
     EnableFlag(11410292)
-    DeleteFX(1413401, erase_root_only=True)
-    DeleteFX(1413411, erase_root_only=True)
+    DeleteVFX(1413401, erase_root_only=True)
+    DeleteVFX(1413411, erase_root_only=True)
     Restart()
 
 
@@ -435,7 +436,7 @@ def BedOfChaosCentralFloorBreaks():
     DisableObjectInvulnerability(1411202)
     DisableObjectInvulnerability(1411203)
     DisableObjectInvulnerability(1411204)
-    CreateTemporaryFX(140009, anchor_entity=1411202, anchor_type=CoordEntityType.Object, model_point=-1)
+    CreateTemporaryVFX(140009, anchor_entity=1411202, anchor_type=CoordEntityType.Object, model_point=-1)
     DestroyObject(1411200, slot=1)
     PlaySoundEffect(anchor_entity=1411200, sound_type=SoundType.o_Object, sound_id=463300000)
     WaitFrames(4)
@@ -470,7 +471,7 @@ def Event11410201(_, arg_0_3: int, arg_4_7: int):
     IfEntityWithinDistance(0, arg_0_3, PLAYER, radius=8.0)
     DisableObjectInvulnerability(arg_0_3)
     DestroyObject(arg_0_3, slot=1)
-    CreateTemporaryFX(140008, anchor_entity=arg_0_3, anchor_type=CoordEntityType.Object, model_point=-1)
+    CreateTemporaryVFX(140008, anchor_entity=arg_0_3, anchor_type=CoordEntityType.Object, model_point=-1)
     PlaySoundEffect(anchor_entity=arg_0_3, sound_type=SoundType.o_Object, sound_id=arg_4_7)
     DisableNetworkSync()
     Wait(10.0)
@@ -730,19 +731,19 @@ def SewerCeilingBreaks():
     End()
     DisableObject(1411351)
     DisableTreasure(1411600)
-    CreateObjectFX(99010, obj=1411600, model_point=90)
+    CreateObjectVFX(99010, obj=1411600, model_point=90)
     ForceAnimation(1411600, 115, loop=True)
     IfCharacterInsideRegion(-1, PLAYER, region=1412350)
     IfObjectDestroyed(-1, 1411350)
     IfConditionTrue(0, input_condition=-1)
     DisableObject(1411350)
     EnableObject(1411351)
-    CreateTemporaryFX(140001, anchor_entity=1411351, anchor_type=CoordEntityType.Object, model_point=-1)
+    CreateTemporaryVFX(140001, anchor_entity=1411351, anchor_type=CoordEntityType.Object, model_point=-1)
     PlaySoundEffect(anchor_entity=1411351, sound_type=SoundType.o_Object, sound_id=481000001)
     DestroyObject(1411351, slot=1)
     ForceAnimation(1411600, 116, wait_for_completion=True)
     EnableTreasure(1411600)
-    DeleteObjectFX(1411600, erase_root=True)
+    DeleteObjectVFX(1411600, erase_root=True)
 
 
 def OpenChest(_, arg_0_3: int, arg_4_7: int):
@@ -773,7 +774,7 @@ def Event11410510(_, arg_0_3: int, arg_4_7: int):
     """ 11410510: Event 11410510 """
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfThisEventSlotOn(2)
     IfFlagOn(3, arg_4_7)
@@ -809,7 +810,7 @@ def Event11410501(_, arg_0_3: int, arg_4_7: int):
     IfConditionTrue(1, input_condition=-2)
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfThisEventSlotOn(2)
     IfFlagOn(3, arg_4_7)
@@ -1193,10 +1194,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11412080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -1212,10 +1213,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     # Note that this event activates lava immunity.
     if twin_enabled:
@@ -1251,10 +1252,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -1411,7 +1412,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11415820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -1538,7 +1539,7 @@ def RescueQuelana():
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11412999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

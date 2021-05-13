@@ -5,8 +5,8 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
 
 
 def Constructor():
@@ -668,7 +668,7 @@ def Event754():
     DisableFlag(754)
     AddSpecialEffect(PLAYER, 4600)
     AddSpecialEffect(PLAYER, 4601)
-    CreateTemporaryFX(22715, anchor_entity=10000, anchor_type=CoordEntityType.Character, model_point=7)
+    CreateTemporaryVFX(22715, anchor_entity=10000, anchor_type=CoordEntityType.Character, model_point=7)
     Restart()
 
 
@@ -1444,7 +1444,7 @@ def RunPermadeath():
     return
 
 
-def WarpRequest(_, warp_flag: int, map_area: int, map_block: int, start: int, spawn_point: int):
+def WarpRequest(_, warp_flag: int, map_area: uchar, map_block: uchar, start: int, spawn_point: int):
     """ 2600: Warp to given map and start point when flag is enabled. """
     Await(FlagEnabled(warp_flag))
     DisableFlag(warp_flag)

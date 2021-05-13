@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .tomb_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from tomb_constants import *
 
 
 def Constructor():
@@ -35,11 +35,11 @@ def Constructor():
     DisableFlag(401)  # Invasions allowed.
     EnableFlag(11310095)  # Golden fog gone.
     DisableObject(1311710)
-    DeleteFX(1311711, erase_root_only=False)
+    DeleteVFX(1311711, erase_root_only=False)
 
     # Giant fog (1311994, 1311995) blocks return to Catacombs.
     DisableObject(1311700)
-    DeleteFX(1311701, erase_root_only=False)
+    DeleteVFX(1311701, erase_root_only=False)
 
     # Light ball control.
     LightBallControl()
@@ -157,14 +157,14 @@ def Event11315150(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     """ 11315150: Event 11315150 """
     DisableNetworkSync()
     SkipLinesIfFlagOn(4, 11315090)
-    DeleteFX(arg_4_7, erase_root_only=False)
+    DeleteVFX(arg_4_7, erase_root_only=False)
     IfFlagOn(1, 11315090)
     IfFlagOn(1, arg_0_3)
     IfConditionTrue(0, input_condition=1)
-    CreateFX(arg_4_7)
+    CreateVFX(arg_4_7)
     EnableFlag(arg_8_11)
     IfFlagOff(0, 11315090)
-    DeleteFX(arg_4_7, erase_root_only=True)
+    DeleteVFX(arg_4_7, erase_root_only=True)
     DisableFlag(arg_8_11)
     Restart()
 
@@ -219,10 +219,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11312080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -238,10 +238,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -274,10 +274,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -359,7 +359,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11315820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -477,7 +477,7 @@ def GetReward(_, enemy: int, item_lot: int, item_lot_flag: Flag):
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11312999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
@@ -497,7 +497,7 @@ def ActivateExitBonfire():
     if not Flags.Boss1Dead:
         DisableObject(Objects.Exit2Prompt)
         Await(Flags.Boss1Dead)
-        CreateTemporaryFX(90014, anchor_entity=Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
+        CreateTemporaryVFX(90014, anchor_entity=Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
         Wait(4.0)  # Give banner time.
         EnableObject(Objects.Exit2Prompt)
         if not CommonFlags.TombBossDefeated:

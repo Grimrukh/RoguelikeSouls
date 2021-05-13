@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .oolacile_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from oolacile_constants import *
 
 
 def Constructor():
@@ -64,15 +64,15 @@ def Constructor():
 
     SkipLinesIfClient(10)
     DisableObject(1211988)
-    DeleteFX(1211989, erase_root_only=False)
+    DeleteVFX(1211989, erase_root_only=False)
     DisableObject(1211994)
-    DeleteFX(1211995, erase_root_only=False)
+    DeleteVFX(1211995, erase_root_only=False)
     DisableObject(1211996)
-    DeleteFX(1211997, erase_root_only=False)
+    DeleteVFX(1211997, erase_root_only=False)
     DisableObject(1211998)
-    DeleteFX(1211999, erase_root_only=False)
+    DeleteVFX(1211999, erase_root_only=False)
     DisableObject(1211986)
-    DeleteFX(1211987, erase_root_only=False)
+    DeleteVFX(1211987, erase_root_only=False)
     DisableCollision(1213061)
 
     SkipLinesIfFlagOff(2, 11210539)
@@ -370,9 +370,9 @@ def Event11210002():
     EnableFlag(17)
     KillBoss(1210840)
     DisableObject(1211990)
-    DeleteFX(1211991, erase_root_only=True)
-    DeleteFX(1213100, erase_root_only=True)
-    CreateTemporaryFX(90014, anchor_entity=1211950, anchor_type=CoordEntityType.Object, model_point=-1)
+    DeleteVFX(1211991, erase_root_only=True)
+    DeleteVFX(1213100, erase_root_only=True)
+    CreateTemporaryVFX(90014, anchor_entity=1211950, anchor_type=CoordEntityType.Object, model_point=-1)
     Wait(2.0)
     EnableObject(1211950)
     RegisterBonfire(11210992, obj=1211950, reaction_distance=2.0, reaction_angle=180.0, initial_kindle_level=0)
@@ -380,7 +380,7 @@ def Event11210002():
 
 def Event11215250(_, arg_0_3: int, arg_4_7: int):
     """ 11215250: Event 11215250 """
-    DeleteFX(arg_4_7, erase_root_only=False)
+    DeleteVFX(arg_4_7, erase_root_only=False)
     SkipLinesIfFlagOff(2, 11210002)
     DisableObject(arg_0_3)
     End()
@@ -500,7 +500,7 @@ def Event11210005():
     EnableFlag(121)
     KillBoss(1210401)
     DisableObject(1211690)
-    DeleteFX(1211691, erase_root_only=True)
+    DeleteVFX(1211691, erase_root_only=True)
     DisableCollision(1213001)
 
 
@@ -512,7 +512,7 @@ def Event11210340():
     End()
     IfHost(1)
     IfEntityWithinDistance(-1, 6760, PLAYER, radius=7.0)
-    IfAttacked(-1, 6760, attacking_character=PLAYER)
+    IfAttacked(-1, 6760, attacker=PLAYER)
     IfConditionTrue(1, input_condition=-1)
     IfConditionTrue(0, input_condition=1)
     ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True,
@@ -530,7 +530,7 @@ def Event11210341():
     IfHost(1)
     IfFlagOn(1, 11210340)
     IfEntityWithinDistance(-1, 6760, PLAYER, radius=12.0)
-    IfAttacked(-1, 6760, attacking_character=PLAYER)
+    IfAttacked(-1, 6760, attacker=PLAYER)
     IfConditionTrue(1, input_condition=-1)
     IfConditionTrue(0, input_condition=1)
     ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True,
@@ -544,18 +544,18 @@ def Event11210345():
     """ 11210345: Event 11210345 """
     SkipLinesIfThisEventOff(3)
     DisableCharacter(6760)
-    DeleteFX(1213125, erase_root_only=False)
+    DeleteVFX(1213125, erase_root_only=False)
     End()
     IfHost(1)
     IfFlagOn(1, 11210341)
     IfEntityWithinDistance(-1, 6760, PLAYER, radius=12.0)
-    IfAttacked(-1, 6760, attacking_character=PLAYER)
+    IfAttacked(-1, 6760, attacker=PLAYER)
     IfConditionTrue(1, input_condition=-1)
     IfConditionTrue(0, input_condition=1)
     ForceAnimation_WithUnknownEffect2(entity=6760, animation=7003, loop=False, wait_for_completion=True,
                                       skip_transition=False, arg1=5.0)
     DisableCharacter(6760)
-    DeleteFX(1213125, erase_root_only=True)
+    DeleteVFX(1213125, erase_root_only=True)
 
 
 def Event11210346():
@@ -626,7 +626,7 @@ def Event11215040():
     WaitFrames(30)
     DisableCharacter(1210501)
     EnableFlag(11215042)
-    DeleteFX(1213100, erase_root_only=True)
+    DeleteVFX(1213100, erase_root_only=True)
     Wait(10.0)
     EnableCharacter(1210500)
     EnableAI(1210500)
@@ -666,13 +666,13 @@ def Event11215041():
 @RestartOnRest
 def Event11215044():
     """ 11215044: Event 11215044 """
-    DeleteFX(1213100, erase_root_only=True)
+    DeleteVFX(1213100, erase_root_only=True)
     EndIfClient()
     IfFlagOff(1, 17)
     IfFlagOn(1, 11210021)
     IfCharacterHuman(1, PLAYER)
     IfConditionTrue(0, input_condition=1)
-    CreateFX(1213100)
+    CreateVFX(1213100)
     IfFlagOff(2, 17)
     IfFlagOn(2, 11210021)
     IfCharacterHuman(2, PLAYER)
@@ -802,12 +802,12 @@ def Event11210100():
 def Event11219100(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_12: uchar, arg_16_19: int):
     """ 11219100: Event 11219100 """
     IfFlagOn(0, arg_0_3)
-    CreateTemporaryFX(120030, anchor_entity=arg_16_19, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=arg_16_19, anchor_type=CoordEntityType.Object, model_point=101)
     SetFlagState(11210101, state=arg_12_12)
-    CreateObjectFX(120029, obj=arg_4_7, model_point=191)
+    CreateObjectVFX(120029, obj=arg_4_7, model_point=191)
     ForceAnimation(arg_4_7, arg_8_11)
     WaitFrames(180)
-    DeleteObjectFX(arg_4_7, erase_root=False)
+    DeleteObjectVFX(arg_4_7, erase_root=False)
     DisableFlag(arg_0_3)
     Restart()
 
@@ -852,12 +852,12 @@ def Event11210110():
     EnableFlag(11215221)
     SkipLinesIfFinishedConditionTrue(24, 2)
     SkipLinesIfFinishedConditionTrue(23, 4)
-    CreateTemporaryFX(120030, anchor_entity=1211011, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211011, anchor_type=CoordEntityType.Object, model_point=101)
     DisableFlag(11210111)
-    CreateObjectFX(120029, obj=1211010, model_point=191)
+    CreateObjectVFX(120029, obj=1211010, model_point=191)
     ForceAnimation(1211010, 1)
     WaitFrames(140)
-    DeleteObjectFX(1211010, erase_root=False)
+    DeleteObjectVFX(1211010, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 1)
     IfAllPlayersOutsideRegion(-2, region=1212112)
     IfCharacterInsideRegion(5, PLAYER, region=1212113)
@@ -875,12 +875,12 @@ def Event11210110():
     IfConditionTrue(0, input_condition=-2)
     DisableFlag(11215221)
     Restart()
-    CreateTemporaryFX(120030, anchor_entity=1211012, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211012, anchor_type=CoordEntityType.Object, model_point=101)
     EnableFlag(11210111)
-    CreateObjectFX(120029, obj=1211010, model_point=191)
+    CreateObjectVFX(120029, obj=1211010, model_point=191)
     ForceAnimation(1211010, 11)
     WaitFrames(140)
-    DeleteObjectFX(1211010, erase_root=False)
+    DeleteObjectVFX(1211010, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 2)
     IfAllPlayersOutsideRegion(-3, region=1212113)
     IfCharacterInsideRegion(6, PLAYER, region=1212112)
@@ -927,13 +927,13 @@ def Event11210120():
     EnableFlag(11215222)
     SkipLinesIfFinishedConditionTrue(25, 2)
     SkipLinesIfFinishedConditionTrue(24, 4)
-    CreateTemporaryFX(120030, anchor_entity=1211021, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211021, anchor_type=CoordEntityType.Object, model_point=101)
     EnableFlag(11210121)
     EnableFlag(11210122)
-    CreateObjectFX(120029, obj=1211020, model_point=191)
+    CreateObjectVFX(120029, obj=1211020, model_point=191)
     ForceAnimation(1211020, 2)
     WaitFrames(140)
-    DeleteObjectFX(1211020, erase_root=False)
+    DeleteObjectVFX(1211020, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 1)
     IfAllPlayersOutsideRegion(-2, region=1212122)
     IfCharacterInsideRegion(5, PLAYER, region=1212123)
@@ -951,12 +951,12 @@ def Event11210120():
     IfConditionTrue(0, input_condition=-2)
     DisableFlag(11215222)
     Restart()
-    CreateTemporaryFX(120030, anchor_entity=1211022, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211022, anchor_type=CoordEntityType.Object, model_point=101)
     DisableFlag(11210121)
-    CreateObjectFX(120029, obj=1211020, model_point=191)
+    CreateObjectVFX(120029, obj=1211020, model_point=191)
     ForceAnimation(1211020, 12)
     WaitFrames(140)
-    DeleteObjectFX(1211020, erase_root=False)
+    DeleteObjectVFX(1211020, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 2)
     IfAllPlayersOutsideRegion(-3, region=1212123)
     IfCharacterInsideRegion(6, PLAYER, region=1212122)
@@ -1019,13 +1019,13 @@ def Event11210130():
     EnableFlag(11215223)
     SkipLinesIfFinishedConditionTrue(25, 2)
     SkipLinesIfFinishedConditionTrue(24, 4)
-    CreateTemporaryFX(120030, anchor_entity=1211031, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211031, anchor_type=CoordEntityType.Object, model_point=101)
     EnableFlag(11210131)
     EnableFlag(11210132)
-    CreateObjectFX(120029, obj=1211030, model_point=191)
+    CreateObjectVFX(120029, obj=1211030, model_point=191)
     ForceAnimation(1211030, 3)
     WaitFrames(240)
-    DeleteObjectFX(1211030, erase_root=False)
+    DeleteObjectVFX(1211030, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 1)
     IfAllPlayersOutsideRegion(-2, region=1212132)
     IfCharacterInsideRegion(5, PLAYER, region=1212133)
@@ -1043,12 +1043,12 @@ def Event11210130():
     IfConditionTrue(0, input_condition=-2)
     DisableFlag(11215223)
     Restart()
-    CreateTemporaryFX(120030, anchor_entity=1211032, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211032, anchor_type=CoordEntityType.Object, model_point=101)
     DisableFlag(11210131)
-    CreateObjectFX(120029, obj=1211030, model_point=191)
+    CreateObjectVFX(120029, obj=1211030, model_point=191)
     ForceAnimation(1211030, 13)
     WaitFrames(240)
-    DeleteObjectFX(1211030, erase_root=False)
+    DeleteObjectVFX(1211030, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 2)
     IfAllPlayersOutsideRegion(-3, region=1212133)
     IfCharacterInsideRegion(6, PLAYER, region=1212132)
@@ -1099,12 +1099,12 @@ def Event11210140():
     EnableFlag(11210160)
     SkipLinesIfFinishedConditionTrue(24, 2)
     SkipLinesIfFinishedConditionTrue(23, 4)
-    CreateTemporaryFX(120030, anchor_entity=1211041, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211041, anchor_type=CoordEntityType.Object, model_point=101)
     EnableFlag(11210141)
-    CreateObjectFX(120029, obj=1211040, model_point=191)
+    CreateObjectVFX(120029, obj=1211040, model_point=191)
     ForceAnimation(1211040, 4)
     WaitFrames(180)
-    DeleteObjectFX(1211040, erase_root=False)
+    DeleteObjectVFX(1211040, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 1)
     IfAllPlayersOutsideRegion(-2, region=1212142)
     IfCharacterInsideRegion(5, PLAYER, region=1212143)
@@ -1122,12 +1122,12 @@ def Event11210140():
     IfConditionTrue(0, input_condition=-2)
     DisableFlag(11215224)
     Restart()
-    CreateTemporaryFX(120030, anchor_entity=1211042, anchor_type=CoordEntityType.Object, model_point=101)
+    CreateTemporaryVFX(120030, anchor_entity=1211042, anchor_type=CoordEntityType.Object, model_point=101)
     DisableFlag(11210141)
-    CreateObjectFX(120029, obj=1211040, model_point=191)
+    CreateObjectVFX(120029, obj=1211040, model_point=191)
     ForceAnimation(1211040, 14)
     WaitFrames(180)
-    DeleteObjectFX(1211040, erase_root=False)
+    DeleteObjectVFX(1211040, erase_root=False)
     SkipLinesIfFinishedConditionTrue(8, 2)
     IfAllPlayersOutsideRegion(-3, region=1212143)
     IfCharacterInsideRegion(6, PLAYER, region=1212142)
@@ -1193,7 +1193,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11215820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -1332,12 +1332,12 @@ def CutCorpseOnRope(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int
         return
     DisableTreasure(arg_4_7)
     SkipLinesIfClient(1)
-    CreateObjectFX(99005, obj=arg_4_7, model_point=90)
+    CreateObjectVFX(99005, obj=arg_4_7, model_point=90)
     ForceAnimation(arg_4_7, arg_8_11, loop=True)
     IfObjectDestroyed(0, arg_0_3)
     ForceAnimation(arg_4_7, arg_12_15, wait_for_completion=True)
     SkipLinesIfClient(1)
-    DeleteObjectFX(arg_4_7, erase_root=True)
+    DeleteObjectVFX(arg_4_7, erase_root=True)
     # EnableTreasure(arg_4_7)
 
 
@@ -1350,10 +1350,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11212080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -1369,10 +1369,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -1405,10 +1405,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -1478,7 +1478,7 @@ def ActivateExitBonfire():
     if not Flags.ChasmBoss1Dead:
         DisableObject(Objects.ChasmExit2Prompt)
         Await(Flags.ChasmBoss1Dead)
-        CreateTemporaryFX(90014, anchor_entity=Objects.ChasmExit2Prompt, anchor_type=CoordEntityType.Object,
+        CreateTemporaryVFX(90014, anchor_entity=Objects.ChasmExit2Prompt, anchor_type=CoordEntityType.Object,
                           model_point=-1)
         Wait(2.0)
         EnableObject(Objects.ChasmExit2Prompt)
@@ -1518,7 +1518,7 @@ def GetReward(_, enemy: int, item_lot: ItemLotParam, item_lot_flag: Flag):
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11212999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .firelink_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from firelink_constants import *
 
 
 def Constructor():
@@ -301,7 +301,7 @@ def Event11020510(_, arg_0_3: int, arg_4_7: int):
     """ 11020510: Event 11020510 """
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfThisEventSlotOn(2)
     IfFlagOn(3, arg_4_7)
@@ -343,16 +343,16 @@ def Event11020501():
     IfFlagRangeAllOff(1, (1193, 1196))
     IfHealthLessThanOrEqual(2, 6070, 0.8999999761581421)
     SkipLinesIfFlagOn(1, 1177)
-    IfAttacked(2, 6070, attacking_character=PLAYER)
+    IfAttacked(2, 6070, attacker=PLAYER)
     IfHealthLessThanOrEqual(3, 6080, 0.8999999761581421)
     SkipLinesIfFlagOn(1, 1198)
-    IfAttacked(3, 6080, attacking_character=PLAYER)
+    IfAttacked(3, 6080, attacker=PLAYER)
     IfHealthLessThanOrEqual(4, 6090, 0.8999999761581421)
     SkipLinesIfFlagOn(1, 1214)
-    IfAttacked(4, 6090, attacking_character=PLAYER)
+    IfAttacked(4, 6090, attacker=PLAYER)
     IfHealthLessThanOrEqual(5, 6100, 0.8999999761581421)
     SkipLinesIfFlagOn(1, 1224)
-    IfAttacked(5, 6100, attacking_character=PLAYER)
+    IfAttacked(5, 6100, attacker=PLAYER)
     IfFlagOn(6, 1197)
     IfConditionTrue(-1, input_condition=2)
     IfConditionTrue(-1, input_condition=3)
@@ -398,7 +398,7 @@ def Event11020502(_, arg_0_3: int, arg_4_7: int):
     IfConditionTrue(1, input_condition=-2)
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfThisEventOff(1)
     IfFlagOn(2, arg_4_7)
     IfThisEventOn(2)
@@ -416,7 +416,7 @@ def Event11020503(_, arg_0_3: int, arg_4_7: int):
     IfFlagOn(1, 1194)
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfThisEventOn(2)
     IfConditionTrue(-1, input_condition=1)
@@ -432,7 +432,7 @@ def Event11020504(_, arg_0_3: int, arg_4_7: int):
     IfFlagOff(1, 1411)
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
@@ -975,7 +975,7 @@ def Event11020425(_, arg_0_3: int, arg_4_7: int, arg_8_11: int, arg_12_15: int):
     IfFlagOn(-1, 11020598)
     IfHealthLessThanOrEqual(2, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(2, arg_0_3, 0.0)
-    IfAttacked(2, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(2, arg_0_3, attacker=PLAYER)
     IfEntityBeyondDistance(2, arg_0_3, PLAYER, radius=15.0)
     IfConditionTrue(-1, input_condition=2)
     IfConditionTrue(1, input_condition=-1)
@@ -1022,7 +1022,7 @@ def Event11026210():
     EndIfFlagOn(11026211)
     EnableFlag(1650)
     SetStandbyAnimationSettings(6330, standby_animation=9001)
-    IfAttacked(0, 6330, attacking_character=PLAYER)
+    IfAttacked(0, 6330, attacker=PLAYER)
     AddSpecialEffect(6330, 5450)
     SetStandbyAnimationSettings(6330, standby_animation=7003)
     ForceAnimation(6330, 9061, wait_for_completion=True)
@@ -1050,6 +1050,11 @@ def StartRun():
     Await(HasGood(600) and ActionButton(CommonTexts.StartRun, Chrs.Crow, facing_angle=180.0, max_distance=3.0))
 
     DisplayBattlefieldMessage(CommonTexts.DepartingArea, 0)
+
+    # Disable invader flags. (I forgot to do this initially, causing files to eventually just stop working as the mod
+    # companion program fails to find any unused invaders. Would normally go in cleanup, but affected files will never
+    # be able to reach that code.)
+    DisableFlagRange((CommonFlags.InvaderUsedBaseFlag, CommonFlags.InvaderUsedLastFlag))
 
     # Make ring modifications.
     DisableFlagRange((1961, 1967))  # disable all flags (in case this is triggered multiple times)
@@ -1089,13 +1094,13 @@ def StartRun():
 
 def PrologueEvent():
     """ 11020500: Allies vanish and Alvina appears when you pick up the Hand of Cessation. """
-    DeleteFX(FXEvents.SolairePortal, False)
-    DeleteFX(FXEvents.SiegmeyerPortal, False)
-    DeleteFX(FXEvents.LoganPortal, False)
-    DeleteFX(FXEvents.QuelanaPortal, False)
-    DeleteFX(FXEvents.HavelPortal, False)
-    DeleteFX(FXEvents.MornsteinPortal, False)
-    DeleteFX(FXEvents.LobosJrPortal, False)
+    DeleteVFX(FXEvents.SolairePortal, False)
+    DeleteVFX(FXEvents.SiegmeyerPortal, False)
+    DeleteVFX(FXEvents.LoganPortal, False)
+    DeleteVFX(FXEvents.QuelanaPortal, False)
+    DeleteVFX(FXEvents.HavelPortal, False)
+    DeleteVFX(FXEvents.MornsteinPortal, False)
+    DeleteVFX(FXEvents.LobosJrPortal, False)
     if THIS_FLAG:
         DisableGravity(Chrs.Alvina)
         DisableCollision(Chrs.Alvina)
@@ -1120,13 +1125,13 @@ def PrologueEvent():
     PlaySoundEffect(Chrs.Solaire, SoundType.s_SFX, 777777777)
     Wait(2.0)
     # TODO: Portal effect not working.
-    CreateFX(FXEvents.SolairePortal)
-    CreateFX(FXEvents.SiegmeyerPortal)
-    CreateFX(FXEvents.LoganPortal)
-    CreateFX(FXEvents.QuelanaPortal)
-    CreateFX(FXEvents.HavelPortal)
-    CreateFX(FXEvents.MornsteinPortal)
-    CreateFX(FXEvents.LobosJrPortal)
+    CreateVFX(FXEvents.SolairePortal)
+    CreateVFX(FXEvents.SiegmeyerPortal)
+    CreateVFX(FXEvents.LoganPortal)
+    CreateVFX(FXEvents.QuelanaPortal)
+    CreateVFX(FXEvents.HavelPortal)
+    CreateVFX(FXEvents.MornsteinPortal)
+    CreateVFX(FXEvents.LobosJrPortal)
     Wait(1.0)
     ForceAnimation(Chrs.Solaire, 11)
     ForceAnimation(Chrs.Siegmeyer, 11)
@@ -1144,13 +1149,13 @@ def PrologueEvent():
     DisableCharacter(Chrs.Mornstein)
     DisableCharacter(Chrs.LobosJr)
 
-    DeleteFX(FXEvents.SolairePortal, True)
-    DeleteFX(FXEvents.SiegmeyerPortal, True)
-    DeleteFX(FXEvents.LoganPortal, True)
-    DeleteFX(FXEvents.QuelanaPortal, True)
-    DeleteFX(FXEvents.HavelPortal, True)
-    DeleteFX(FXEvents.MornsteinPortal, True)
-    DeleteFX(FXEvents.LobosJrPortal, True)
+    DeleteVFX(FXEvents.SolairePortal, True)
+    DeleteVFX(FXEvents.SiegmeyerPortal, True)
+    DeleteVFX(FXEvents.LoganPortal, True)
+    DeleteVFX(FXEvents.QuelanaPortal, True)
+    DeleteVFX(FXEvents.HavelPortal, True)
+    DeleteVFX(FXEvents.MornsteinPortal, True)
+    DeleteVFX(FXEvents.LobosJrPortal, True)
 
     EnableCharacter(1020960)  # Bonfire interaction.
     EnableCharacter(Chrs.Alvina)

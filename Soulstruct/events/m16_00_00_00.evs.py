@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .new_londo_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from new_londo_constants import *
 
 
 def Constructor():
@@ -28,16 +28,16 @@ def Constructor():
     EnableFlag(11600102)
 
     DisableObject(1601994)
-    DeleteFX(1601995, erase_root_only=False)
+    DeleteVFX(1601995, erase_root_only=False)
     DisableObject(1601996)
-    DeleteFX(1601997, erase_root_only=False)
+    DeleteVFX(1601997, erase_root_only=False)
     DisableObject(1601998)
-    DeleteFX(1601999, erase_root_only=False)
+    DeleteVFX(1601999, erase_root_only=False)
     DisableSpawner(1603000)
     DisableObject(1601700)
-    DeleteFX(1601701, erase_root_only=False)
+    DeleteVFX(1601701, erase_root_only=False)
     DisableObject(1601702)
-    DeleteFX(1601703, erase_root_only=False)
+    DeleteVFX(1601703, erase_root_only=False)
 
     DisableLowerEnemiesPreDrain()
     # Flood collision/map piece control.
@@ -531,7 +531,7 @@ def Event11600400():
     SetStandbyAnimationSettings(1600500, cancel_animation=29060)
     End()
     IfEntityWithinDistance(-1, 1600500, PLAYER, radius=10.0)
-    IfAttacked(-1, 1600500, attacking_character=PLAYER)
+    IfAttacked(-1, 1600500, attacker=PLAYER)
     IfConditionTrue(0, input_condition=-1)
     ResetStandbyAnimationSettings(1600500)
     ForceAnimation(1600500, 29060)
@@ -550,17 +550,19 @@ def OpenChest(_, arg_0_3: int, arg_4_7: int):
     EnableTreasure(arg_0_3)
 
 
+# noinspection PyUnusedLocal
 @RestartOnRest
 def BossBattleAbyss(
-        _, boss: Character, boss_twin: Character, twin_enabled: Flag,
-        trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
-        fog_1_object: int, fog_1_sfx: int,
-        fog_2_object: int, fog_2_sfx: int,
-        boss_name: short, boss_twin_name: short):
+    _, boss: Character, boss_twin: Character, twin_enabled: Flag,
+    trigger_region: Region, dead_flag: Flag, music_id: int, reward_item_lot: ItemLotParam,
+    fog_1_object: int, fog_1_sfx: int,
+    fog_2_object: int, fog_2_sfx: int,
+    boss_name: short, boss_twin_name: short
+):
     """ 11602080: All-in-one boss event for simplicity. Abyss flag version. Second fog arguments just for offset."""
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
 
     if dead_flag and not CommonFlags.AbyssBattleActive:
         DisableCharacter(boss)
@@ -576,7 +578,7 @@ def BossBattleAbyss(
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -622,7 +624,7 @@ def BossBattleAbyss(
         EnableFlag(dead_flag)  # Boss only flagged as dead in real New Londo battle.
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -734,7 +736,7 @@ def ActivateExitBonfire():
     if not Flags.Boss1Dead:
         DisableObject(Objects.Exit4Prompt)
         Await(Flags.Boss1Dead)
-        CreateTemporaryFX(90014, anchor_entity=Objects.Exit4Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
+        CreateTemporaryVFX(90014, anchor_entity=Objects.Exit4Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
         Wait(4.0)  # Give banner time.
         EnableObject(Objects.Exit4Prompt)
         if not CommonFlags.NewLondoBossDefeated:
@@ -793,7 +795,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11605820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)

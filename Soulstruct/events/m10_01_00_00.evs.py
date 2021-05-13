@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .burg_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from burg_constants import *
 
 
 def Constructor():
@@ -60,33 +60,33 @@ def Constructor():
     EnableNavmeshType(1013100, NavmeshType.Solid)
     SkipLinesIfClient(24)
     DisableObject(1011994)
-    DeleteFX(1011995, erase_root_only=False)
+    DeleteVFX(1011995, erase_root_only=False)
     DisableObject(1011996)
-    DeleteFX(1011997, erase_root_only=False)
+    DeleteVFX(1011997, erase_root_only=False)
     DisableObject(1011998)
-    DeleteFX(1011999, erase_root_only=False)
+    DeleteVFX(1011999, erase_root_only=False)
     DisableObject(1011988)
-    DeleteFX(1011989, erase_root_only=False)
+    DeleteVFX(1011989, erase_root_only=False)
     DisableObject(1011986)
-    DeleteFX(1011987, erase_root_only=False)
+    DeleteVFX(1011987, erase_root_only=False)
     DisableObject(1011984)
-    DeleteFX(1011985, erase_root_only=False)
+    DeleteVFX(1011985, erase_root_only=False)
     DisableObject(1011982)
-    DeleteFX(1011983, erase_root_only=False)
+    DeleteVFX(1011983, erase_root_only=False)
     DisableObject(1011980)
-    DeleteFX(1011981, erase_root_only=False)
+    DeleteVFX(1011981, erase_root_only=False)
     DisableObject(1011978)
-    DeleteFX(1011979, erase_root_only=False)
+    DeleteVFX(1011979, erase_root_only=False)
     DisableObject(1011976)
-    DeleteFX(1011977, erase_root_only=False)
+    DeleteVFX(1011977, erase_root_only=False)
     DisableObject(1011974)
-    DeleteFX(1011975, erase_root_only=False)
+    DeleteVFX(1011975, erase_root_only=False)
     DisableObject(1011972)
-    DeleteFX(1011973, erase_root_only=False)
+    DeleteVFX(1011973, erase_root_only=False)
     DisableObject(1011700)
-    DeleteFX(1011701, False)
+    DeleteVFX(1011701, False)
     DisableObject(1011702)
-    DeleteFX(1011703, False)
+    DeleteVFX(1011703, False)
 
     # Keep portcullis closed.
     EndOfAnimation(1011121, 3)
@@ -335,9 +335,9 @@ def ParishBoss1Death():
 
     EnableFlag(Flags.ParishBoss1Dead)
     DisableObject(1011990)
-    DeleteFX(1011991, erase_root_only=True)
+    DeleteVFX(1011991, erase_root_only=True)
     DisableObject(1011992)
-    DeleteFX(1011993, erase_root_only=True)
+    DeleteVFX(1011993, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -410,7 +410,7 @@ def Event11015382():
     DisableAI(1010700)
     SetStandbyAnimationSettings(1010700, standby_animation=9001)
     DisableHealthBar(1010700)
-    IfAttacked(1, 1010700, attacking_character=PLAYER)
+    IfAttacked(1, 1010700, attacker=PLAYER)
     IfHost(2)
     IfCharacterInsideRegion(2, PLAYER, region=1012701)
     IfConditionTrue(-1, input_condition=1)
@@ -474,9 +474,9 @@ def Event11010901():
     EnableFlag(11010901)
     KillBoss(1010700)
     DisableObject(1011890)
-    DeleteFX(1011891, erase_root_only=True)
+    DeleteVFX(1011891, erase_root_only=True)
     DisableObject(1011892)
-    DeleteFX(1011893, erase_root_only=True)
+    DeleteVFX(1011893, erase_root_only=True)
 
 
 def Event11015370():
@@ -571,7 +571,7 @@ def Event11010902():
     EnableFlag(11010902)
     KillBoss(1010750)
     DisableObject(1011790)
-    DeleteFX(1011791, erase_root_only=True)
+    DeleteVFX(1011791, erase_root_only=True)
 
 
 @RestartOnRest
@@ -607,7 +607,7 @@ def Event11015111():
     EndIfThisEventOn()
     DisableAI(1010110)
     IfCharacterInsideRegion(1, PLAYER, region=1012110)
-    IfAttacked(2, 1010110, attacking_character=PLAYER)
+    IfAttacked(2, 1010110, attacker=PLAYER)
     IfEntityWithinDistance(3, 1010110, PLAYER, radius=2.0)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
@@ -624,7 +624,7 @@ def Event11015113():
     EndIfThisEventOn()
     DisableAI(1010200)
     IfCharacterInsideRegion(-1, PLAYER, region=1012050)
-    IfAttacked(-1, 1010200, attacking_character=PLAYER)
+    IfAttacked(-1, 1010200, attacker=PLAYER)
     IfEntityWithinDistance(-1, 1010200, PLAYER, radius=5.0)
     IfConditionTrue(0, input_condition=-1)
     EnableAI(1010200)
@@ -635,7 +635,7 @@ def Event11015112():
     """ 11015112: Event 11015112 """
     EndIfThisEventOn()
     DisableAI(1010111)
-    IfAttacked(-3, 1010111, attacking_character=PLAYER)
+    IfAttacked(-3, 1010111, attacker=PLAYER)
     IfCharacterInsideRegion(-3, PLAYER, region=1012122)
     IfConditionTrue(1, input_condition=-3)
     IfCharacterInsideRegion(2, PLAYER, region=1012121)
@@ -648,7 +648,7 @@ def Event11015112():
     AICommand(1010111, command_id=10, slot=0)
     ReplanAI(1010111)
     IfCharacterInsideRegion(-2, PLAYER, region=1012122)
-    IfAttacked(-2, 1010111, attacking_character=PLAYER)
+    IfAttacked(-2, 1010111, attacker=PLAYER)
     IfConditionTrue(0, input_condition=-2)
     AICommand(1010111, command_id=-1, slot=0)
     ReplanAI(1010111)
@@ -692,7 +692,7 @@ def Event11010111():
     """ 11010111: Event 11010111 """
     EndIfThisEventOn()
     DisableAI(1010130)
-    IfAttacked(1, 1010130, attacking_character=PLAYER)
+    IfAttacked(1, 1010130, attacker=PLAYER)
     IfCharacterInsideRegion(2, PLAYER, region=1012170)
     IfConditionTrue(-1, input_condition=1)
     IfConditionTrue(-1, input_condition=2)
@@ -724,21 +724,21 @@ def Event11010120():
     EndOfAnimation(1011102, 0)
     End()
     DisableAI(1010103)
-    IfAttacked(-1, 1010103, attacking_character=PLAYER)
+    IfAttacked(-1, 1010103, attacker=PLAYER)
     IfCharacterInsideRegion(-1, PLAYER, region=1012101)
     IfConditionTrue(0, input_condition=-1)
     DisableNetworkSync()
     ResetAnimation(1010103, disable_interpolation=False)
     ForceAnimation(1010103, 3006)
     Wait(0.5)
-    CreateObjectFX(100100, obj=1011102, model_point=1)
+    CreateObjectVFX(100100, obj=1011102, model_point=1)
     ForceAnimation(1011102, 0)
     Wait(0.5)
     EnableAI(1010103)
     CreateHazard(11010121, 1011102, model_point=1, behavior_param_id=5020, target_type=DamageTargetType.Character,
                  radius=0.6000000238418579, life=3.0, repetition_time=0.0)
     Wait(3.0)
-    DeleteObjectFX(1011102, erase_root=True)
+    DeleteObjectVFX(1011102, erase_root=True)
 
 
 def Event11010101(_, arg_0_3: int, arg_4_7: int, arg_8_9: short, arg_12_15: int, arg_16_19: int):
@@ -1247,7 +1247,7 @@ def Event11015301():
                   body_damage_correction=1.0, is_invincible=False, start_in_stop_state=False)
     IfCharacterPartHealthLessThanOrEqual(1, 1010300, npc_part_id=3430, value=0)
     IfFlagOff(1, 11015300)
-    IfAttacked(1, 1010300, attacking_character=PLAYER)
+    IfAttacked(1, 1010300, attacker=PLAYER)
     IfHealthGreaterThanOrEqual(1, 1010300, 0.10000000149011612)
     IfCharacterDead(2, 1010300)
     IfConditionTrue(-1, input_condition=1)
@@ -1475,7 +1475,7 @@ def Event11010850():
     IfFlagOn(1, 11010791)
     IfFlagOff(1, 11015311)
     IfHealthGreaterThanOrEqual(1, 1010300, 0.10000000149011612)
-    IfAttacked(1, 1010300, attacking_character=PLAYER)
+    IfAttacked(1, 1010300, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     EnableFlag(11015317)
     Restart()
@@ -1626,7 +1626,7 @@ def Event11010510(_, arg_0_3: int, arg_4_7: int):
     """ 11010510: Event 11010510 """
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfThisEventSlotOn(2)
     IfFlagOn(3, arg_4_7)
@@ -1665,7 +1665,7 @@ def Event11010501(_, arg_0_3: int, arg_4_7: int):
     IfFlagOn(1, 1175)
     IfHealthLessThanOrEqual(1, arg_0_3, 0.8999999761581421)
     IfHealthGreaterThan(1, arg_0_3, 0.0)
-    IfAttacked(1, arg_0_3, attacking_character=PLAYER)
+    IfAttacked(1, arg_0_3, attacker=PLAYER)
     IfFlagOn(2, arg_4_7)
     IfThisEventOn(2)
     IfConditionTrue(-1, input_condition=1)
@@ -2144,10 +2144,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11012060: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -2163,10 +2163,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -2199,10 +2199,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -2368,7 +2368,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11015820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -2515,7 +2515,7 @@ def RescueLobosJr():
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11012999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,

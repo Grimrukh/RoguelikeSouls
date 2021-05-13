@@ -5,9 +5,9 @@ linked:
 strings:
 
 """
-from soulstruct.events.darksouls1 import *
-from .common_constants import *
-from .archives_constants import *
+from soulstruct.darksouls1r.events import *
+from common_constants import *
+from archives_constants import *
 
 
 def Constructor():
@@ -48,13 +48,13 @@ def Constructor():
     RegisterStatue(1701907, game_map=DUKES_ARCHIVES, statue_type=StatueType.Crystal)
 
     DisableObject(1701994)
-    DeleteFX(1701995, erase_root_only=False)
+    DeleteVFX(1701995, erase_root_only=False)
     DisableObject(1701996)
-    DeleteFX(1701997, erase_root_only=False)
+    DeleteVFX(1701997, erase_root_only=False)
 
     # TODO: Confirm it's fine to leave flag 61700105 off (alarm).
     DisableObject(1701706)
-    DeleteFX(1701707)
+    DeleteVFX(1701707)
     DisableSoundEvent(1703500)  # Disable alarm sound.
 
     # Golden fog (1701710/1701711) left on with no prompt.
@@ -178,14 +178,14 @@ def CaveBossImmortality():
     AddSpecialEffect(Chrs.Boss2Twin, 5443)
     EnableImmortality(Chrs.Boss2)
     EnableImmortality(Chrs.Boss2Twin)
-    CreateObjectFX(170004, obj=1701800, model_point=100)
+    CreateObjectVFX(170004, obj=1701800, model_point=100)
 
     # Crystal is invulnerable until boss battle is triggered.
     Await(Regions.Boss2Trigger)
     DisableObjectInvulnerability(1701800)
 
     IfObjectDestroyed(0, 1701800)
-    DeleteObjectFX(1703100, erase_root=True)
+    DeleteObjectVFX(1703100, erase_root=True)
     CancelSpecialEffect(Chrs.Boss2, 5440)
     CancelSpecialEffect(Chrs.Boss2, 5441)
     CancelSpecialEffect(Chrs.Boss2, 5442)
@@ -447,7 +447,7 @@ def Event11705250(_, arg_0_3: int, arg_4_7: int, arg_8_11: int):
     EndIfThisEventSlotOn()
     DisableAI(arg_4_7)
     IfCharacterInsideRegion(-1, PLAYER, region=arg_0_3)
-    IfAttacked(-1, arg_4_7, attacking_character=PLAYER)
+    IfAttacked(-1, arg_4_7, attacker=PLAYER)
     IfConditionTrue(0, input_condition=-1)
     ForceAnimation(arg_4_7, arg_8_11, wait_for_completion=True)
     EnableAI(arg_4_7)
@@ -496,10 +496,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     """ 11702080: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -515,10 +515,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -551,10 +551,10 @@ def BossBattle(_, boss: Character, boss_twin: Character, twin_enabled: Flag,
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -573,13 +573,13 @@ def BossBattleExtraFog(
     """ 11702055: All-in-one boss event for simplicity. """
     DisableSoundEvent(music_id)
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=False)
+    DeleteVFX(fog_1_sfx, erase_root_only=False)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=False)
+        DeleteVFX(fog_2_sfx, erase_root_only=False)
     if fog_3_object != 0:
         DisableObject(fog_3_object)
-        DeleteFX(fog_3_sfx, erase_root_only=False)
+        DeleteVFX(fog_3_sfx, erase_root_only=False)
 
     if dead_flag:
         DisableCharacter(boss)
@@ -595,13 +595,13 @@ def BossBattleExtraFog(
     EnableFlag(CommonFlags.InBossBattle)
 
     EnableObject(fog_1_object)
-    CreateFX(fog_1_sfx)
+    CreateVFX(fog_1_sfx)
     if fog_2_object != 0:
         EnableObject(fog_2_object)
-        CreateFX(fog_2_sfx)
+        CreateVFX(fog_2_sfx)
     if fog_3_object != 0:
         EnableObject(fog_3_object)
-        CreateFX(fog_3_sfx)
+        CreateVFX(fog_3_sfx)
 
     if twin_enabled:
         EnableCharacter(boss_twin)
@@ -634,13 +634,13 @@ def BossBattleExtraFog(
     EnableFlag(dead_flag)
     DisableBossHealthBar(boss, boss_name, slot=0)  # Will disable twin's bar automatically.
     DisableObject(fog_1_object)
-    DeleteFX(fog_1_sfx, erase_root_only=True)
+    DeleteVFX(fog_1_sfx, erase_root_only=True)
     if fog_2_object != 0:
         DisableObject(fog_2_object)
-        DeleteFX(fog_2_sfx, erase_root_only=True)
+        DeleteVFX(fog_2_sfx, erase_root_only=True)
     if fog_3_object != 0:
         DisableObject(fog_3_object)
-        DeleteFX(fog_3_sfx, erase_root_only=True)
+        DeleteVFX(fog_3_sfx, erase_root_only=True)
     PlaySoundEffect(anchor_entity=PLAYER, sound_type=SoundType.s_SFX, sound_id=777777777)
     Wait(2.0)
     DisplayBanner(BannerType.VictoryAchieved)
@@ -688,7 +688,7 @@ def ActivateExitBonfire():
     if not Flags.Boss2Dead:
         DisableObject(Objects.Exit2Prompt)
         Await(Flags.Boss2Dead)
-        CreateTemporaryFX(90014, anchor_entity=Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
+        CreateTemporaryVFX(90014, anchor_entity=Objects.Exit2Prompt, anchor_type=CoordEntityType.Object, model_point=-1)
         Wait(4.0)
         EnableObject(Objects.Exit2Prompt)
         if not CommonFlags.ArchivesBossDefeated:
@@ -735,7 +735,7 @@ def OpenMimic(_, mimic: Character):
 def ControlMimicState(_, mimic: Character):
     """ 11705820: Mimic state control. """
     IfCharacterDoesNotHaveSpecialEffect(1, mimic, 5420)
-    IfAttacked(1, mimic, attacking_character=PLAYER)
+    IfAttacked(1, mimic, attacker=PLAYER)
     IfConditionTrue(0, input_condition=1)
     CancelSpecialEffect(mimic, 3150)
     CancelSpecialEffect(mimic, 3151)
@@ -842,7 +842,7 @@ def ReplanMimicAIOnLoad(_, mimic: int):
 def ActivateAbyssPortal(_, portal: int, fx_id: int):
     """ 11702999: Activate Abyss portal. """
     if CommonFlags.DisableAbyssPortal:
-        DeleteFX(fx_id, erase_root_only=False)
+        DeleteVFX(fx_id, erase_root_only=False)
         return
     Await(ActionButton(
         CommonTexts.DelveIntoAbyss, portal, facing_angle=180.0, max_distance=2.0,
